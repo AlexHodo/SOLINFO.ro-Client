@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React from "react";
+import { Router } from "react-router-dom";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import Context from "./contexts/Context";
+import AppWrapper from "./components/AppWrapper";
+import ScrollToTop from "react-router-scroll-top";
+import MetaTags from "react-meta-tags";
+import ReactGA from "react-ga";
+import { createBrowserHistory } from "history";
 
-function App() {
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#546de5",
+      dark: "#574b90",
+    },
+    secondary: {
+      main: "#303952",
+    },
+  },
+});
+
+ReactGA.initialize("UA-199814762-1");
+
+const historyInstance = createBrowserHistory();
+
+historyInstance.listen((location) => {
+  ReactGA.pageview(location.pathname + location.search);
+});
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router history={historyInstance}>
+      <ScrollToTop>
+        <MetaTags>
+          <meta
+            name="description"
+            content="Soluții pentru orice problemă de pe pbinfo.ro cu explicații."
+          />
+          <meta property="og:title" content="SOLINFO.ro" />
+        </MetaTags>
+        <MuiThemeProvider theme={theme}>
+          <Context>
+            <AppWrapper />
+          </Context>
+        </MuiThemeProvider>
+      </ScrollToTop>
+    </Router>
   );
 }
-
-export default App;

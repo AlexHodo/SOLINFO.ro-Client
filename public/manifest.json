@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "SOLINFO.ro",
+  "name": "SOLINFO.ro | Soluții pentru problemele de pe PbInfo.ro cu explicații",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,7 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#546CE5",
+  "background_color": "#ffffff",
+  "homepage": "https://solinfo.ro"
 }

@@ -6,6 +6,7 @@ export const RootContext = createContext();
 const Axios = axios.create({
   baseURL: "https://api.solinfo.ro",
   withCredentials: true,
+  //baseURL: "http://localhost/solinfo/api"
 });
 
 class Context extends Component {
@@ -20,6 +21,8 @@ class Context extends Component {
   state = {
     domain: "https://solinfo.ro",
     fileDomain: "https://solinfo.ro/file",
+    //domain: "http://localhost.ro:3000",
+    //fileDomain: "http://localhost/solinfo/file",
     isLoggedIn: false,
     userInfo: {
       firstName: null,
@@ -39,7 +42,7 @@ class Context extends Component {
     authStatusChecked: false,
     about: this.loadingTxt,
     contact: this.loadingTxt,
-    showPersonalAd: true,
+    showPersonalAd: false,
     home: {
       hero: {
         wallpaper_url: null,
@@ -58,6 +61,7 @@ class Context extends Component {
     homeDataLoaded: false,
     problemsDataLoaded: false,
     problemsDataIsLoading: false,
+    cookie: null,
   };
 
   API = async (action, input = []) => {
@@ -123,6 +127,7 @@ class Context extends Component {
         about: data.about,
         contact: data.contact,
         showPersonalAd: data.showPersonalAd,
+        cookies: data.cookies
       });
     }
 

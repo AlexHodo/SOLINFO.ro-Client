@@ -15,7 +15,8 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import CustomRating from "./../components/CustomRating";
 import ForwardTwoToneIcon from "@material-ui/icons/ForwardTwoTone";
 import { CodeBlock, dracula } from "react-code-blocks";
-import { Autocomplete, createFilterOptions } from "@material-ui/lab";
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import { useHistory } from "react-router-dom";
 import PeopleAltTwoToneIcon from "@material-ui/icons/PeopleAltTwoTone";
 import LibraryAddCheckTwoToneIcon from "@material-ui/icons/LibraryAddCheckTwoTone";
@@ -243,7 +244,12 @@ export default function Home() {
   const state = {
     data_loaded: rootState.homeDataLoaded,
     data_loading: false,
-    hero: rootState.home.hero,
+    //hero: rootState.home.hero,
+    hero: {
+      wallpaper_url: "https://solinfo.ro/file/wallpaper/wallpaper.jpg",
+      wallpaper_author_name: "AltumCode",
+      wallpaper_author_url: "https://unsplash.com/@altumcode",
+    },
     latest_solutions: rootState.home.latest_solutions,
     stats: rootState.home.stats,
   };

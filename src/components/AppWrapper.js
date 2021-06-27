@@ -1,23 +1,26 @@
-import React, { useContext } from "react";
+import React, { useContext, Suspense } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Menu from "./../components/Menu";
-import Footer from "./../components/Footer";
-import Home from "./../pages/Home";
-import Problema from "./../pages/Problema";
-import Cont from "./../pages/Cont";
-import ContActivare from "./../pages/ContActivare";
-import SolutieNoua from "./../pages/SolutieNoua";
-import Profil from "./../pages/Profil";
-import Setari from "./../pages/Setari";
-import DespreContact from "./../pages/DespreContact";
-import Parola from "./../pages/Parola";
-import ParolaResetare from "./../pages/ParolaResetare";
 import NotFound from "./NotFound";
 import { Switch, Route } from "react-router-dom";
 import { RootContext } from "./../contexts/Context";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Fade from "@material-ui/core/Fade";
+import Box from "@material-ui/core/Box";
+
+const Cont = React.lazy(() => import('./../pages/Cont'));
+const Probleme = React.lazy(() => import('./../pages/Probleme'));
+const Problema = React.lazy(() => import('./../pages/Problema'));
+const ContActivare = React.lazy(() => import('./../pages/ContActivare'));
+const Parola = React.lazy(() => import('./../pages/Parola'));
+const SolutieNoua = React.lazy(() => import('./../pages/SolutieNoua'));
+const Profil = React.lazy(() => import('./../pages/Profil'));
+const Setari = React.lazy(() => import('./../pages/Setari'));
+const DespreContact = React.lazy(() => import('./../pages/DespreContact'));
+const ParolaResetare = React.lazy(() => import('./../pages/ParolaResetare'));
+const Footer = React.lazy(() => import('./../components/Footer'));
+const Home = React.lazy(() => import('./../pages/Home'));
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -43,7 +46,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//var SuspenseFallback = <Box m={2}>
+//  <center>
+//    Se încarcă...
+//  </center>
+//</Box>
+
+var SuspenseFallback = <></>
+
 export default function AppWrapper() {
+
   const { rootState } = useContext(RootContext);
 
   const classes = useStyles();
@@ -77,28 +89,50 @@ export default function AppWrapper() {
         <Menu />
         <div className={classes.switchWrapper}>
           <Switch>
-            <Route path="/" exact children={<Home />} />
+            <Route path="/" exact children={<Suspense fallback={SuspenseFallback}>
+              <Home />
+            </Suspense>} />
             <Route
               path="/problema/:name"
               render={(props) => (
-                <Problema {...props} key={window.location.pathname} />
+                <Suspense fallback={SuspenseFallback}>
+                  <Problema {...props} key={window.location.pathname} />
+                </Suspense>
               )}
             />
-            <Route path="/cont" exact children={<Cont />} />
-            <Route path="/cont/activare/:token" children={<ContActivare />} />
-            <Route path="/cont/parola" exact children={<Parola />} />
-            <Route
-              path="/cont/parola/resetare/:token"
-              children={<ParolaResetare />}
-            />
-            <Route path="/cont/setari" exact children={<Setari />} />
-            <Route path="/profil/:username" children={<Profil />} />
-            <Route path="/solutie-noua" exact children={<SolutieNoua />} />
-            <Route path="/despre-contact" exact children={<DespreContact />} />
+            <Route path="/probleme" children={<Suspense fallback={SuspenseFallback}>
+              <Probleme />
+            </Suspense>} />
+            <Route path="/cont" exact children={<Suspense fallback={SuspenseFallback}>
+              <Cont />
+            </Suspense>} />
+            <Route path="/cont/activare/:token" children={<Suspense fallback={SuspenseFallback}>
+              <ContActivare />
+            </Suspense>} />
+            <Route path="/cont/parola" exact children={<Suspense fallback={SuspenseFallback}>
+              <Parola />
+            </Suspense>} />
+            <Route path="/cont/parola/resetare/:token" children={<Suspense fallback={SuspenseFallback}>
+              <ParolaResetare />
+            </Suspense>} />
+            <Route path="/cont/setari" exact children={<Suspense fallback={SuspenseFallback}>
+              <Setari />
+            </Suspense>} />
+            <Route path="/profil/:username" children={<Suspense fallback={SuspenseFallback}>
+              <Profil />
+            </Suspense>} />
+            <Route path="/solutie-noua" exact children={<Suspense fallback={SuspenseFallback}>
+              <SolutieNoua />
+            </Suspense>} />
+            <Route path="/despre-contact" exact children={<Suspense fallback={SuspenseFallback}>
+              <DespreContact />
+            </Suspense>} />
             <Route children={<NotFound />} />
           </Switch>
         </div>
-        <Footer />
+        <Suspense fallback={SuspenseFallback}>
+          <Footer />
+        </Suspense>
       </div>
     </>
   );

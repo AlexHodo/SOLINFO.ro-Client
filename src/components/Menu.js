@@ -18,7 +18,8 @@ import ExitToAppTwoToneIcon from "@material-ui/icons/ExitToAppTwoTone";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Button from "@material-ui/core/Button";
 import AddCircleTwoToneIcon from "@material-ui/icons/AddCircleTwoTone";
-import { Autocomplete, createFilterOptions } from "@material-ui/lab";
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import { useHistory } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
@@ -26,6 +27,7 @@ import Box from "@material-ui/core/Box";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import CookieNotification from "./CookieNotification";
 
 const useStyles = makeStyles((theme) => ({
   offset: theme.mixins.toolbar,
@@ -376,6 +378,7 @@ export default function Navbar() {
   );
 
   return (
+    <>
     <div className={classes.grow}>
       <AppBar position="fixed" className={classes.menu}>
         <Toolbar>
@@ -484,5 +487,7 @@ export default function Navbar() {
       {renderNotificationsMenu}
       <div className={classes.offset} />
     </div>
+    <CookieNotification />
+    </>
   );
 }

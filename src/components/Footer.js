@@ -139,6 +139,10 @@ export default function Footer() {
                   Acasă
                 </Link>
                 <span className={classes.menuListBullet}>&#8226;</span>
+                <Link className={classes.menuListItem} to="/probleme">
+                  Probleme
+                </Link>
+                <span className={classes.menuListBullet}>&#8226;</span>
                 <Link className={classes.menuListItem} to="/cont">
                   Contul meu
                 </Link>

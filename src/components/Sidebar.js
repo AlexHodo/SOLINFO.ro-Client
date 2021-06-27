@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       background: fade(theme.palette.secondary.main, 0),
     },
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+    overflow: "hidden"
   },
   displayOnMobile: {
     display: "none",
@@ -133,6 +136,9 @@ export default function Sidebar() {
               <Link className={classes.menuListItem} to="/solutie-noua">
                 Adaugă o soluție
               </Link>
+              <Link className={classes.menuListItem} to="/probleme">
+                Probleme
+              </Link>
               <Link className={classes.menuListItem} to="/despre-contact">
                 Despre & Contact
               </Link>
@@ -154,7 +160,7 @@ export default function Sidebar() {
             </Typography>
           </Box>
         </Grid>
-        <Grid item xs={12} sm={11} className={classes.hideOnMobile}>
+        <Grid item xs={12} sm={11} className={`${rootState.showPersonalAd && classes.hideOnMobile}`}>
           <InstaFollow />
         </Grid>
       </Grid>

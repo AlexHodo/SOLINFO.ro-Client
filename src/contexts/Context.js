@@ -62,14 +62,25 @@ class Context extends Component {
     problemsDataLoaded: false,
     problemsDataIsLoading: false,
     cookie: null,
+    showLoader: false
   };
 
   API = async (action, input = []) => {
+    if(action !== "/endpoint/module/notifications.php" && !this.state.showLoader) {
+      this.setState({
+        ...this.state,
+        showLoader: true
+      })
+    }
     input = {
       ...input,
       _x: localStorage.getItem("authToken") + "~" + Date.now(),
     };
     const request = await Axios.post(action, input);
+    this.setState({
+      ...this.state,
+      showLoader: false
+    })
     return request.data;
   };
 

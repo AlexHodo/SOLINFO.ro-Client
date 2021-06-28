@@ -120,7 +120,7 @@ export default function Probleme() {
         <Grid container>
           {!state.data_loaded && (
             <Grid item xs={12} className={classes.placeholder}>
-              <Box m={2}>
+              <Box m={2} mt={5}>
                 <center>
                   <CircularProgress />
                 </center>

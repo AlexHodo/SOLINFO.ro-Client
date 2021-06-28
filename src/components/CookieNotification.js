@@ -12,12 +12,12 @@ ReactGA.initialize("UA-199814762-1");
 const useStyles = makeStyles((theme) => ({
   wrapper: {
     position: "fixed",
-    bottom: "50px",
-    right: "7.5%",
+    bottom: "25px",
+    left: "50%",
     width: "85%",
     maxWidth: "calc(600px - 15%)",
     zIndex: 9999,
-    
+    transform: "translateX(-50%)"
   },
   paper: {
     padding: theme.spacing(2),

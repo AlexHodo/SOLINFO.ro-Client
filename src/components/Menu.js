@@ -132,6 +132,14 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(0.5),
     textAlign: "left",
   },
+  hiddenOnMobile: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
+  menuItem: {
+    color: fade(theme.palette.common.white, 0.9)
+  }
 }));
 
 const defaultFilterOptions = createFilterOptions();
@@ -442,6 +450,11 @@ export default function Navbar() {
               onFocus={getProblems}
             />
           </div>
+          <Link to="/probleme" className={`${classes.menuItem} ${classes.hiddenOnMobile}`}>
+            <MenuItem>
+              Probleme
+            </MenuItem>
+          </Link>
           <div className={classes.grow} />
           <Link to="/solutie-noua">
             <Button

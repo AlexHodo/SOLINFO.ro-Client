@@ -6,6 +6,7 @@ import { Switch, Route } from "react-router-dom";
 import { RootContext } from "./../contexts/Context";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import Fade from "@material-ui/core/Fade";
 import Box from "@material-ui/core/Box";
 
@@ -44,15 +45,21 @@ const useStyles = makeStyles((theme) => ({
   switchWrapper: {
     minHeight: "100vh",
   },
+  loader: {
+    transitionDuration: "0.25s",
+    transitionDelay: "0.25s",
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    opacity: 0,
+    zIndex: 99999,
+    "&.v": {
+      opacity: 1
+    }
+  }
 }));
 
-//var SuspenseFallback = <Box m={2}>
-//  <center>
-//    Se încarcă...
-//  </center>
-//</Box>
-
-var SuspenseFallback = <></>
 
 export default function AppWrapper() {
 
@@ -60,27 +67,15 @@ export default function AppWrapper() {
 
   const classes = useStyles();
 
+  var SuspenseFallback = <Box m={2}>
+    <center>
+      Se încarcă...
+    </center>
+  </Box>
+
   return (
     <>
-      <Backdrop
-        className={classes.backdrop}
-        open={!rootState.authStatusChecked && false}
-      >
-        <Fade
-          in
-          style={{
-            transitionDelay: "300ms",
-          }}
-          unmountOnExit
-        >
-          <CircularProgress
-            className={`${classes.progress} ${
-              rootState.authStatusChecked && " h"
-            }`}
-            color="inherit"
-          />
-        </Fade>
-      </Backdrop>
+      <LinearProgress color="secondary" className={`${classes.loader} ${rootState.showLoader && "v"}`}/>
       <div
         className={`${classes.app} ${
           rootState.authStatusChecked && "loaded"

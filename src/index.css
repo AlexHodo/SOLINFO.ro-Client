@@ -8,6 +8,10 @@ body {
   background: #F2F3FA;
 }
 
+img {
+  max-width: 100%;
+}
+
 *:not(center) {
 	text-align: left;
 }
@@ -16,9 +20,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
 p {
   margin: 0.75rem 0;
 }
+
 pre {
 	margin: 0.5rem 0;
   margin-bottom: 0.75rem;
@@ -27,6 +33,7 @@ pre {
   padding: 0.25rem 0.75rem;
   color: #F8F8F3;
 }
+
 a {
 	text-decoration: none;
 }
@@ -40,4 +47,9 @@ a {
 
 .cool-sha.cool-bord {
   border: 1px solid #DCDDDE;
+}
+
+.code-wrap {
+  font-size: 0.85rem;
+  max-height: 400px;
 }

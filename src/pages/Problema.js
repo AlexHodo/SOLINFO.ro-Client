@@ -20,7 +20,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Divider from "@material-ui/core/Divider";
 import CustomRating from "./../components/CustomRating";
 import Alert from "@material-ui/lab/Alert";
-import { CodeBlock, dracula } from "react-code-blocks";
 import VisibilityTwoToneIcon from "@material-ui/icons/VisibilityTwoTone";
 import Sidebar from "./../components/Sidebar";
 import MetaTags from "react-meta-tags";
@@ -30,7 +29,13 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import SortTwoToneIcon from "@material-ui/icons/SortTwoTone";
 import ReactGA from "react-ga";
+
+import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
+import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
+import nightOwl from 'react-syntax-highlighter/dist/esm/styles/hljs/night-owl';
+
 ReactGA.initialize("UA-199814762-1");
+
 
 const Accordion = withStyles({
   root: {
@@ -79,8 +84,11 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
   },
   loadContentPlaceholder: {
-    filter: "blur(1px)",
-    overflow: "hidden",
+    "& code": {
+      filter: "blur(3px)",
+      overflow: "hidden",      
+    }
+    
   },
   loadContentWrapper: {
     position: "relative",
@@ -102,10 +110,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: fade(theme.palette.common.black, 0.25),
     position: "absolute",
     width: "100%",
-    height: "100%",
+    height: "calc(100% - 1.25rem)",
     borderRadius: theme.shape.borderRadius,
     left: 0,
-    top: 0,
+    top: "0.5rem",
     zIndex: 5,
   },
   cardInner: {
@@ -520,24 +528,14 @@ export default function Problema() {
                                 {!state.solutions[index].content_loaded && (
                                   <Grid item xs={12}>
                                     <div className={classes.loadContentWrapper}>
-                                      <CodeBlock
-                                        theme={dracula}
+                                      <SyntaxHighlighter
+                                        style={nightOwl}
+                                        language="c"
+                                        className={`${classes.loadContentPlaceholder} code-wrap cool-sha-2`}
                                         showLineNumbers
-                                        wrapLines
-                                        language="cpp"
-                                        customStyle={{
-                                          maxHeight: "400px",
-                                          overflowY: "scroll",
-                                          borderRadius: "5px",
-                                          //fontSize: '0.85rem',
-                                          fontFamily: "monospace",
-                                        }}
-                                        codeContainerStyle={{
-                                          filter: "blur(3px)",
-                                        }}
-                                        className={`cool-sha-2`}
-                                        text={placeholderCode}
-                                      />
+                                      >
+                                        {placeholderCode}
+                                      </SyntaxHighlighter>
                                       <div
                                         className={
                                           classes.loadContentPreventCopy
@@ -581,24 +579,14 @@ export default function Problema() {
                                       <div
                                         className={classes.loadContentWrapper}
                                       >
-                                        <CodeBlock
-                                          theme={dracula}
+                                        <SyntaxHighlighter
+                                          style={nightOwl}
+                                          language="c"
+                                          className={`${classes.loadContentPlaceholder} code-wrap cool-sha-2`}
                                           showLineNumbers
-                                          wrapLines
-                                          language="cpp"
-                                          customStyle={{
-                                            maxHeight: "400px",
-                                            overflowY: "scroll",
-                                            borderRadius: "5px",
-                                            //fontSize: '0.85rem',
-                                            fontFamily: "monospace",
-                                          }}
-                                          codeContainerStyle={{
-                                            filter: "blur(5px)",
-                                          }}
-                                          className={`${classes.loadContentPlaceholder} cool-sha-2`}
-                                          text={placeholderCode}
-                                        />
+                                        >
+                                          {placeholderCode}
+                                        </SyntaxHighlighter>
                                         <div
                                           className={
                                             classes.loadContentPreventCopy
@@ -629,23 +617,14 @@ export default function Problema() {
                                     <>
                                       <Grid item xs={12}>
                                         <Box mb={1}>
-                                          <CodeBlock
-                                            theme={dracula}
+                                          <SyntaxHighlighter
+                                            style={nightOwl}
+                                            language="c"
+                                            className="cool-sha-2 code-wrap"
                                             showLineNumbers
-                                            wrapLines
-                                            language="cpp"
-                                            customStyle={{
-                                              maxHeight: "400px",
-                                              overflowY: "scroll",
-                                              borderRadius: "5px",
-                                              //fontSize: '0.85rem',
-                                              fontFamily: "monospace",
-                                            }}
-                                            className="cool-sha-2"
-                                            text={
-                                              state.solutions[index].content
-                                            }
-                                          />
+                                          >
+                                            {state.solutions[index].content}
+                                          </SyntaxHighlighter>
                                         </Box>
                                       </Grid>
                                       <Grid item xs={12}>

@@ -31,6 +31,7 @@ export default function Auth() {
       <MetaTags>
         <title>Contul meu | Autentifică-te sau înscrie-te | SOLINFO.ro</title>
       </MetaTags>
+      {rootState.authStatusChecked && <>
       {rootState.authStatusChecked && rootState.isLoggedIn ? (
         <Profil />
       ) : (
@@ -62,6 +63,7 @@ export default function Auth() {
           </Grid>
         </Container>
       )}
+      </>}
     </>
   );
 }

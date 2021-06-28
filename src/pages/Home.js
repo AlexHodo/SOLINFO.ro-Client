@@ -14,7 +14,6 @@ import { Link } from "react-router-dom";
 import Skeleton from "@material-ui/lab/Skeleton";
 import CustomRating from "./../components/CustomRating";
 import ForwardTwoToneIcon from "@material-ui/icons/ForwardTwoTone";
-import { CodeBlock, dracula } from "react-code-blocks";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import { useHistory } from "react-router-dom";
@@ -25,6 +24,12 @@ import StarTwoToneIcon from "@material-ui/icons/StarTwoTone";
 import Sidebar from "./../components/Sidebar";
 import MetaTags from "react-meta-tags";
 import CssBaseline from "@material-ui/core/CssBaseline";
+
+import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
+import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
+import nightOwl from 'react-syntax-highlighter/dist/esm/styles/hljs/night-owl';
+
+SyntaxHighlighter.registerLanguage('c', c);
 
 const useStyles = makeStyles((theme) => ({
   hero: {
@@ -495,22 +500,14 @@ export default function Home() {
                               </Typography>
                             </Box>
                           </Grid>
-                          <CodeBlock
-                            theme={dracula}
+                          <SyntaxHighlighter
+                            style={nightOwl}
+                            language="c"
+                            className="cool-sha-2 code-wrap"
                             showLineNumbers
-                            wrapLines
-                            language="cpp"
-                            customStyle={{
-                              maxHeight: "400px",
-                              overflowY: "scroll",
-                              borderRadius: "5px",
-                              fontSize: "0.85rem",
-                              fontFamily: "monospace",
-                              margin: "0.5rem 0",
-                            }}
-                            className="cool-sha-2"
-                            text={item.content}
-                          />
+                          >
+                            {item.content}
+                          </SyntaxHighlighter>
                           <Grid container alignItems="center" justify="center">
                             <Grid item xs={7}>
                               <Link to={`/problema/${item.name}`}>

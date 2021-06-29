@@ -11,7 +11,6 @@ import HomeIcon from "@material-ui/icons/Home";
 import Box from "@material-ui/core/Box";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import CustomRating from "./../components/CustomRating";
-import { CodeBlock, dracula } from "react-code-blocks";
 import Avatar from "@material-ui/core/Avatar";
 import AddCircleTwoToneIcon from "@material-ui/icons/AddCircleTwoTone";
 import PermIdentityTwoToneIcon from "@material-ui/icons/PermIdentityTwoTone";
@@ -21,6 +20,10 @@ import MetaTags from "react-meta-tags";
 import { Link, useParams } from "react-router-dom";
 import { RootContext } from "./../contexts/Context";
 import NotFound from "./../components/NotFound";
+
+import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
+import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
+import nightOwl from 'react-syntax-highlighter/dist/esm/styles/hljs/night-owl';
 
 const useStyles = makeStyles((theme) => ({
   placeholder: {
@@ -375,22 +378,14 @@ export default function Profil() {
                                       </Typography>
                                     </Box>
                                   </Grid>
-                                  <CodeBlock
-                                    theme={dracula}
+                                  <SyntaxHighlighter
+                                    style={nightOwl}
+                                    language="c"
+                                    className="cool-sha-2 code-wrap"
                                     showLineNumbers
-                                    wrapLines
-                                    language="cpp"
-                                    customStyle={{
-                                      maxHeight: "400px",
-                                      overflowY: "scroll",
-                                      borderRadius: "5px",
-                                      fontSize: "0.85rem",
-                                      fontFamily: "monospace",
-                                      margin: "0.5rem 0",
-                                    }}
-                                    className="cool-sha-2"
-                                    text={item.content}
-                                  />
+                                  >
+                                    {item.content}
+                                  </SyntaxHighlighter>
                                   <Grid
                                     container
                                     alignItems="center"

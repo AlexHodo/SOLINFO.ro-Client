@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, Suspense } from "react";
 import { fade, makeStyles, withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
@@ -29,7 +29,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import SortTwoToneIcon from "@material-ui/icons/SortTwoTone";
 import ReactGA from "react-ga";
-
+import { FacebookProvider, Comments } from 'react-facebook';
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
 import nightOwl from 'react-syntax-highlighter/dist/esm/styles/hljs/night-owl';
@@ -175,6 +175,11 @@ export default function Problema() {
     expandedArr: [],
     currentlyBeingLoaded: null,
     update: 0,
+    rating: {
+      value: 0,
+      rating: 0,
+      count: 0
+    }
   };
 
   const [state, setState] = React.useState(defaultState);
@@ -201,6 +206,7 @@ export default function Problema() {
       solutions: logonRequest.solutions,
       solutions_count: logonRequest.solutions_count,
       responseCode: logonRequest.responseCode,
+      rating: logonRequest.rating
     });
   };
 
@@ -312,7 +318,6 @@ export default function Problema() {
       expandedArr: [],
     });
 
-    console.log(state);
   };
 
   return (
@@ -333,8 +338,11 @@ export default function Problema() {
             <>
               <MetaTags>
                 <title>
-                  Soluții pentru problema {name} de pe PbInfo | SOLINFO.ro
+                  Soluții pentru problema {name} #{state.problem.pbinfo_id} de pe PbInfo | SOLINFO.ro
                 </title>
+                <script type="application/ld+json">
+                {`{"@context": "https://schema.org/","@type": "Product","name": "Soluții pentru problema ${name} #${state.problem.pbinfo_id} de pe PbInfo","aggregateRating": {"@type": "AggregateRating","ratingValue": ${state.rating.rating},"bestRating": 5,"ratingCount": ${state.rating.count}}}`}
+                </script>
               </MetaTags>
               <Grid item xs={12} className={classes.header}>
                 <Grid container justify="center" alignItems="center">
@@ -697,6 +705,24 @@ export default function Problema() {
                       </>
                     );
                   })}
+                  <Grid item xs={12}>
+                    <Typography
+                      style={{ marginBottom: "-0.5rem" }}
+                      variant="h6"
+                      component="h2"
+                    >
+                      Comentarii
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Paper className="cool-sha">
+                      <Box p={1}>
+                          <FacebookProvider appId="188203056476448">
+                            <Comments width="100%" href={`https://solinfo.ro${name}`} />
+                          </FacebookProvider>
+                      </Box>
+                    </Paper>
+                  </Grid>
                 </Grid>
               </Grid>
               <Grid item xs={12} sm={4} md={3}>

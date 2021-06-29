@@ -16,7 +16,7 @@ class Context extends Component {
     this.checkSession();
   }
 
-  loadingTxt = "Se încarcă...";
+  loadingTxt = "";
 
   state = {
     domain: "https://solinfo.ro",
@@ -67,10 +67,11 @@ class Context extends Component {
 
   API = async (action, input = []) => {
     if(action !== "/endpoint/module/notifications.php" && !this.state.showLoader) {
-      this.setState({
-        ...this.state,
-        showLoader: true
-      })
+      if(this.state.authStatusChecked && this.state.homeDataLoaded)
+        this.setState({
+          ...this.state,
+          showLoader: true
+        })
     }
     input = {
       ...input,

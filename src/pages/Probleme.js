@@ -20,7 +20,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Divider from "@material-ui/core/Divider";
 import CustomRating from "./../components/CustomRating";
 import Alert from "@material-ui/lab/Alert";
-import { CodeBlock, dracula } from "react-code-blocks";
 import VisibilityTwoToneIcon from "@material-ui/icons/VisibilityTwoTone";
 import Sidebar from "./../components/Sidebar";
 import MetaTags from "react-meta-tags";

@@ -10,6 +10,7 @@ import Profil from "./Profil";
 import { Link } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import MetaTags from "react-meta-tags";
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const useStyles = makeStyles((theme) => ({
   formWrapper: {
@@ -31,6 +32,17 @@ export default function Auth() {
       <MetaTags>
         <title>Contul meu | Autentifică-te sau înscrie-te | SOLINFO.ro</title>
       </MetaTags>
+      {!rootState.authStatusChecked && <Container maxWidth="md">
+        <Grid container>
+          <Grid item xs={12} className={classes.placeholder}>
+            <Box mt={5}>
+              <center>
+                <CircularProgress />
+              </center>
+            </Box>
+          </Grid>
+        </Grid>
+      </Container>}
       {rootState.authStatusChecked && <>
       {rootState.authStatusChecked && rootState.isLoggedIn ? (
         <Profil />

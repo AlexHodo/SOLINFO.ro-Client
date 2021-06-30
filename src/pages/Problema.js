@@ -197,6 +197,12 @@ export default function Problema() {
       name: name,
     });
 
+    const script = document.createElement("script");
+    script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
+    script.async = true;
+    script.[`data-ad-client`] = "ca-pub-9101356904433905";
+    document.body.appendChild(script);
+
     setState({
       ...state,
       data_loaded: true,
@@ -320,6 +326,8 @@ export default function Problema() {
     });
 
   };
+
+
 
   return (
     <>

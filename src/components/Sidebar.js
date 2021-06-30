@@ -62,6 +62,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     textAlign: "center !important",
   },
+  donateBtn: {
+    background: "#FD434D",
+    color: "white"
+  }
 }));
 
 export default function Sidebar() {
@@ -94,7 +98,7 @@ export default function Sidebar() {
                       </ListItemIcon>
                       <ListItemText
                         primary={`@${item.username}`}
-                        secondary={`${item.solutions_count} soluții`}
+                        secondary={`${item.solutions_count}${item.solutions_count >= 20? " de" : ""} soluții`}
                       />
                     </ListItem>
                   </Link>

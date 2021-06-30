@@ -16,7 +16,7 @@ class Context extends Component {
     this.checkSession();
   }
 
-  loadingTxt = "";
+  loadingTxt = "Se încarcă...";
 
   state = {
     domain: "https://solinfo.ro",
@@ -43,6 +43,7 @@ class Context extends Component {
     about: this.loadingTxt,
     contact: this.loadingTxt,
     showPersonalAd: false,
+    showHelpUs: false,
     home: {
       hero: {
         wallpaper_url: null,
@@ -139,6 +140,7 @@ class Context extends Component {
         about: data.about,
         contact: data.contact,
         showPersonalAd: data.showPersonalAd,
+        showHelpUs: data.showHelpUs,
         cookies: data.cookies
       });
     }

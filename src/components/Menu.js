@@ -139,7 +139,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menuItem: {
     color: fade(theme.palette.common.white, 0.9)
-  }
+  },
 }));
 
 const defaultFilterOptions = createFilterOptions();

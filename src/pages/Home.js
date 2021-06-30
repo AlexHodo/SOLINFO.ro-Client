@@ -24,6 +24,7 @@ import StarTwoToneIcon from "@material-ui/icons/StarTwoTone";
 import Sidebar from "./../components/Sidebar";
 import MetaTags from "react-meta-tags";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import HelpUs from "./../components/HelpUs";
 
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
@@ -356,7 +357,6 @@ export default function Home() {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="body2" className={classes.heroImageCredits}>
-                {state.data_loaded && state.hero ? (
                   <span>
                     Image by{" "}
                     <a
@@ -375,9 +375,6 @@ export default function Home() {
                       Unsplash
                     </a>
                   </span>
-                ) : (
-                  <span>&copy; Toate drepturile rezervate.</span>
-                )}
               </Typography>
             </Grid>
           </Grid>

@@ -30,9 +30,10 @@ import MenuItem from "@material-ui/core/MenuItem";
 import SortTwoToneIcon from "@material-ui/icons/SortTwoTone";
 import ReactGA from "react-ga";
 import { FacebookProvider, Comments } from 'react-facebook';
-import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
 import nightOwl from 'react-syntax-highlighter/dist/esm/styles/hljs/night-owl';
+import HelpUs from "./../components/HelpUs";
 
 ReactGA.initialize("UA-199814762-1");
 
@@ -422,14 +423,16 @@ export default function Problema() {
                   <Grid item xs={12}>
                     <div>
                       {state.solutions.length === 0 && (
-                        <Paper className={`${classes.card} cool-sha`}>
+                        <Paper className={`${classes.card} cool-sha`} style={{margin: 0}}>
                           <div className={classes.cardInner}>
                             <Box mt={2} mb={2}>
                               <Typography variant="body1" align="center">
                                 Această problemă nu are încă nicio soluție.{" "}
                                 <br />
-                                Poți trimite propria soluție{" "}
-                                <Link to="/solutie-noua">aici</Link>.
+                                <b>Dacă reușești să o rezolvi, te rugăm să încarci soluția{" "}
+                                <Link style={{textDecoration: "underline"}} to="/solutie-noua">aici</Link></b>.
+                                <br />
+                                Vom fi foarte recunoscători!
                               </Typography>
                             </Box>
                           </div>
@@ -662,7 +665,9 @@ export default function Problema() {
                       })}
                     </div>
                   </Grid>
-
+                  <Grid item xs={12}>
+                    <HelpUs />
+                  </Grid>
                   {state.problem.info.length > 0 && (
                     <Grid item xs={12}>
                       <Typography
@@ -718,7 +723,7 @@ export default function Problema() {
                     <Paper className="cool-sha">
                       <Box p={1}>
                           <FacebookProvider appId="188203056476448">
-                            <Comments width="100%" href={`https://solinfo.ro${name}`} />
+                            <Comments width="100%" href={`https://solinfo.ro/problema/${name}`} />
                           </FacebookProvider>
                       </Box>
                     </Paper>

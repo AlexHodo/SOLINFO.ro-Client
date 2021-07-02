@@ -63,8 +63,8 @@ export default function HelpUs() {
                 <Typography>
                   <ul>
                     <li>
-                      <Typography variant="body1"><Link to="/solutie-noua">Adaugă soluții.</Link></Typography>
-                      <Typography variant="body2">Adaugă una, două, sau chiar 100 de soluții pe site. Cu toții îți vom fi recunoscători!</Typography>
+                      <Typography variant="body1">Adaugă soluții.</Typography>
+                      <Typography variant="body2"><Link to="/solutie-noua">Adaugă</Link> una, două, sau chiar 100 de soluții pe site. Cu toții îți vom fi recunoscători!</Typography>
                     </li>
                     <li>
                       <Typography variant="body1">Spune-le și prietenilor.</Typography>

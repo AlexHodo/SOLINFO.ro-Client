@@ -24,7 +24,6 @@ import VisibilityTwoToneIcon from "@material-ui/icons/VisibilityTwoTone";
 import Sidebar from "./../components/Sidebar";
 import MetaTags from "react-meta-tags";
 import NotFound from "./../components/NotFound";
-import AdSense from "react-adsense";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import SortTwoToneIcon from "@material-ui/icons/SortTwoTone";
@@ -196,12 +195,6 @@ export default function Problema() {
     const logonRequest = await API("endpoint/page/problema.php", {
       name: name,
     });
-
-    const script = document.createElement("script");
-    script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
-    script.async = true;
-    script.[`data-ad-client`] = "ca-pub-9101356904433905";
-    document.body.appendChild(script);
 
     setState({
       ...state,

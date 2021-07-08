@@ -78,7 +78,6 @@ export default function HelpUs() {
                 </Typography>
               </Paper>
             </Grid>
-             
           </Grid>
         </Box>
       </div>}

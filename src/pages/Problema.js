@@ -197,12 +197,6 @@ export default function Problema() {
       name: name,
     });
 
-    const script = document.createElement("script");
-    script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";
-    script.async = true;
-    script.[`data-ad-client`] = "ca-pub-9101356904433905";
-    document.body.appendChild(script);
-
     setState({
       ...state,
       data_loaded: true,
@@ -730,9 +724,9 @@ export default function Problema() {
                   <Grid item xs={12}>
                     <Paper className="cool-sha">
                       <Box p={1}>
-                          <FacebookProvider appId="188203056476448">
-                            <Comments width="100%" href={`https://solinfo.ro/problema/${name}`} />
-                          </FacebookProvider>
+                        <FacebookProvider appId="188203056476448">
+                          <Comments width="100%" href={`https://solinfo.ro/problema/${name}`} />
+                        </FacebookProvider>
                       </Box>
                     </Paper>
                   </Grid>

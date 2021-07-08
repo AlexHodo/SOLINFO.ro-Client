@@ -19,6 +19,15 @@ const theme = createMuiTheme({
       main: "#303952",
     },
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 1100,
+      lg: 1280,
+      xl: 1920,
+    },
+  },
 });
 
 ReactGA.initialize("UA-199814762-1");

@@ -125,23 +125,38 @@ export default function Sidebar() {
             </>
           )}
         </Grid>
+        {rootState.showDiscord && <Grid item xs={12} sm={11}>
+          <Box pb={2}>
+            <Typography variant="h6">Join our Discord</Typography>
+          </Box>
+          <iframe 
+              className="cool-sha"
+              src="https://discord.com/widget?id=862041051089600542&theme=dark" 
+              width="100%" 
+              height="400" 
+              allowtransparency="true" 
+              frameborder="0" 
+              sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+            >
+            </iframe>
+        </Grid>}
         <Grid item xs={12} sm={11}>
           <Box className={classes.hideOnMobile}>
             <Typography ariant="body2" className={classes.menuList}>
               <Link className={classes.menuListItem} to="/">
                 Acasă
               </Link>
+              <a className={classes.menuListItem} href="/blog/">
+                Blog
+              </a>
               <Link className={classes.menuListItem} to="/cont">
                 Contul meu
               </Link>
-              <Link className={classes.menuListItem} to="/cont/setari">
-                Setări
+              <Link className={classes.menuListItem} to="/probleme">
+                Probleme
               </Link>
               <Link className={classes.menuListItem} to="/solutie-noua">
                 Adaugă o soluție
-              </Link>
-              <Link className={classes.menuListItem} to="/probleme">
-                Probleme
               </Link>
               <Link className={classes.menuListItem} to="/despre-contact">
                 Despre & Contact

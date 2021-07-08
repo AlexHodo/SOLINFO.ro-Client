@@ -730,9 +730,9 @@ export default function Problema() {
                   <Grid item xs={12}>
                     <Paper className="cool-sha">
                       <Box p={1}>
-                          <FacebookProvider appId="188203056476448">
-                            <Comments width="100%" href={`https://solinfo.ro/problema/${name}`} />
-                          </FacebookProvider>
+                        <FacebookProvider appId="188203056476448">
+                          <Comments width="100%" href={`https://solinfo.ro/problema/${name}`} />
+                        </FacebookProvider>
                       </Box>
                     </Paper>
                   </Grid>

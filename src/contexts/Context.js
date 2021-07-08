@@ -44,6 +44,7 @@ class Context extends Component {
     contact: this.loadingTxt,
     showPersonalAd: false,
     showHelpUs: false,
+    showDiscord: false,
     home: {
       hero: {
         wallpaper_url: null,
@@ -141,6 +142,7 @@ class Context extends Component {
         contact: data.contact,
         showPersonalAd: data.showPersonalAd,
         showHelpUs: data.showHelpUs,
+        showDiscord: data.showDiscord,
         cookies: data.cookies
       });
     }

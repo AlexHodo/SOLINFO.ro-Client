@@ -140,6 +140,11 @@ const useStyles = makeStyles((theme) => ({
   menuItem: {
     color: fade(theme.palette.common.white, 0.9)
   },
+  logoWrapper: {
+    width: "50px",
+    height: "50px",
+    backgroundSize: "contain",
+  }
 }));
 
 const defaultFilterOptions = createFilterOptions();
@@ -390,20 +395,14 @@ export default function Navbar() {
     <div className={classes.grow}>
       <AppBar position="fixed" className={classes.menu}>
         <Toolbar>
-          <Link to="/" style={{ color: "white" }}>
-            <IconButton edge="start" color="inherit">
-              <HomeTwoToneIcon />
-            </IconButton>
-          </Link>
           <Link to="/">
-            <Typography
-              className={classes.title}
-              variant="h6"
-              noWrap
-              style={{ lineHeight: "1.25em" }}
-            >
-              SOL<span className={classes.titleContrasted}>INFO</span>.ro
-            </Typography>
+            <div 
+              className={classes.logoWrapper}
+              style={{backgroundImage: `url(${rootState.fileDomain}/client/logo.svg)`}}
+            />
+            <div style={{display: "none"}}>
+              <h1>SOLINFO.ro</h1>
+            </div>
           </Link>
           <div className={classes.search}>
             <div className={classes.searchIcon}>

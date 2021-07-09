@@ -283,7 +283,7 @@ export default function Home() {
           })`,
         }}
       >
-        <Container maxWidth="md">
+        <Container maxWidth="md" style={{maxWidth: "700px"}}>
           <Grid container spacing={3} className={classes.heroGrid}>
             <Grid item xs={12}>
               <Typography

@@ -22,6 +22,7 @@ const DespreContact = React.lazy(() => import('./../pages/DespreContact'));
 const ParolaResetare = React.lazy(() => import('./../pages/ParolaResetare'));
 const Footer = React.lazy(() => import('./../components/Footer'));
 const Home = React.lazy(() => import('./../pages/Home'));
+const ProvocareSaptamanala = React.lazy(() => import('./../pages/ProvocareSaptamanala'));
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -121,6 +122,9 @@ export default function AppWrapper() {
             </Suspense>} />
             <Route path="/despre-contact" exact children={<Suspense fallback={SuspenseFallback}>
               <DespreContact />
+            </Suspense>} />
+            <Route path="/provocare-saptamanala" exact children={<Suspense fallback={SuspenseFallback}>
+              <ProvocareSaptamanala />
             </Suspense>} />
             <Route children={<NotFound />} />
           </Switch>

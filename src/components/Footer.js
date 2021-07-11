@@ -158,6 +158,10 @@ export default function Footer() {
                 <Link className={classes.menuListItem} to="/despre-contact">
                   Despre & Contact
                 </Link>
+                <span className={classes.menuListBullet}>&#8226;</span>
+                <Link className={classes.menuListItem} to="/provocare-saptamanala">
+                  Provocarea Săptămânală
+                </Link>
               </Typography>
             </Grid>
           </Grid>

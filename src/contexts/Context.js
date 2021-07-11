@@ -4,7 +4,7 @@ import ReactGA from "react-ga";
 export const RootContext = createContext();
 
 const Axios = axios.create({
-  baseURL: "https://api.solinfo.ro",
+  baseURL: "https://api.solinfo.ro/v2.0",
   withCredentials: true,
   //baseURL: "http://localhost/solinfo/api"
 });
@@ -64,7 +64,10 @@ class Context extends Component {
     problemsDataLoaded: false,
     problemsDataIsLoading: false,
     cookie: null,
-    showLoader: false
+    showLoader: false,
+    weeklyChallenge: [],
+    weeklyChallengeTotal: 0,
+    weeklyChallengeSolved: 0
   };
 
   API = async (action, input = []) => {
@@ -143,7 +146,10 @@ class Context extends Component {
         showPersonalAd: data.showPersonalAd,
         showHelpUs: data.showHelpUs,
         showDiscord: data.showDiscord,
-        cookies: data.cookies
+        cookies: data.cookies,
+        weeklyChallenge: data.weekly_challenge,
+        weeklyChallengeTotal: data.weekly_challenge_total,
+        weeklyChallengeSolved: data.weekly_challenge_solved
       });
     }
 

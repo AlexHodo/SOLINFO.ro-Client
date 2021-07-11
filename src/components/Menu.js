@@ -28,6 +28,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import CookieNotification from "./CookieNotification";
+import DnsTwoToneIcon from '@material-ui/icons/DnsTwoTone';
+import ThumbUpTwoToneIcon from '@material-ui/icons/ThumbUpTwoTone';
 
 const useStyles = makeStyles((theme) => ({
   offset: theme.mixins.toolbar,
@@ -137,12 +139,17 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  hideOnDesktop: {
+    [theme.breakpoints.up("md")]: {
+      display: "none",
+    }
+  },
   menuItem: {
     color: fade(theme.palette.common.white, 0.9)
   },
   logoWrapper: {
-    width: "50px",
-    height: "50px",
+    width: "45px",
+    height: "45px",
     backgroundSize: "contain",
   }
 }));
@@ -235,6 +242,26 @@ export default function Navbar() {
               </Typography>
             </MenuItem>
           </Link>
+          <Link to="/probleme" className={classes.hideOnDesktop}>
+            <MenuItem onClick={handleMenuClose}>
+              <ListItemIcon>
+                <DnsTwoToneIcon className={classes.menuItemIcon} />
+              </ListItemIcon>
+              <Typography variant="inherit" className={classes.menuItemText}>
+                Probleme
+              </Typography>
+            </MenuItem>
+          </Link>
+          <Link to="/provocare-saptamanala" className={classes.hideOnDesktop}>
+            <MenuItem onClick={handleMenuClose}>
+              <ListItemIcon>
+                <ThumbUpTwoToneIcon className={classes.menuItemIcon} />
+              </ListItemIcon>
+              <Typography variant="inherit" className={classes.menuItemText}>
+                Provocarea săptămânală
+              </Typography>
+            </MenuItem>
+          </Link>
           <Link to="/">
             <MenuItem onClick={logout}>
               <ListItemIcon>
@@ -265,6 +292,26 @@ export default function Navbar() {
               </ListItemIcon>
               <Typography variant="inherit" className={classes.menuItemText}>
                 Adaugă o soluție
+              </Typography>
+            </MenuItem>
+          </Link>
+          <Link to="/probleme" className={classes.hideOnDesktop}>
+            <MenuItem onClick={handleMenuClose}>
+              <ListItemIcon>
+                <DnsTwoToneIcon className={classes.menuItemIcon} />
+              </ListItemIcon>
+              <Typography variant="inherit" className={classes.menuItemText}>
+                Probleme
+              </Typography>
+            </MenuItem>
+          </Link>
+          <Link to="/provocare-saptamanala" className={classes.hideOnDesktop}>
+            <MenuItem onClick={handleMenuClose}>
+              <ListItemIcon>
+                <ThumbUpTwoToneIcon className={classes.menuItemIcon} />
+              </ListItemIcon>
+              <Typography variant="inherit" className={classes.menuItemText}>
+                Provocarea săptămânală
               </Typography>
             </MenuItem>
           </Link>
@@ -449,6 +496,11 @@ export default function Navbar() {
               onFocus={getProblems}
             />
           </div>
+          <Link to="/provocare-saptamanala" className={`${classes.menuItem} ${classes.hiddenOnMobile}`}>
+            <MenuItem>
+              Provocare săptămânală 
+            </MenuItem>
+          </Link>
           <Link to="/probleme" className={`${classes.menuItem} ${classes.hiddenOnMobile}`}>
             <MenuItem>
               Probleme

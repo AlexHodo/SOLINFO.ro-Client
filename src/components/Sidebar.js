@@ -12,6 +12,9 @@ import Avatar from "@material-ui/core/Avatar";
 import { Link } from "react-router-dom";
 import { InstaFollow } from "./InstaFollow";
 import Skeleton from "@material-ui/lab/Skeleton";
+import Paper from "@material-ui/core/Paper"
+import WeeklyChallenge from "./WeeklyChallenge";
+import UserBadges from "./UserBadges";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -65,10 +68,15 @@ const useStyles = makeStyles((theme) => ({
   donateBtn: {
     background: "#FD434D",
     color: "white"
+  },
+  title: {
+    lineHeight: "1.25rem",
+    fontSize: "1.25rem",
+    margin: theme.spacing(0.75, 0)
   }
 }));
 
-export default function Sidebar() {
+export default function Sidebar(props) {
   const classes = useStyles();
 
   const { rootState } = useContext(RootContext);
@@ -78,9 +86,40 @@ export default function Sidebar() {
   return (
     <>
       <Grid container spacing={2} justify="flex-end">
+        {!props.hideWeeklyChallenge && <Grid item xs={12} sm={11}>
+          <Box pb={2}>
+            <Typography variant="h6" className={classes.title}>Provocarea săptămânală</Typography>
+          </Box>
+          {rootState.weeklyChallengeTotal > 0? <Paper className="cool-sha">
+            <Box>
+              <WeeklyChallenge
+                challenge = {rootState.weeklyChallenge}
+                challengeTotal = {rootState.weeklyChallengeTotal}
+                challengeSolved = {rootState.weeklyChallengeSolved}
+              />
+            </Box>
+          </Paper> : <>
+            <Skeleton
+              variant="rect"
+              height={50}
+              style={{ marginBottom: "0.5rem" }}
+            />
+            <Skeleton
+              variant="rect"
+              height={50}
+              style={{ marginBottom: "0.5rem" }}
+            />
+            <Skeleton
+              variant="rect"
+              height={50}
+              style={{ marginBottom: "0.5rem" }}
+            />
+          </>
+          }
+        </Grid>}
         <Grid item xs={12} sm={11}>
           <Box pb={2}>
-            <Typography variant="h6">Top utilizatori</Typography>
+            <Typography variant="h6" className={classes.title}>Top utilizatori</Typography>
           </Box>
           {rootState.stats && rootState.stats.top_users.length > 0 ? (
             <List className={`${classes.topList} cool-sha`} dense>
@@ -96,10 +135,10 @@ export default function Sidebar() {
                           #{index + 1}
                         </Avatar>
                       </ListItemIcon>
-                      <ListItemText
-                        primary={`@${item.username}`}
-                        secondary={`${item.solutions_count}${item.solutions_count >= 20? " de" : ""} soluții`}
-                      />
+                      <ListItemText>
+                        @{item.username}
+                        <UserBadges size="small" badges={item.badges} points={item.points} />
+                      </ListItemText>
                     </ListItem>
                   </Link>
                 );
@@ -127,7 +166,7 @@ export default function Sidebar() {
         </Grid>
         {rootState.showDiscord && <Grid item xs={12} sm={11}>
           <Box pb={2}>
-            <Typography variant="h6">Join our Discord</Typography>
+            <Typography variant="h6" className={classes.title}>Join our Discord</Typography>
           </Box>
           <iframe 
               className="cool-sha"
@@ -142,7 +181,7 @@ export default function Sidebar() {
         </Grid>}
         <Grid item xs={12} sm={11}>
           <Box className={classes.hideOnMobile}>
-            <Typography ariant="body2" className={classes.menuList}>
+            <Typography ariant="body2" className={classes.menuList} style={{display: "none"}}>
               <Link className={classes.menuListItem} to="/">
                 Acasă
               </Link>

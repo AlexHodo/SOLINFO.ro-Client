@@ -20,6 +20,8 @@ import MetaTags from "react-meta-tags";
 import { Link, useParams } from "react-router-dom";
 import { RootContext } from "./../contexts/Context";
 import NotFound from "./../components/NotFound";
+import UserBadges from "./../components/UserBadges";
+import ThumbUpTwoToneIcon from '@material-ui/icons/ThumbUpTwoTone';
 
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
@@ -131,6 +133,9 @@ const useStyles = makeStyles((theme) => ({
   previewCardTitle: {
     lineHeight: "1.25rem",
   },
+  profileStatsWrapper: {
+    marginTop: theme.spacing(1)
+  }
 }));
 
 export default function Profil() {
@@ -146,6 +151,8 @@ export default function Profil() {
     responseCode: null,
     profile: {},
     latest_solutions: [],
+    badges: [],
+    points: 0
   };
 
   const [state, setState] = React.useState(defaultState);
@@ -171,6 +178,8 @@ export default function Profil() {
       responseCode: logonRequest.responseCode,
       profile: logonRequest.profile,
       latest_solutions: logonRequest.latest_solutions,
+      badges: logonRequest.badges,
+      points: logonRequest.points
     });
   };
 
@@ -243,6 +252,9 @@ export default function Profil() {
                           >
                             {state.profile.first_name} {state.profile.last_name}
                           </Typography>
+                          <Box pt={1}>
+                            <UserBadges size="small" points={state.profile.points} badges={state.profile.badges}/>
+                          </Box>
                           {state.profile.is_owner && (
                             <Link to="/cont/setari">
                               <Box mt={1}>
@@ -267,7 +279,7 @@ export default function Profil() {
             <Container maxWidth="md">
               <Grid item xs={12} className={classes.profileStatsWrapper}>
                 <Grid container spacing={2}>
-                  <Grid item xs={12} sm={4}>
+                  <Grid item xs={12} sm={6} md={3}>
                     <Paper className={`${classes.statWrapper} cool-sha`}>
                       <Typography className={classes.statTitle} variant="body1">
                         Data înscrierii
@@ -278,7 +290,18 @@ export default function Profil() {
                       <PermIdentityTwoToneIcon className={classes.statIcon} />
                     </Paper>
                   </Grid>
-                  <Grid item xs={12} sm={4}>
+                  <Grid item xs={12} sm={6} md={3}>
+                    <Paper className={`${classes.statWrapper} cool-sha`}>
+                      <Typography className={classes.statTitle} variant="body1">
+                        Puncte
+                      </Typography>
+                      <Typography className={classes.statContent} variant="h6">
+                        {state.profile.points}
+                      </Typography>
+                      <ThumbUpTwoToneIcon className={classes.statIcon} />
+                    </Paper>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={3}>
                     <Paper className={`${classes.statWrapper} cool-sha`}>
                       <Typography className={classes.statTitle} variant="body1">
                         Soluții adăugate
@@ -289,7 +312,7 @@ export default function Profil() {
                       <AddCircleTwoToneIcon className={classes.statIcon} />
                     </Paper>
                   </Grid>
-                  <Grid item xs={12} sm={4}>
+                  <Grid item xs={12} sm={6} md={3}>
                     <Paper className={`${classes.statWrapper} cool-sha`}>
                       <Typography className={classes.statTitle} variant="body1">
                         Soluții vizualizate

@@ -18,6 +18,18 @@ const theme = createMuiTheme({
     secondary: {
       main: "#303952",
     },
+    badge1: {
+      main: "#ff9800",
+    },
+    badge2: {
+      main: "#ff5722",
+    },
+    badge3: {
+      main: "#e91e63",
+    },
+    badge4: {
+      main: "#673ab7",
+    }
   },
   breakpoints: {
     values: {

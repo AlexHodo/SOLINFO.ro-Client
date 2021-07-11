@@ -34,6 +34,7 @@ import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
 import nightOwl from 'react-syntax-highlighter/dist/esm/styles/hljs/night-owl';
 import HelpUs from "./../components/HelpUs";
+import UserBadges from "./../components/UserBadges";
 
 ReactGA.initialize("UA-199814762-1");
 
@@ -483,15 +484,7 @@ export default function Problema() {
                                           @{item.author.username}
                                         </Link>
                                       )}
-                                      {item.author.solutionsCount && (
-                                        <Chip
-                                          style={{ fontWeight: 600 }}
-                                          className={classes.authorStats}
-                                          variant="outlined"
-                                          size="small"
-                                          label={item.author.solutionsCount}
-                                        />
-                                      )}
+                                      <UserBadges style={{display: "inline"}} size="small" points={item.author.points} badges={item.author.badges} />
                                     </Typography>
                                   </div>
                                 </Grid>
@@ -512,15 +505,7 @@ export default function Problema() {
                                         @{item.author.username}
                                       </Link>
                                     )}
-                                    {item.author.solutionsCount && (
-                                      <Chip
-                                        style={{ fontWeight: 600 }}
-                                        className={classes.authorStats}
-                                        variant="outlined"
-                                        size="small"
-                                        label={item.author.solutionsCount}
-                                      />
-                                    )}
+                                    <UserBadges style={{display: "inline"}} size="small" points={item.author.points} badges={item.author.badges} />
                                   </Typography>
                                 </Grid>
                                 <Grid item xs={4}>

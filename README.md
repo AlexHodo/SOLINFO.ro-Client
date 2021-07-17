@@ -9,8 +9,5 @@ Site-ul [SolInfo.ro](solinfo.ro), proiect fondat de catre [Alex Hodo](https://ww
 Front-end: [React](https://github.com/facebook/create-react-app) si [Material UI](https://material-ui.com/)  
 Back-end: PHP + MySQL
 
-## Sustine proiectul
-Site-ul va fi mereu gratuit, dar intretinerea sa presupune diverse costuri. Poti sa ne sustii prin [Patreon](https://www.patreon.com/alexhodo).
-
 ## Contact
 Daca vrei sa ne comunici intalnirea unei erori, sau ai o sugestie, poti sa ne scri in privat la adresa de email [contact@solinfo.ro](mailto:contact@solinfo.ro). Sau daca crezi ca iti este mai potrivit tie, avem un server de [Discord](https://discord.gg/VKpMn92E3W) dedicat site-ului!

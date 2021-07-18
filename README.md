@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://github.com/AlexHodo/SOLINFO.ro-Client/blob/master/public/logo192.png?raw=true">
+<img src="https://github.com/AlexHodo/SOLINFO.ro-Client/blob/master/public/logo512.png?raw=true">
 </p>
 
 # [SolInfo.ro](solinfo.ro) - Client

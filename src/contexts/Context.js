@@ -4,9 +4,9 @@ import ReactGA from "react-ga";
 export const RootContext = createContext();
 
 const Axios = axios.create({
-  //baseURL: "https://api.solinfo.ro/v2.0",
-  //withCredentials: true,
-  baseURL: "http://localhost/solinfo/api"
+  baseURL: "https://api.solinfo.ro/v2.0",
+  withCredentials: true,
+  //baseURL: "http://localhost/solinfo/api"
 });
 
 class Context extends Component {
@@ -21,8 +21,8 @@ class Context extends Component {
   state = {
     domain: "https://solinfo.ro",
     fileDomain: "https://solinfo.ro/file",
-    domain: "http://localhost.ro:3000",
-    fileDomain: "http://localhost/solinfo/file",
+    //domain: "http://localhost.ro:3000",
+    //fileDomain: "http://localhost/solinfo/file",
     isLoggedIn: false,
     userInfo: {
       firstName: null,

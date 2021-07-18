@@ -95,20 +95,11 @@ export default function LatestBlogPosts(props) {
   const { rootState } = useContext(RootContext);
 
   return (
-    <Grid container spacing={2}>
-      {!rootState.homeDataLoaded? <>
-          {[1,2,3,4].map((item, index) => (
-            <Grid item xs={12} sm={6} md={3} key={index}>
-              <Skeleton 
-                variant="rect"
-                height={150}
-              />
-            </Grid>)
-          )}
-        </> : <>
+    <Grid container spacing={2} justify="center">
+      {rootState.homeDataLoaded && <>
           <Grid item xs={12}>
             <Box pt={1} pb={1}>
-              <Typography variant="h5">
+              <Typography variant="h5" align="center">
                 Ultimele articole de pe <a href="https://solinfo.ro/blog" target="_blank">Blog</a>
               </Typography>
             </Box>

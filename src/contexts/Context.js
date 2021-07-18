@@ -4,9 +4,9 @@ import ReactGA from "react-ga";
 export const RootContext = createContext();
 
 const Axios = axios.create({
-  baseURL: "https://api.solinfo.ro/v2.0",
-  withCredentials: true,
-  //baseURL: "http://localhost/solinfo/api"
+  //baseURL: "https://api.solinfo.ro/v2.0",
+  //withCredentials: true,
+  baseURL: "http://localhost/solinfo/api"
 });
 
 class Context extends Component {
@@ -21,8 +21,8 @@ class Context extends Component {
   state = {
     domain: "https://solinfo.ro",
     fileDomain: "https://solinfo.ro/file",
-    //domain: "http://localhost.ro:3000",
-    //fileDomain: "http://localhost/solinfo/file",
+    domain: "http://localhost.ro:3000",
+    fileDomain: "http://localhost/solinfo/file",
     isLoggedIn: false,
     userInfo: {
       firstName: null,
@@ -67,7 +67,19 @@ class Context extends Component {
     showLoader: false,
     weeklyChallenge: [],
     weeklyChallengeTotal: 0,
-    weeklyChallengeSolved: 0
+    weeklyChallengeSolved: 0,
+    latestArticlesLoaded: true,
+    latestArticles: [{
+      title: "Japonia bate recordul vitezei internetului cu un transfer de date de 319Tbps",
+      link: "https://solinfo.ro/blog/japonia-bate-recordul-vitezei-internetului/",
+      thumbnail : "https://solinfo.ro/blog/wp-content/uploads/2021/07/hsi_guidetointernetspeed_header-e1626615913303-500x271.jpg",
+      date: "21/07/2021",
+      author: {
+        name: "Stefan Doncean",
+        avatar: "https://solinfo.ro/blog/wp-content/litespeed/avatar/2f33d8831f4af329e56819061bcb3be9.jpg",
+        link: "https://solinfo.ro/blog/author/sdonks/"
+      },
+    }]
   };
 
   API = async (action, input = []) => {
@@ -107,7 +119,7 @@ class Context extends Component {
       problemsDataIsLoading: true,
     });
 
-    const data = await this.API("endpoint/problems.json");
+    const data = await this.API("endpoint/problems.json.php");
 
     this.setState({
       ...this.state,

@@ -32,13 +32,6 @@ class Context extends Component {
       username: null,
     },
     problems: [],
-    stats: {
-      rating_5_count: this.loadingTxt,
-      solutions_count: this.loadingTxt,
-      top_users: [],
-      users_count: this.loadingTxt,
-      views_count: this.loadingTxt,
-    },
     authStatusChecked: false,
     about: this.loadingTxt,
     contact: this.loadingTxt,
@@ -58,6 +51,7 @@ class Context extends Component {
         top_users: [],
         users_count: this.loadingTxt,
         views_count: this.loadingTxt,
+        articles: []
       },
     },
     homeDataLoaded: false,
@@ -67,11 +61,13 @@ class Context extends Component {
     showLoader: false,
     weeklyChallenge: [],
     weeklyChallengeTotal: 0,
-    weeklyChallengeSolved: 0
+    weeklyChallengeSolved: 0,
   };
 
   API = async (action, input = []) => {
-    if(action !== "/endpoint/module/notifications.php" && !this.state.showLoader) {
+    if(action !== "/endpoint/module/notifications.php" 
+      && action !== "endpoint/problems.json.php"
+      && !this.state.showLoader) {
       if(this.state.authStatusChecked && this.state.homeDataLoaded)
         this.setState({
           ...this.state,
@@ -80,9 +76,14 @@ class Context extends Component {
     }
     input = {
       ...input,
-      _x: localStorage.getItem("authToken") + "~" + Date.now(),
+      _bearer_token: localStorage.getItem("authToken"),
     };
-    const request = await Axios.post(action, input);
+    const request = await Axios.post(action, input, {
+      headers: {
+        'Accept': 'text/plain',
+        'Content-Type': 'text/plain'
+      } 
+    });
     this.setState({
       ...this.state,
       showLoader: false
@@ -92,7 +93,8 @@ class Context extends Component {
 
   logout = () => {
     localStorage.removeItem("authToken");
-    Axios.defaults.headers.common["Authorization"] = "Bearer -1";
+    //Axios.defaults.headers.common["Authorization"] = "Bearer -1";
+
     this.setState({
       ...this.state,
       isLoggedIn: false,
@@ -107,7 +109,7 @@ class Context extends Component {
       problemsDataIsLoading: true,
     });
 
-    const data = await this.API("endpoint/problems.json");
+    const data = await this.API("endpoint/problems.json.php");
 
     this.setState({
       ...this.state,
@@ -124,9 +126,9 @@ class Context extends Component {
       localStorage.setItem("authToken", "-1");
     }
 
-    Axios.defaults.headers.common["Authorization"] = "Bearer " + authToken;
+    //Axios.defaults.headers.common["Authorization"] = "Bearer " + authToken;
 
-    const data = await this.API("endpoint/load.php");
+    let [data, homeData] = await Promise.all([this.API("endpoint/load.php"), this.API("endpoint/page/home.php")]);
 
     if (data.success) {
       this.setState({
@@ -134,13 +136,6 @@ class Context extends Component {
         isLoggedIn: data.isLoggedIn,
         userInfo: data.userInfo,
         // problems: data.problems,
-        stats: {
-          rating_5_count: data.stats.rating_5_count,
-          solutions_count: data.stats.solutions_count,
-          top_users: data.stats.top_users,
-          users_count: data.stats.users_count,
-          views_count: data.stats.views_count,
-        },
         about: data.about,
         contact: data.contact,
         showPersonalAd: data.showPersonalAd,
@@ -161,8 +156,6 @@ class Context extends Component {
       ...this.state,
       authStatusChecked: true,
     });
-
-    const homeData = await this.API("endpoint/page/home.php");
 
     if (homeData.success) {
       this.setState({

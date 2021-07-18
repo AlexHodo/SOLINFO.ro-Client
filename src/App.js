@@ -1,13 +1,15 @@
 import "./App.css";
 import React from "react";
 import { Router } from "react-router-dom";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { MuiThemeProvider, createMuiTheme, createGenerateClassName } from "@material-ui/core/styles";
 import Context from "./contexts/Context";
 import AppWrapper from "./components/AppWrapper";
 import ScrollToTop from "react-router-scroll-top";
 import MetaTags from "react-meta-tags";
 import ReactGA from "react-ga";
 import { createBrowserHistory } from "history";
+
+
 
 const theme = createMuiTheme({
   palette: {
@@ -50,6 +52,7 @@ historyInstance.listen((location) => {
   ReactGA.pageview(location.pathname + location.search);
 });
 
+
 export default function App() {
   return (
     <Router history={historyInstance}>
@@ -61,7 +64,7 @@ export default function App() {
           />
           <meta property="og:title" content="SOLINFO.ro" />
         </MetaTags>
-        <MuiThemeProvider theme={theme}>
+        <MuiThemeProvider theme={theme} >
           <Context>
             <AppWrapper />
           </Context>

@@ -12,6 +12,7 @@ import Avatar from "@material-ui/core/Avatar";
 import { Link } from "react-router-dom";
 import { InstaFollow } from "./InstaFollow";
 import Container from "@material-ui/core/Container";
+import LatestBlogPosts from "./LatestBlogPosts";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -88,6 +89,11 @@ export default function Footer() {
 
   return (
     <>
+      <Container maxWidth="lg">
+        <Box mt={2}>
+          <LatestBlogPosts />
+        </Box>
+      </Container>
       {rootState.showPersonalAd && (
         <div className={classes.advertiseMyself}>
           <Container maxWidth="sm">
@@ -160,7 +166,7 @@ export default function Footer() {
                 </Link>
                 <span className={classes.menuListBullet}>&#8226;</span>
                 <Link className={classes.menuListItem} to="/provocare-saptamanala">
-                  Provocarea Săptămânală
+                  Provocarea săptămânii
                 </Link>
               </Typography>
             </Grid>

@@ -26,7 +26,7 @@ import MetaTags from "react-meta-tags";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import HelpUs from "./../components/HelpUs";
 
-import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
 import nightOwl from 'react-syntax-highlighter/dist/esm/styles/hljs/night-owl';
 
@@ -231,6 +231,11 @@ const useStyles = makeStyles((theme) => ({
   previewCardTitle: {
     lineHeight: "1.25rem",
   },
+  hideOnDesktop: {
+    [theme.breakpoints.up("sm")]: {
+      display: "none"
+    }
+  }
 }));
 
 const defaultFilterOptions = createFilterOptions();
@@ -492,7 +497,8 @@ export default function Home() {
                                     </Link>
                                     ,
                                   </>
-                                )}{" "}
+                                )}
+                                <br className={classes.hideOnDesktop}/>
                                 {item.created}
                               </Typography>
                             </Box>

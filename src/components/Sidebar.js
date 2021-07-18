@@ -88,7 +88,7 @@ export default function Sidebar(props) {
       <Grid container spacing={2} justify="flex-end">
         {!props.hideWeeklyChallenge && <Grid item xs={12} sm={11}>
           <Box pb={2}>
-            <Typography variant="h6" className={classes.title}>Provocarea săptămânală</Typography>
+            <Typography variant="h6" className={classes.title}>Provocarea săptămânii</Typography>
           </Box>
           {rootState.weeklyChallengeTotal > 0? <Paper className="cool-sha">
             <Box>
@@ -121,9 +121,9 @@ export default function Sidebar(props) {
           <Box pb={2}>
             <Typography variant="h6" className={classes.title}>Top utilizatori</Typography>
           </Box>
-          {rootState.stats && rootState.stats.top_users.length > 0 ? (
+          {rootState.home.stats && rootState.home.stats.top_users.length > 0 ? (
             <List className={`${classes.topList} cool-sha`} dense>
-              {rootState.stats.top_users.map(function (item, index) {
+              {rootState.home.stats.top_users.map(function (item, index) {
                 return (
                   <Link to={`/profil/${item.username}`} key={index}>
                     <ListItem button className={`${classes.topListItem}`}>

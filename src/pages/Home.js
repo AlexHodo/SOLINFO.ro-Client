@@ -25,7 +25,6 @@ import Sidebar from "./../components/Sidebar";
 import MetaTags from "react-meta-tags";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import HelpUs from "./../components/HelpUs";
-import LatestBlogPosts from "./../components/LatestBlogPosts";
 
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
@@ -232,6 +231,11 @@ const useStyles = makeStyles((theme) => ({
   previewCardTitle: {
     lineHeight: "1.25rem",
   },
+  hideOnDesktop: {
+    [theme.breakpoints.up("sm")]: {
+      display: "none"
+    }
+  }
 }));
 
 const defaultFilterOptions = createFilterOptions();
@@ -428,7 +432,6 @@ export default function Home() {
             </Paper>
           </Grid>
         </Grid>
-        <LatestBlogPosts />
       </Container>
       <Container maxWidth="md">
         <Grid container className={classes.content}>
@@ -494,7 +497,8 @@ export default function Home() {
                                     </Link>
                                     ,
                                   </>
-                                )}{" "}
+                                )}
+                                <br className={classes.hideOnDesktop}/>
                                 {item.created}
                               </Typography>
                             </Box>

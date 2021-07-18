@@ -8,6 +8,9 @@ import Avatar from "@material-ui/core/Avatar";
 import { Link } from "react-router-dom";
 import Skeleton from "@material-ui/lab/Skeleton";
 import Paper from "@material-ui/core/Paper"
+import ReactGA from "react-ga";
+
+ReactGA.initialize("UA-199814762-1");
 
 const useStyles = makeStyles((theme) => ({
   articleWrapper: {
@@ -92,9 +95,8 @@ export default function LatestBlogPosts(props) {
   const { rootState } = useContext(RootContext);
 
   return (
-    <>
-      {!rootState.latestArticlesLoaded? <>
-          <Grid container spacing={2}>
+    <Grid container spacing={2}>
+      {!rootState.homeDataLoaded? <>
           {[1,2,3,4].map((item, index) => (
             <Grid item xs={12} sm={6} md={3} key={index}>
               <Skeleton 
@@ -103,16 +105,26 @@ export default function LatestBlogPosts(props) {
               />
             </Grid>)
           )}
-          </Grid>
         </> : <>
-          <Box pt={1} pb={2}>
-            <Typography variant="h5">
-              Ultimele articole de pe Blog
-            </Typography>
-          </Box>
-          {rootState.latestArticles.map((item, index) => (
+          <Grid item xs={12}>
+            <Box pt={1} pb={1}>
+              <Typography variant="h5">
+                Ultimele articole de pe <a href="https://solinfo.ro/blog" target="_blank">Blog</a>
+              </Typography>
+            </Box>
+          </Grid>
+          {rootState.home.stats.articles.map((item, index) => (
             <Grid item xs={12} sm={6} md={3} key={index}>
-              <a href={item.link} target="_blank">
+              <a 
+                href={item.link} 
+                target="_blank" 
+                data-name={item.title}
+                onClick={(event) => ReactGA.event({
+                  category: "Blog",
+                  action: "Opened a blog article",
+                  value: event.currentTarget.getAttribute('data-name'), // to fix
+                })}
+              >
                 <Paper className={`${classes.articleWrapper} cool-sha`}>
                   <Avatar alt={item.author.name} src={item.author.avatar} className="_avt" />
                   <div className="_i" style={{backgroundImage: `url(${item.thumbnail})`}}></div>
@@ -138,6 +150,6 @@ export default function LatestBlogPosts(props) {
           ))}
         </>
       }
-    </>
+    </Grid>
   );
 }

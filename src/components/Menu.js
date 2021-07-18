@@ -258,7 +258,7 @@ export default function Navbar() {
                 <ThumbUpTwoToneIcon className={classes.menuItemIcon} />
               </ListItemIcon>
               <Typography variant="inherit" className={classes.menuItemText}>
-                Provocarea săptămânală
+                Provocarea săptămânii
               </Typography>
             </MenuItem>
           </Link>
@@ -311,7 +311,7 @@ export default function Navbar() {
                 <ThumbUpTwoToneIcon className={classes.menuItemIcon} />
               </ListItemIcon>
               <Typography variant="inherit" className={classes.menuItemText}>
-                Provocarea săptămânală
+                Provocarea săptămânii
               </Typography>
             </MenuItem>
           </Link>
@@ -498,7 +498,7 @@ export default function Navbar() {
           </div>
           <Link to="/provocare-saptamanala" className={`${classes.menuItem} ${classes.hiddenOnMobile}`}>
             <MenuItem>
-              Provocare săptămânală 
+              Provocarea săptămânii 
             </MenuItem>
           </Link>
           <Link to="/probleme" className={`${classes.menuItem} ${classes.hiddenOnMobile}`}>

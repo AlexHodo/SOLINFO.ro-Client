@@ -10,4 +10,4 @@ Front-end: [React](https://github.com/facebook/create-react-app) si [Material UI
 Back-end: PHP + MySQL
 
 ## Contact
-Daca vrei sa ne comunici intalnirea unei erori, sau ai o sugestie, poti sa ne scri in privat la adresa de email [contact@solinfo.ro](mailto:contact@solinfo.ro). Sau daca crezi ca iti este mai potrivit tie, avem un server de [Discord](https://discord.gg/VKpMn92E3W) dedicat site-ului!
+Daca vrei sa ne comunici intalnirea unei erori, sau ai o sugestie, poti sa ne scrii in privat la adresa de email [contact@solinfo.ro](mailto:contact@solinfo.ro). Sau daca crezi ca iti este mai potrivit tie, avem un server de [Discord](https://discord.gg/VKpMn92E3W) dedicat site-ului!

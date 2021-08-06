@@ -60,7 +60,7 @@ class Context extends Component {
     cookie: null,
     showLoader: false,
     weeklyChallenge: [],
-    weeklyChallengeTotal: 0,
+    weeklyChallengeTotal: -1,
     weeklyChallengeSolved: 0,
   };
 

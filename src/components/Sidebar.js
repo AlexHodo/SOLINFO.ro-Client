@@ -90,7 +90,7 @@ export default function Sidebar(props) {
           <Box pb={2}>
             <Typography variant="h6" className={classes.title}>Provocarea săptămânii</Typography>
           </Box>
-          {rootState.weeklyChallengeTotal > 0? <Paper className="cool-sha">
+          {rootState.weeklyChallengeTotal > -1? <Paper className="cool-sha">
             <Box>
               <WeeklyChallenge
                 challenge = {rootState.weeklyChallenge}
@@ -119,7 +119,7 @@ export default function Sidebar(props) {
         </Grid>}
         <Grid item xs={12} sm={11}>
           <Box pb={2}>
-            <Typography variant="h6" className={classes.title}>Top utilizatori</Typography>
+            <Typography variant="h6" className={classes.title}>Top contributori</Typography>
           </Box>
           {rootState.home.stats && rootState.home.stats.top_users.length > 0 ? (
             <List className={`${classes.topList} cool-sha`} dense>

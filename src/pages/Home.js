@@ -26,7 +26,7 @@ import MetaTags from "react-meta-tags";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import HelpUs from "./../components/HelpUs";
 
-import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
 import nightOwl from 'react-syntax-highlighter/dist/esm/styles/hljs/night-owl';
 
@@ -495,7 +495,7 @@ export default function Home() {
                                     >
                                       @{item.author.username}
                                     </Link>
-                                    ,
+                                    {" "}
                                   </>
                                 )}
                                 <br className={classes.hideOnDesktop}/>

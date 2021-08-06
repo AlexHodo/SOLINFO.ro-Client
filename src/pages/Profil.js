@@ -23,7 +23,7 @@ import NotFound from "./../components/NotFound";
 import UserBadges from "./../components/UserBadges";
 import ThumbUpTwoToneIcon from '@material-ui/icons/ThumbUpTwoTone';
 
-import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
 import nightOwl from 'react-syntax-highlighter/dist/esm/styles/hljs/night-owl';
 

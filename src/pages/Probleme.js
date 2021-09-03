@@ -104,19 +104,27 @@ export default function Probleme() {
       },
     },
     { 
+      field: 'a_c', 
+      headerName: 'Accesări', 
+      flex: 1, 
+      renderCell: (params) => {
+        return <>{params.row.a_c} {params.row.a_c === 1? "acc." : "acc."}</>
+      },
+    },
+    { 
       field: 's_c', 
       headerName: 'Soluții', 
       flex: 1, 
       renderCell: (params) => {
-        return <>{params.row.s_c} {params.row.s_c === 1? "soluție" : "soluții"}</>
+        return <>{params.row.s_c} {params.row.s_c === 1? "sol." : "sol."}</>
       },
     },
     { 
       field: 'v_c', 
-      headerName: 'Vizualizări', 
+      headerName: 'Viz. sol.', 
       flex: 1, 
       renderCell: (params) => {
-        return <>{params.row.v_c} {params.row.v_c === 1? "viualizare" : "vizualizări"}</>
+        return <>{params.row.v_c} {params.row.v_c === 1? "viz. sol." : "viz. sol."}</>
       },
     },
     {

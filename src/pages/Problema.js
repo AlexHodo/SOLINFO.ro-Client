@@ -10,7 +10,6 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { RootContext } from "./../contexts/Context";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
 import Chip from "@material-ui/core/Chip";
 import HomeIcon from "@material-ui/icons/Home";
 import LaunchIcon from "@material-ui/icons/Launch";
@@ -29,15 +28,18 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import SortTwoToneIcon from "@material-ui/icons/SortTwoTone";
 import ReactGA from "react-ga";
-import { FacebookProvider, Comments } from 'react-facebook';
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
 import nightOwl from 'react-syntax-highlighter/dist/esm/styles/hljs/night-owl';
 import HelpUs from "./../components/HelpUs";
 import UserBadges from "./../components/UserBadges";
+import Breadcrumbs from "@material-ui/core/Breadcrumbs";
+import IconButton from '@material-ui/core/IconButton';
+import AddCircleTwoToneIcon from "@material-ui/icons/AddCircleTwoTone";
+
+const StatsChart = React.lazy(() => import('./../components/ProblemStats'));
 
 ReactGA.initialize("UA-199814762-1");
-
 
 const Accordion = withStyles({
   root: {
@@ -162,7 +164,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Problema() {
   let { name } = useParams();
 
-  const { API } = useContext(RootContext);
+  const { API, rootState, setRootState } = useContext(RootContext);
 
   const defaultState = {
     data_loaded: false,
@@ -351,6 +353,15 @@ export default function Problema() {
               <Grid item xs={12} className={classes.header}>
                 <Grid container justify="center" alignItems="center">
                   <Grid item xs={12} md={9}>
+                    <Breadcrumbs aria-label="breadcrumb" style={{fontSize: "0.85rem"}}>
+                      <Link color="primary" to="/">
+                        Acasă
+                      </Link>
+                      <Link color="primary" to="/probleme">
+                        Probleme
+                      </Link>
+                      <Typography style={{fontSize: "0.85rem"}} component="span" color="secondary">{state.problem.name}</Typography>
+                    </Breadcrumbs>
                     <Typography variant="h5" component="h1">
                       Problema <b>{state.problem.name}</b> #
                       {state.problem.pbinfo_id}
@@ -397,12 +408,27 @@ export default function Problema() {
               </Grid>
               <Grid item xs={12} sm={8} md={9}>
                 <Grid container spacing={2} alignItems="center">
-                  <Grid item xs={3}>
+                  <Grid item xs={4}>
                     <Typography variant="h6" component="h2">
                       Soluții
+                      <Link to="/solutie-noua">
+                        <IconButton style={{marginLeft: "0.35rem", marginTop: "-0.25rem"}} aria-label="Adauga o solutie noua" color="primary" size="small" 
+                          onClick={() => {
+                            setRootState({
+                              ...rootState,
+                              newSolutionIntention: state.problem.pbinfo_id,
+                              newSolutionIntentionName: state.problem.name,
+                            })
+                          }}
+                        >
+                          <AddCircleTwoToneIcon />
+                        </IconButton>
+                      </Link>
                     </Typography>
+
+
                   </Grid>
-                  <Grid item xs={9}>
+                  <Grid item xs={8}>
                     <Typography
                       variant="body1"
                       component="h2"
@@ -432,8 +458,22 @@ export default function Problema() {
                               <Typography variant="body1" align="center">
                                 Această problemă nu are încă nicio soluție.{" "}
                                 <br />
-                                <b>Dacă reușești să o rezolvi, te rugăm să încarci soluția{" "}
-                                <Link style={{textDecoration: "underline"}} to="/solutie-noua">aici</Link></b>.
+                                <b>
+                                  Dacă reușești să o rezolvi, te rugăm să încarci soluția{" "}
+                                  <Link 
+                                    style={{textDecoration: "underline"}} 
+                                    to="/solutie-noua"
+                                    onClick={() => {
+                                      setRootState({
+                                        ...rootState,
+                                        newSolutionIntention: state.problem.pbinfo_id,
+                                        newSolutionIntentionName: state.problem.name,
+                                      })
+                                    }}
+                                  >
+                                    aici
+                                  </Link>
+                                </b>.
                                 <br />
                                 Vom fi foarte recunoscători!
                               </Typography>
@@ -655,6 +695,21 @@ export default function Problema() {
                   <Grid item xs={12}>
                     <HelpUs />
                   </Grid>
+                  <Grid item xs={12}>
+                    <Typography
+                      variant="h6"
+                      component="h2"
+                    >
+                      Statistici problemă
+                    </Typography>
+                    <Paper className={`${classes.card} cool-sha`}>
+                      <Box pb={2}>
+                        <Suspense fallback={<Box pt={2}><center>Se încarcă...</center></Box>}>
+                          <StatsChart problemId={state.problem.pbinfo_id}/>
+                        </Suspense>
+                      </Box>
+                    </Paper>
+                  </Grid>
                   {state.problem.info.length > 0 && (
                     <Grid item xs={12}>
                       <Typography
@@ -697,24 +752,6 @@ export default function Problema() {
                       </>
                     );
                   })}
-                  <Grid item xs={12}>
-                    <Typography
-                      style={{ marginBottom: "-0.5rem" }}
-                      variant="h6"
-                      component="h2"
-                    >
-                      Comentarii
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Paper className="cool-sha">
-                      <Box p={1}>
-                        <FacebookProvider appId="188203056476448">
-                          <Comments width="100%" href={`https://solinfo.ro/problema/${name}`} />
-                        </FacebookProvider>
-                      </Box>
-                    </Paper>
-                  </Grid>
                 </Grid>
               </Grid>
               <Grid item xs={12} sm={4} md={3}>

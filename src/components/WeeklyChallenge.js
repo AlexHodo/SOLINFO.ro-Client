@@ -8,10 +8,12 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import PersonOutlineTwoToneIcon from '@material-ui/icons/PersonOutlineTwoTone';
 import { Link } from "react-router-dom";
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Chip from '@material-ui/core/Chip';
 import CheckCircleTwoToneIcon from '@material-ui/icons/CheckCircleTwoTone';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles((theme) => ({
   problem: {
@@ -37,6 +39,10 @@ const useStyles = makeStyles((theme) => ({
     "& *" : {
       marginLeft: "1rem"
     }
+  },
+  solvedByChip: {
+    marginLeft: theme.spacing(1),
+    border: "1px solid rgba(0, 0, 0, 0.25)"
   }
 }));
 
@@ -82,8 +88,31 @@ export default function WeeklyChallenge(props) {
                 <ListItemText 
                   classes={{root: classes.textRoot}} 
                   primary={item.name}
-                  secondary={`#${item.problem_id}`}
-                />                  
+                  secondary={
+                    <React.Fragment>
+                      <Typography
+                        component="span"
+                        variant="body2"
+                      >
+                        #{item.problem_id}
+                      </Typography>
+                      <Typography
+                        component="span"
+                        variant="body2"
+                      >
+                        <Tooltip title={`Rezolvată de ${item.count_solved_by} persoane`}>
+                          <Chip
+                            size="small"
+                            variant="outlined"
+                            icon={<PersonOutlineTwoToneIcon />}
+                            label={item.count_solved_by}
+                            className={classes.solvedByChip}
+                          />
+                        </Tooltip>
+                      </Typography>
+                    </React.Fragment>
+                  }
+                />
                 {!item.solved && <Chip label="+3 pct." size="small" variant="outlined" className={classes.chip}/>}
                 {item.solved && <ListItemIcon className={classes.solvedIcon}>
                   <CheckCircleTwoToneIcon />

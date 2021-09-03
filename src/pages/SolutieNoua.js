@@ -15,6 +15,7 @@ import { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import SendTwoToneIcon from "@material-ui/icons/SendTwoTone";
 import Alert from "@material-ui/lab/Alert";
 import MetaTags from "react-meta-tags";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   formWrapper: {
@@ -57,9 +58,12 @@ export default function SolutieNoua() {
     errorMsg: null,
     responseCode: null,
     content: "",
-    problemId: -1,
+    problemId: rootState.newSolutionIntention? rootState.newSolutionIntention : -1,
     isLoading: false,
     isError: false,
+    preselected: rootState.newSolutionIntention !== null,
+    preselectedId: rootState.newSolutionIntention,
+    preselectedName: rootState.newSolutionIntentionName
   };
 
   const [state, setState] = React.useState(defaultState);
@@ -100,6 +104,14 @@ export default function SolutieNoua() {
       [prop]: event.target.value,
     });
   };
+
+  const handleClosePreselection = () => {
+    setState({
+      ...state,
+      preselected: false,
+      problemId: -1
+    })
+  }
 
   const submit = async (event) => {
     setState({
@@ -187,7 +199,23 @@ export default function SolutieNoua() {
                         <Alert severity="error">{state.errorMsg}</Alert>
                       </Box>
                     )}
-                    <Box mb={2}>
+                    {state.preselected? <Box mb={2}>
+                      <Typography
+                        component="p"
+                        align="center"
+                      >
+                        Adaugă o soluție pentru problema <Link to={`/problema/${state.preselectedName}`}>{state.preselectedName}</Link> #{state.preselectedId}.{' '}
+                        <br/>
+                        <Typography
+                          component="a"
+                          color="primary"
+                          style={{cursor: "pointer"}}
+                          onClick={handleClosePreselection}
+                        >
+                          Alege altă problemă
+                        </Typography>
+                      </Typography>
+                      </Box> : <Box mb={2}>
                       <Autocomplete
                         filterOptions={filterOptions}
                         options={rootState.problems}
@@ -216,7 +244,7 @@ export default function SolutieNoua() {
                             : "Niciun rezultat"
                         }
                       />
-                    </Box>
+                    </Box>}
                     <Box mb={1}>
                       <TextField
                         label="Soluție"
@@ -262,7 +290,7 @@ export default function SolutieNoua() {
           {state.data_loaded && state.step === 2 && state.success && (
             <>
               <Grid item xs={12}>
-                <Paper>
+                <Paper className="cool-sha">
                   <Box p={2}>
                     <Box mb={2}>
                       <Typography>

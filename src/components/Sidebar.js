@@ -15,6 +15,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import Paper from "@material-ui/core/Paper"
 import WeeklyChallenge from "./WeeklyChallenge";
 import UserBadges from "./UserBadges";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -25,6 +26,26 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.background.paper,
     borderRadius: "3px",
     padding: 0,
+    maxHeight: "300px",
+    overflow: "hidden",
+    position: "relative",
+    "&._e": {
+      overflow: "auto",
+    }
+  },
+  expandTopWrapper: {
+    position: "absolute",
+    left: 0,
+    top: "250px",
+    width: `calc(100% - 2 * ${theme.spacing(1)}px)`,
+    background: "white",
+    height: `calc(50px - 2 * ${theme.spacing(1)}px)`,
+    boxShadow: "0px -20px 25px 10px #fff",
+    padding: theme.spacing(1),
+    textAlign: "center"
+  },
+  expandTopBtn: {
+    margin: "0 auto"
   },
   topListItem: {
     borderRadius: "3px",
@@ -83,6 +104,8 @@ export default function Sidebar(props) {
 
   const date = new Date();
 
+  const [topExpanded, setTopExpanded] = React.useState(false);
+
   return (
     <>
       <Grid container spacing={2} justify="flex-end">
@@ -122,7 +145,7 @@ export default function Sidebar(props) {
             <Typography variant="h6" className={classes.title}>Top contributori</Typography>
           </Box>
           {rootState.home.stats && rootState.home.stats.top_users.length > 0 ? (
-            <List className={`${classes.topList} cool-sha`} dense>
+            <List className={`${classes.topList} ${topExpanded? "_e" : "_ne"} cool-sha`} dense>
               {rootState.home.stats.top_users.map(function (item, index) {
                 return (
                   <Link to={`/profil/${item.username}`} key={index}>
@@ -136,13 +159,37 @@ export default function Sidebar(props) {
                         </Avatar>
                       </ListItemIcon>
                       <ListItemText>
-                        @{item.username}
+                        @{item.username}{' '}
+                        <Typography
+                          component="span"
+                          variant="body2"
+                          color="secondary"
+                          fontWeight={600}
+                        >
+                          #{index + 1} 
+                        </Typography>
                         <UserBadges size="small" badges={item.badges} points={item.points} />
                       </ListItemText>
                     </ListItem>
                   </Link>
                 );
               })}
+              {!topExpanded && <Box 
+                className={classes.expandTopWrapper} display="flex"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Button 
+                  className={classes.expandTopBtn}
+                  variant="contained"
+                  color="primary"
+                  size="small"
+                  disableElevation
+                  onClick={() => setTopExpanded(true)}
+                >
+                  Vezi mai mult
+                </Button>
+              </Box>}
             </List>
           ) : (
             <>
@@ -165,14 +212,11 @@ export default function Sidebar(props) {
           )}
         </Grid>
         {rootState.showDiscord && <Grid item xs={12} sm={11}>
-          <Box pb={2}>
-            <Typography variant="h6" className={classes.title}>Join our Discord</Typography>
-          </Box>
           <iframe 
               className="cool-sha"
               src="https://discord.com/widget?id=862041051089600542&theme=dark" 
               width="100%" 
-              height="400" 
+              height="350" 
               allowtransparency="true" 
               frameborder="0" 
               sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
@@ -205,8 +249,6 @@ export default function Sidebar(props) {
               variant="body2"
               className={`${classes.copyright} ${classes.hideOnMobile}`}
             >
-              &copy; {date.getFullYear()}
-              <br />
               Creat cu <span className={classes.heart}>&#10084;</span> de{" "}
               <a
                 href="https://instagram.com/alexhodo"

@@ -3,10 +3,11 @@ import axios from "axios";
 import ReactGA from "react-ga";
 export const RootContext = createContext();
 
+const isDev = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
+
 const Axios = axios.create({
-  baseURL: "https://api.solinfo.ro/v2.0",
-  withCredentials: true,
-  //baseURL: "http://localhost/solinfo/api"
+  baseURL: isDev? "http://localhost/solinfo/api" : "https://api.solinfo.ro/v2.0",
+  withCredentials: !isDev,
 });
 
 class Context extends Component {
@@ -19,10 +20,8 @@ class Context extends Component {
   loadingTxt = "Se încarcă...";
 
   state = {
-    domain: "https://solinfo.ro",
-    fileDomain: "https://solinfo.ro/file",
-    //domain: "http://localhost.ro:3000",
-    //fileDomain: "http://localhost/solinfo/file",
+    domain: isDev? "http://localhost.ro:3000" : "https://solinfo.ro",
+    fileDomain: isDev? "http://localhost/solinfo/file" : "https://solinfo.ro/file",
     isLoggedIn: false,
     userInfo: {
       firstName: null,
@@ -62,11 +61,14 @@ class Context extends Component {
     weeklyChallenge: [],
     weeklyChallengeTotal: -1,
     weeklyChallengeSolved: 0,
+    newSolutionIntention: null,
+    newSolutionIntentionName: null,
   };
 
   API = async (action, input = []) => {
     if(action !== "/endpoint/module/notifications.php" 
       && action !== "endpoint/problems.json.php"
+      && action !== "/endpoint/module/problem-stats.php"
       && !this.state.showLoader) {
       if(this.state.authStatusChecked && this.state.homeDataLoaded)
         this.setState({
@@ -100,6 +102,10 @@ class Context extends Component {
       isLoggedIn: false,
     });
   };
+
+  setRootState = (newState) => {
+    this.setState(newState)
+  }
 
   getProblems = async () => {
     if (this.state.problemsDataLoaded === true) return -1;
@@ -174,6 +180,7 @@ class Context extends Component {
   render() {
     const contextValue = {
       rootState: this.state,
+      setRootState: this.setRootState,
       checkSession: this.checkSession,
       logout: this.logout,
       API: this.API,

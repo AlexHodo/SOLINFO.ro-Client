@@ -36,7 +36,7 @@ export default function NotFound() {
         <title>Pagina nu a fost găsită | SOLINFO.ro</title>
       </MetaTags>
       <Container maxwidth="md">
-        <Grid container direction="column" alignItems="center">
+        <Grid container direction="column" alignItems="center" justify="center" style={{minHeight: "calc(100vh - 60px)"}}>
           <Grid item xs={11} sm={8} md={6} lg={5} className={classes.wrapper}>
             <Typography
               align="center"

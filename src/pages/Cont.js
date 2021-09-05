@@ -7,10 +7,14 @@ import Typography from "@material-ui/core/Typography";
 import { RootContext } from "./../contexts/Context";
 import AuthForm from "../components/AuthForm";
 import Profil from "./Profil";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import MetaTags from "react-meta-tags";
 import CircularProgress from '@material-ui/core/CircularProgress'
+import {
+  TransitionGroup,
+  CSSTransition
+} from "react-transition-group";
 
 const useStyles = makeStyles((theme) => ({
   formWrapper: {
@@ -27,12 +31,14 @@ export default function Auth() {
 
   const classes = useStyles();
 
+  let location = useLocation()
+
   return (
     <>
       <MetaTags>
         <title>Contul meu | Autentifică-te sau înscrie-te | SOLINFO.ro</title>
       </MetaTags>
-      {!rootState.authStatusChecked && <Container maxWidth="md">
+      {!rootState.authStatusChecked && <Container maxWidth="md" style={{minHeight: "100vh"}}>
         <Grid container>
           <Grid item xs={12} className={classes.placeholder}>
             <Box mt={5}>

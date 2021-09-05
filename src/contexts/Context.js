@@ -63,6 +63,7 @@ class Context extends Component {
     weeklyChallengeSolved: 0,
     newSolutionIntention: null,
     newSolutionIntentionName: null,
+    showAds: false
   };
 
   API = async (action, input = []) => {
@@ -86,10 +87,12 @@ class Context extends Component {
         'Content-Type': 'text/plain'
       } 
     });
-    this.setState({
-      ...this.state,
-      showLoader: false
-    })
+    setTimeout(() => {
+      this.setState({
+        ...this.state,
+        showLoader: false
+      })
+    }, 250)
     return request.data;
   };
 
@@ -150,7 +153,8 @@ class Context extends Component {
         cookies: data.cookies,
         weeklyChallenge: data.weekly_challenge,
         weeklyChallengeTotal: data.weekly_challenge_total,
-        weeklyChallengeSolved: data.weekly_challenge_solved
+        weeklyChallengeSolved: data.weekly_challenge_solved,
+        showAds: data.show_ads? data.show_ads : false
       });
     }
 

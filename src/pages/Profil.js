@@ -17,11 +17,16 @@ import PermIdentityTwoToneIcon from "@material-ui/icons/PermIdentityTwoTone";
 import VisibilityTwoToneIcon from "@material-ui/icons/VisibilityTwoTone";
 import ForwardTwoToneIcon from "@material-ui/icons/ForwardTwoTone";
 import MetaTags from "react-meta-tags";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import { RootContext } from "./../contexts/Context";
 import NotFound from "./../components/NotFound";
 import UserBadges from "./../components/UserBadges";
 import ThumbUpTwoToneIcon from '@material-ui/icons/ThumbUpTwoTone';
+import {
+  TransitionGroup,
+  CSSTransition
+} from "react-transition-group";
+import AdSense from "react-adsense";
 
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
@@ -187,12 +192,21 @@ export default function Profil() {
     onLoad();
   }
 
+  let location = useLocation()
+
   return (
-    <>
+    <CSSTransition
+      key={location.key}
+      classNames="_anim--1"
+      timeout={300}
+      in={state.data_loaded}
+    >
+      <div>
       <Container maxWidth="md">
+
         <Grid container>
           {!state.data_loaded && (
-            <Grid item xs={12} className={classes.placeholder}>
+            <Grid item xs={12} className={classes.placeholder} style={{minHeight: "100vh"}}>
               <CircularProgress />
             </Grid>
           )}
@@ -211,255 +225,268 @@ export default function Profil() {
               {username ? username : rootState.userInfo.username} | SOLINFO.ro
             </title>
           </MetaTags>
-          <div className={classes.profileHeader}>
-            <Grid container>
-              <Grid
-                item
-                xs={12}
-                className={classes.profileHeaderCover}
-                style={{
-                  backgroundImage: `url(${rootState.fileDomain}${state.profile.cover_img})`,
-                }}
-              />{" "}
-              <Grid item xs={12} className={classes.profileHeaderContent}>
-                <Grid item xs={12} className={classes.profileHeaderContent}>
-                  <Container maxWidth="md">
-                    <Grid container alignItems="center">
-                      <Grid item style={{ width: "150px" }}>
-                        <Avatar
-                          alt={`${state.profile.first_name} ${state.profile.last_name}`}
-                          src={state.profile.profile_img}
-                          className={`${classes.profileImage} cool-sha`}
-                        />
-                      </Grid>
-                      <Grid item xs={6}>
-                        <div
-                          className={classes.profileHeaderContentUpperWrapper}
-                        >
-                          <Typography
-                            className={classes.profileHeaderUsername}
-                            variant="h5"
-                          >
-                            <span>@{state.profile.username}</span>
-                          </Typography>
-                        </div>
-                        <div
-                          className={classes.profileHeaderContentLowerWrapper}
-                        >
-                          <Typography
-                            className={classes.profileHeaderName}
-                            variant="h6"
-                          >
-                            {state.profile.first_name} {state.profile.last_name}
-                          </Typography>
-                          <Box pt={1}>
-                            <UserBadges size="small" points={state.profile.points} badges={state.profile.badges}/>
-                          </Box>
-                          {state.profile.is_owner && (
-                            <Link to="/cont/setari">
-                              <Box mt={1}>
-                                <Button
-                                  size="small"
-                                  variant="contained"
-                                  color="primary"
-                                  disableElevation
-                                >
-                                  editează-ți profilul
-                                </Button>
-                              </Box>
-                            </Link>
-                          )}
-                        </div>
-                      </Grid>
-                    </Grid>
-                  </Container>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Container maxWidth="md">
-              <Grid item xs={12} className={classes.profileStatsWrapper}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6} md={3}>
-                    <Paper className={`${classes.statWrapper} cool-sha`}>
-                      <Typography className={classes.statTitle} variant="body1">
-                        Data înscrierii
-                      </Typography>
-                      <Typography className={classes.statContent} variant="h6">
-                        {state.profile.join_date}
-                      </Typography>
-                      <PermIdentityTwoToneIcon className={classes.statIcon} />
-                    </Paper>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={3}>
-                    <Paper className={`${classes.statWrapper} cool-sha`}>
-                      <Typography className={classes.statTitle} variant="body1">
-                        Puncte
-                      </Typography>
-                      <Typography className={classes.statContent} variant="h6">
-                        {state.profile.points}
-                      </Typography>
-                      <ThumbUpTwoToneIcon className={classes.statIcon} />
-                    </Paper>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={3}>
-                    <Paper className={`${classes.statWrapper} cool-sha`}>
-                      <Typography className={classes.statTitle} variant="body1">
-                        Soluții adăugate
-                      </Typography>
-                      <Typography className={classes.statContent} variant="h6">
-                        {state.profile.solutions_count}
-                      </Typography>
-                      <AddCircleTwoToneIcon className={classes.statIcon} />
-                    </Paper>
-                  </Grid>
-                  <Grid item xs={12} sm={6} md={3}>
-                    <Paper className={`${classes.statWrapper} cool-sha`}>
-                      <Typography className={classes.statTitle} variant="body1">
-                        Soluții vizualizate
-                      </Typography>
-                      <Typography className={classes.statContent} variant="h6">
-                        {state.profile.viewed_count}
-                      </Typography>
-                      <VisibilityTwoToneIcon className={classes.statIcon} />
-                    </Paper>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Container>
-          </div>
-          <Container maxWidth="md">
-            <div className={classes.profileContent}>
+          
+          <>
+            <div className={classes.profileHeader}>
               <Grid container>
-                {state.latest_solutions.length === 0 ? (
-                  <>
-                    <Grid item xs={12}>
-                      <Box pt={5} pb={2}>
-                        <Typography variant="h5">
-                          Ultimele soluții adăugate
-                        </Typography>
-                      </Box>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Paper className={`${classes.card} cool-sha`}>
-                        <div className={classes.cardInner}>
-                          <Box mt={2} mb={2} p={2}>
-                            <Typography variant="body1" align="center">
-                              Acest utilizator nu a adăugat încă nicio soluție.
+                <Grid
+                  item
+                  xs={12}
+                  className={classes.profileHeaderCover}
+                  style={{
+                    backgroundImage: `url(${rootState.fileDomain}${state.profile.cover_img})`,
+                  }}
+                />{" "}
+                <Grid item xs={12} className={classes.profileHeaderContent}>
+                  <Grid item xs={12} className={classes.profileHeaderContent}>
+                    <Container maxWidth="md">
+                      <Grid container alignItems="center">
+                        <Grid item style={{ width: "150px" }}>
+                          <Avatar
+                            alt={`${state.profile.first_name} ${state.profile.last_name}`}
+                            src={state.profile.profile_img}
+                            className={`${classes.profileImage} cool-sha`}
+                          />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <div
+                            className={classes.profileHeaderContentUpperWrapper}
+                          >
+                            <Typography
+                              className={classes.profileHeaderUsername}
+                              variant="h5"
+                            >
+                              <span>@{state.profile.username}</span>
                             </Typography>
-                          </Box>
-                        </div>
+                          </div>
+                          <div
+                            className={classes.profileHeaderContentLowerWrapper}
+                          >
+                            <Typography
+                              className={classes.profileHeaderName}
+                              variant="h6"
+                            >
+                              {state.profile.first_name} {state.profile.last_name}
+                            </Typography>
+                            <Box pt={1}>
+                              <UserBadges size="small" points={state.profile.points} badges={state.profile.badges}/>
+                            </Box>
+                            {state.profile.is_owner && (
+                              <Link to="/cont/setari">
+                                <Box mt={1}>
+                                  <Button
+                                    size="small"
+                                    variant="contained"
+                                    color="primary"
+                                    disableElevation
+                                  >
+                                    editează-ți profilul
+                                  </Button>
+                                </Box>
+                              </Link>
+                            )}
+                          </div>
+                        </Grid>
+                      </Grid>
+                    </Container>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Container maxWidth="md">
+                <Grid item xs={12} className={classes.profileStatsWrapper}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6} md={3}>
+                      <Paper className={`${classes.statWrapper} cool-sha`}>
+                        <Typography className={classes.statTitle} variant="body1">
+                          Data înscrierii
+                        </Typography>
+                        <Typography className={classes.statContent} variant="h6">
+                          {state.profile.join_date}
+                        </Typography>
+                        <PermIdentityTwoToneIcon className={classes.statIcon} />
                       </Paper>
                     </Grid>
-                  </>
-                ) : (
-                  <>
-                    <Grid item xs={12}>
-                      <Box pt={5} pb={2}>
-                        <Typography variant="h5">
-                          Ultimele soluții adăugate
+                    <Grid item xs={12} sm={6} md={3}>
+                      <Paper className={`${classes.statWrapper} cool-sha`}>
+                        <Typography className={classes.statTitle} variant="body1">
+                          Puncte
                         </Typography>
-                      </Box>
+                        <Typography className={classes.statContent} variant="h6">
+                          {state.profile.points}
+                        </Typography>
+                        <ThumbUpTwoToneIcon className={classes.statIcon} />
+                      </Paper>
                     </Grid>
-                    <Grid item xs={12}>
-                      <Grid container spacing={2}>
-                        {state.latest_solutions.map(function (item, index) {
-                          return (
-                            <Grid item xs={12} key={index}>
-                              <Card
-                                className={`${classes.previewCard} cool-sha`}
-                              >
-                                <CardContent
-                                  className={classes.previewCardRoot}
+                    <Grid item xs={12} sm={6} md={3}>
+                      <Paper className={`${classes.statWrapper} cool-sha`}>
+                        <Typography className={classes.statTitle} variant="body1">
+                          Soluții adăugate
+                        </Typography>
+                        <Typography className={classes.statContent} variant="h6">
+                          {state.profile.solutions_count}
+                        </Typography>
+                        <AddCircleTwoToneIcon className={classes.statIcon} />
+                      </Paper>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={3}>
+                      <Paper className={`${classes.statWrapper} cool-sha`}>
+                        <Typography className={classes.statTitle} variant="body1">
+                          Soluții vizualizate
+                        </Typography>
+                        <Typography className={classes.statContent} variant="h6">
+                          {state.profile.viewed_count}
+                        </Typography>
+                        <VisibilityTwoToneIcon className={classes.statIcon} />
+                      </Paper>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Container>
+            </div>
+            <Container maxWidth="md">
+              <div className={classes.profileContent}>
+                <Grid container>
+                  {state.latest_solutions.length === 0 ? (
+                    <>
+                      <Grid item xs={12}>
+                        <Box pt={5} pb={2}>
+                          <Typography variant="h5">
+                            Ultimele soluții adăugate
+                          </Typography>
+                        </Box>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Paper className={`${classes.card} cool-sha`}>
+                          <div className={classes.cardInner}>
+                            <Box mt={2} mb={2} p={2}>
+                              <Typography variant="body1" align="center">
+                                Acest utilizator nu a adăugat încă nicio soluție.
+                              </Typography>
+                            </Box>
+                          </div>
+                        </Paper>
+                      </Grid>
+                    </>
+                  ) : (
+                    <>
+                      <Grid item xs={12}>
+                        <Box pt={5} pb={2}>
+                          <Typography variant="h5">
+                            Ultimele soluții adăugate
+                          </Typography>
+                        </Box>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Grid container spacing={2}>
+                          {state.latest_solutions.map(function (item, index) {
+                            return (
+                              <Grid item xs={12} key={index}>
+                                {index == 1 && <> {/* after the first item */}
+                                  <Box mb={2}>
+                                    <AdSense.Google
+                                      client='ca-pub-9101356904433905'
+                                      slot='1035815388'
+                                    />
+                                  </Box>
+                                </>}
+                                <Card
+                                  className={`${classes.previewCard} cool-sha`}
                                 >
-                                  <Grid
-                                    container
-                                    justify="center"
-                                    alignItems="center"
-                                    style={{ marginBottom: "1rem" }}
+                                  <CardContent
+                                    className={classes.previewCardRoot}
                                   >
-                                    <Grid item xs={6}>
-                                      <Link to={`/problema/${item.name}`}>
+                                    <Grid
+                                      container
+                                      justify="center"
+                                      alignItems="center"
+                                      style={{ marginBottom: "1rem" }}
+                                    >
+                                      <Grid item xs={6}>
+                                        <Link to={`/problema/${item.name}`}>
+                                          <Typography
+                                            className={classes.previewCardTitle}
+                                            variant="h6"
+                                            component="h2"
+                                          >
+                                            sol-{item.id} &#8226; {item.name} #
+                                            {item.pbinfo_id}
+                                          </Typography>
+                                        </Link>
+                                      </Grid>
+                                      <Box component={Grid} item xs={6}>
                                         <Typography
-                                          className={classes.previewCardTitle}
-                                          variant="h6"
-                                          component="h2"
+                                          variant="body2"
+                                          style={{
+                                            textAlign: "right",
+                                            opacity: 0.8,
+                                          }}
                                         >
-                                          sol-{item.id} &#8226; {item.name} #
-                                          {item.pbinfo_id}
+                                          {item.created}
                                         </Typography>
-                                      </Link>
-                                    </Grid>
-                                    <Box component={Grid} item xs={6}>
-                                      <Typography
-                                        variant="body2"
-                                        style={{
-                                          textAlign: "right",
-                                          opacity: 0.8,
-                                        }}
-                                      >
-                                        {item.created}
-                                      </Typography>
-                                    </Box>
-                                  </Grid>
-                                  <SyntaxHighlighter
-                                    style={nightOwl}
-                                    language="c"
-                                    className="cool-sha-2 code-wrap"
-                                    showLineNumbers
-                                  >
-                                    {item.content}
-                                  </SyntaxHighlighter>
-                                  <Grid
-                                    container
-                                    alignItems="center"
-                                    justify="center"
-                                  >
-                                    <Grid item xs={7}>
-                                      <Link to={`/problema/${item.name}`}>
-                                        <Button
-                                          className={classes.previewCardButton}
-                                          variant="contained"
-                                          disableElevation
-                                          color="primary"
-                                          endIcon={
-                                            <ForwardTwoToneIcon
-                                              className={classes.hideOnMobile}
-                                            />
-                                          }
-                                        >
-                                          Vezi soluția{" "}
-                                          <span className="views">
-                                            {item.views}
-                                          </span>
-                                        </Button>
-                                      </Link>
-                                    </Grid>
-                                    <Grid item xs={5}>
-                                      <Box className={classes.ratingWrapper}>
-                                        <CustomRating
-                                          align="right"
-                                          solutionId={item.id}
-                                          defaultValue={item.rating}
-                                          ratingCount={item.rating_count}
-                                          readOnly
-                                        />
                                       </Box>
                                     </Grid>
-                                  </Grid>
-                                </CardContent>
-                              </Card>
-                            </Grid>
-                          );
-                        })}
+                                    <SyntaxHighlighter
+                                      style={nightOwl}
+                                      language="c"
+                                      className="cool-sha-2 code-wrap"
+                                      showLineNumbers
+                                    >
+                                      {item.content}
+                                    </SyntaxHighlighter>
+                                    <Grid
+                                      container
+                                      alignItems="center"
+                                      justify="center"
+                                    >
+                                      <Grid item xs={7}>
+                                        <Link to={`/problema/${item.name}`}>
+                                          <Button
+                                            className={classes.previewCardButton}
+                                            variant="contained"
+                                            disableElevation
+                                            color="primary"
+                                            endIcon={
+                                              <ForwardTwoToneIcon
+                                                className={classes.hideOnMobile}
+                                              />
+                                            }
+                                          >
+                                            Vezi soluția{" "}
+                                            <span className="views">
+                                              {item.views}
+                                            </span>
+                                          </Button>
+                                        </Link>
+                                      </Grid>
+                                      <Grid item xs={5}>
+                                        <Box className={classes.ratingWrapper}>
+                                          <CustomRating
+                                            align="right"
+                                            solutionId={item.id}
+                                            defaultValue={item.rating}
+                                            ratingCount={item.rating_count}
+                                            readOnly
+                                          />
+                                        </Box>
+                                      </Grid>
+                                    </Grid>
+                                  </CardContent>
+                                </Card>
+                              </Grid>
+                            );
+                          })}
+                        </Grid>
                       </Grid>
-                    </Grid>
-                  </>
-                )}
-              </Grid>
-            </div>
-          </Container>
+                    </>
+                  )}
+                </Grid>
+              </div>
+            </Container>
+          </>
+
         </>
       )}
-    </>
+      </div>
+    </CSSTransition>
   );
 }

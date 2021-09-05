@@ -16,6 +16,8 @@ import Paper from "@material-ui/core/Paper"
 import WeeklyChallenge from "./WeeklyChallenge";
 import UserBadges from "./UserBadges";
 import Button from "@material-ui/core/Button";
+import AdSense from "react-adsense";
+import { DelayedRenderer } from "react-delayed-renderer"
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -26,11 +28,11 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.background.paper,
     borderRadius: "3px",
     padding: 0,
-    maxHeight: "300px",
-    overflow: "hidden",
+    height: "300px",
+    overflowY: "hidden",
     position: "relative",
     "&._e": {
-      overflow: "auto",
+      overflowY: "scroll",
     }
   },
   expandTopWrapper: {
@@ -111,7 +113,9 @@ export default function Sidebar(props) {
       <Grid container spacing={2} justify="flex-end">
         {!props.hideWeeklyChallenge && <Grid item xs={12} sm={11}>
           <Box pb={2}>
-            <Typography variant="h6" className={classes.title}>Provocarea săptămânii</Typography>
+            <Link to="/provocare-saptamanala" color="primary">
+              <Typography variant="h6" className={classes.title}>Provocarea săptămânii</Typography>
+            </Link>
           </Box>
           {rootState.weeklyChallengeTotal > -1? <Paper className="cool-sha">
             <Box>
@@ -212,7 +216,8 @@ export default function Sidebar(props) {
           )}
         </Grid>
         {rootState.showDiscord && <Grid item xs={12} sm={11}>
-          <iframe 
+          <DelayedRenderer delay={350}>
+            <iframe 
               className="cool-sha"
               src="https://discord.com/widget?id=862041051089600542&theme=dark" 
               width="100%" 
@@ -222,6 +227,13 @@ export default function Sidebar(props) {
               sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
             >
             </iframe>
+          </DelayedRenderer>
+        </Grid>}
+        {props.showAd && rootState.showAds && <Grid item xs={12} sm={11}>
+          <AdSense.Google
+            client='ca-pub-9101356904433905'
+            slot='2987546523'
+          />
         </Grid>}
         <Grid item xs={12} sm={11}>
           <Box className={classes.hideOnMobile}>

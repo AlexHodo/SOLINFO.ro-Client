@@ -59,10 +59,39 @@ class ProblemStats extends React.Component {
           }
         },       
         yaxis: [
-          {},
-          {},
+          {
+            axisBorder: {
+              show: true,
+              color: '#546BE5'
+            },
+              labels: {
+                style: {
+                  colors: '#546BE5',
+                }
+            },
+          },
+          {
+            axisBorder: {
+              show: true,
+              color: '#181818'
+            },
+              labels: {
+                style: {
+                  colors: '#181818',
+                }
+            },
+          },
           {
             opposite: true,
+            axisBorder: {
+              show: true,
+              color: '#1AE496'
+            },
+              labels: {
+                style: {
+                  colors: '#1AE496',
+                }
+            },
           },
         ],
         xaxis: {
@@ -116,10 +145,39 @@ class ProblemStats extends React.Component {
           }
         },       
         yaxis: [
-          {},
-          {},
+          {
+            axisBorder: {
+              show: true,
+              color: '#546BE5'
+            },
+              labels: {
+                style: {
+                  colors: '#546BE5',
+                }
+            },
+          },
+          {
+            axisBorder: {
+              show: true,
+              color: '#181818'
+            },
+              labels: {
+                style: {
+                  colors: '#181818',
+                }
+            },
+          },
           {
             opposite: true,
+            axisBorder: {
+              show: true,
+              color: '#1AE496'
+            },
+              labels: {
+                style: {
+                  colors: '#1AE496',
+                }
+            },
           },
         ],
         xaxis: {

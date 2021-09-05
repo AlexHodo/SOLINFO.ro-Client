@@ -149,12 +149,13 @@ export default function SolutieNoua() {
       <MetaTags>
         <title>Adaugă o soluție nouă | SOLINFO.ro</title>
       </MetaTags>
-      <Container maxWidth="sm" className={classes.pageWrapper}>
+      <Container maxWidth="sm" className={classes.pageWrapper} style={{minHeight: "100vh"}}>
         <Grid
           container
           spacing={3}
-          alignItems="center"
+          //alignItems="center"
           className={classes.formWrapper}
+
         >
           <Grid item xs={12} className={classes.header}>
             <Grid container justify="center" alignItems="center">

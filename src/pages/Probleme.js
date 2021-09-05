@@ -29,8 +29,12 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import SortTwoToneIcon from "@material-ui/icons/SortTwoTone";
 import { DataGrid } from '@material-ui/data-grid';
-import { useHistory } from "react-router-dom";
-
+import { useHistory, useLocation } from "react-router-dom";
+import {
+  TransitionGroup,
+  CSSTransition
+} from "react-transition-group";
+import { DelayedRenderer } from "react-delayed-renderer"
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -170,12 +174,19 @@ export default function Probleme() {
     onLoad();
   }
 
+  let location = useLocation()
+
   return (
-    <>
+    <CSSTransition
+      key={location.key}
+      classNames="_anim--1"
+      timeout={300}
+      in={state.data_loaded}
+    >
       <Container maxWidth="md">
         <Grid container>
           {!state.data_loaded && (
-            <Grid item xs={12} className={classes.placeholder}>
+            <Grid item xs={12} className={classes.placeholder} style={{minHeight: "100vh"}}>
               <Box m={2} mt={5}>
                 <center>
                   <CircularProgress />
@@ -217,6 +228,7 @@ export default function Probleme() {
                   <Grid item xs={12}>
                     <Paper className="cool-sha" style={{width: "100%", overflow: "scroll"}}>
                       <div style={{minWidth: "600px"}}>
+                        <DelayedRenderer delay={300}>
                         <DataGrid 
                           style = {{width: "100%"}}
                           disableSelectionOnClick
@@ -295,6 +307,7 @@ export default function Probleme() {
                             }
                           }}
                         />
+                        </DelayedRenderer>
                       </div>
                     </Paper>
                   </Grid>
@@ -308,6 +321,6 @@ export default function Probleme() {
           )}
         </Grid>
       </Container>
-    </>
+    </CSSTransition>
   );
 }

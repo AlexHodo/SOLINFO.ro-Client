@@ -74,7 +74,7 @@ export default function ContActivare() {
           <Grid item xs={12} sm={8} md={5}>
             <Paper className="cool-sha">
               {!state.data_loaded && (
-                <Box p={2}>
+                <Box p={2} style={{minHeight: "100vh"}}>
                   <center>
                     <CircularProgress />
                   </center>

@@ -143,7 +143,7 @@ export default function ParolaResetare() {
             <Paper className={`cool-sha ${classes.wrapperPaper}`}>
               <Grid container spacing={3}>
                 {!state.data_loaded && (
-                  <Grid item xs={12}>
+                  <Grid item xs={12} style={{minHeight: "100vh"}}>
                     <center>
                       <CircularProgress />
                     </center>

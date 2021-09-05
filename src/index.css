@@ -53,3 +53,25 @@ a {
   font-size: 0.85rem;
   max-height: 400px;
 }
+
+._anim--1-enter {
+  opacity: 0;
+  transform: translateY(10vh);
+}
+
+._anim--1-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 200ms, transform 200ms;
+  transition-delay: 150ms;
+}
+
+._anim--1-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+._anim--1-exit-active {
+  opacity: 0;
+  transform: translateY(-10vh);
+}

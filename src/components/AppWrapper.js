@@ -2,13 +2,17 @@ import React, { useContext, Suspense } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Menu from "./../components/Menu";
 import NotFound from "./NotFound";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useLocation } from "react-router-dom";
 import { RootContext } from "./../contexts/Context";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Fade from "@material-ui/core/Fade";
 import Box from "@material-ui/core/Box";
+import {
+  TransitionGroup,
+  CSSTransition
+} from "react-transition-group";
 
 const Cont = React.lazy(() => import('./../pages/Cont'));
 const Probleme = React.lazy(() => import('./../pages/Probleme'));
@@ -44,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   switchWrapper: {
-    minHeight: "100vh",
+    minHeight: "100vh !important",
   },
   loader: {
     transitionDuration: "0.25s",
@@ -64,11 +68,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AppWrapper() {
 
+  let location = useLocation();
+
   const { rootState } = useContext(RootContext);
 
   const classes = useStyles();
 
-  var SuspenseFallback = <Box m={2}>
+  var SuspenseFallback = <Box m={2} style={{minHeight: "100vh"}}>
     <center>
       Se încarcă...
     </center>
@@ -83,7 +89,14 @@ export default function AppWrapper() {
         } App`}
       >
         <Menu />
-        <div className={classes.switchWrapper}>
+        <TransitionGroup
+          className={classes.switchWrapper}
+        >
+          <CSSTransition
+            key={location.key}
+            classNames="_anim--1"
+            timeout={300}
+          >
           <Switch>
             <Route path="/" exact children={<Suspense fallback={SuspenseFallback}>
               <Home />
@@ -128,7 +141,8 @@ export default function AppWrapper() {
             </Suspense>} />
             <Route children={<NotFound />} />
           </Switch>
-        </div>
+        </CSSTransition>
+        </TransitionGroup>
         <Suspense fallback={SuspenseFallback}>
           <Footer />
         </Suspense>

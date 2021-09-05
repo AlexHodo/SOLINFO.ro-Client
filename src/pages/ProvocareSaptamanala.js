@@ -44,7 +44,7 @@ export default function ProvocareSaptamanala() {
       <Container maxWidth="md">
         <Grid container>
           {!rootState.authStatusChecked && (
-            <Grid item xs={12} className={classes.placeholder}>
+            <Grid item xs={12} className={classes.placeholder} style={{minHeight: "100vh"}}>
               <CircularProgress />
             </Grid>
           )}

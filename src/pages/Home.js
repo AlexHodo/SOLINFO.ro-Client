@@ -25,6 +25,7 @@ import Sidebar from "./../components/Sidebar";
 import MetaTags from "react-meta-tags";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import HelpUs from "./../components/HelpUs";
+import AdSense from "react-adsense";
 
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
@@ -463,6 +464,14 @@ export default function Home() {
                 state.latest_solutions.map(function (item, index) {
                   return (
                     <Grid item xs={12} key={index}>
+                      {rootState.showAds && (index+1)%4 == 0 && <> {/* before the 4th and 8th  */}
+                        <Box mb={2}>
+                          <AdSense.Google
+                            client='ca-pub-9101356904433905'
+                            slot='1123445298'
+                          />
+                        </Box>
+                      </>}
                       <Card className={`${classes.previewCard} cool-sha`}>
                         <CardContent className={classes.previewCardRoot}>
                           <Grid
@@ -551,7 +560,7 @@ export default function Home() {
           </Grid>
           <Grid item xs={12} sm={4} md={3}>
             <Box pt={3}>
-              <Sidebar />
+              <Sidebar showAd />
             </Box>
           </Grid>
         </Grid>

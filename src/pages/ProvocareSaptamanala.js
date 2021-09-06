@@ -102,9 +102,9 @@ export default function ProvocareSaptamanala() {
                         challengeSolved = {rootState.weeklyChallengeSolved}
                       />
                     </Box>
-                  </Paper> : <>
+                  </Paper> : <Box p={2}>
                     <Typography>Se pare că nicio provocare nu este activă momentan. Revino mai târziu.</Typography>
-                  </>}
+                  </Box>}
                 </Paper>
               </Grid>
             </Grid>

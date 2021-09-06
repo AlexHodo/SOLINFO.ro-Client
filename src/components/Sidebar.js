@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     "&._e": {
       overflowY: "scroll",
+      position: "static"
     }
   },
   expandTopWrapper: {
@@ -216,7 +217,7 @@ export default function Sidebar(props) {
           )}
         </Grid>
         {rootState.showDiscord && <Grid item xs={12} sm={11}>
-          <DelayedRenderer delay={350}>
+          <DelayedRenderer delay={300}>
             <iframe 
               className="cool-sha"
               src="https://discord.com/widget?id=862041051089600542&theme=dark" 

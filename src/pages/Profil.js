@@ -27,6 +27,7 @@ import {
   CSSTransition
 } from "react-transition-group";
 import AdSense from "react-adsense";
+import PageSkeleton from "./../components/PageSkeleton";
 
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
@@ -195,37 +196,17 @@ export default function Profil() {
   let location = useLocation()
 
   return (
-    <CSSTransition
-      key={location.key}
-      classNames="_anim--1"
-      timeout={300}
-      in={state.data_loaded}
-    >
-      <div>
-      <Container maxWidth="md">
-
-        <Grid container>
-          {!state.data_loaded && (
-            <Grid item xs={12} className={classes.placeholder} style={{minHeight: "100vh"}}>
-              <CircularProgress />
-            </Grid>
-          )}
-          {state.data_loaded && !state.success && (
-            <Grid item xs={12} className={classes.placeholder}>
-              <NotFound />
-            </Grid>
-          )}
-        </Grid>
-      </Container>
-      {state.data_loaded && state.success && (
+    <>
+    {!state.data_loaded && <PageSkeleton type="profile" />}
+    {state.data_loaded && !state.success && <NotFound />}   
+    {state.data_loaded && state.success && (
         <>
           <MetaTags>
             <title>
               Profilul utilizatorului{" "}
               {username ? username : rootState.userInfo.username} | SOLINFO.ro
             </title>
-          </MetaTags>
-          
+          </MetaTags>  
           <>
             <div className={classes.profileHeader}>
               <Grid container>
@@ -486,7 +467,6 @@ export default function Profil() {
 
         </>
       )}
-      </div>
-    </CSSTransition>
+    </>
   );
 }

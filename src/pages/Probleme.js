@@ -35,6 +35,7 @@ import {
   CSSTransition
 } from "react-transition-group";
 import { DelayedRenderer } from "react-delayed-renderer"
+import PageSkeleton from "./../components/PageSkeleton";
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -177,25 +178,10 @@ export default function Probleme() {
   let location = useLocation()
 
   return (
-    <CSSTransition
-      key={location.key}
-      classNames="_anim--1"
-      timeout={300}
-      in={state.data_loaded}
-    >
-      <Container maxWidth="md">
+    <>
+    {!state.data_loaded && <PageSkeleton type="problem" /> }
+    {state.data_loaded && state.success && <Container maxWidth="md">
         <Grid container>
-          {!state.data_loaded && (
-            <Grid item xs={12} className={classes.placeholder} style={{minHeight: "100vh"}}>
-              <Box m={2} mt={5}>
-                <center>
-                  <CircularProgress />
-                </center>
-              </Box>
-            </Grid>
-          )}
-          {state.data_loaded && state.success && (
-            <>
               <MetaTags>
                 <title>
                   Lista problemelor de pe PbInfo cu soluții | SOLINFO.ro
@@ -317,10 +303,8 @@ export default function Probleme() {
                 <Box pt={3} className={classes.shownOnXs} />
                 <Sidebar />
               </Grid>
-            </>
-          )}
         </Grid>
-      </Container>
-    </CSSTransition>
+      </Container>}
+    </>
   );
 }

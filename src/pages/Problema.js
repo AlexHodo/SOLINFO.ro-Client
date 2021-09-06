@@ -40,6 +40,7 @@ import {
   TransitionGroup,
   CSSTransition
 } from "react-transition-group";
+import PageSkeleton from "./../components/PageSkeleton";
 
 const StatsChart = React.lazy(() => import('./../components/ProblemStats'));
 
@@ -334,26 +335,12 @@ export default function Problema() {
 
   return (
     <>
+    {!state.data_loaded && <PageSkeleton type="problem" />}
+    {state.data_loaded && !state.success && <NotFound />}      
+    {state.data_loaded && state.success && (
       <Container maxWidth="md">
-        <CSSTransition
-          key={location.key}
-          classNames="_anim--1"
-          timeout={300}
-          in={state.data_loaded}
-        >
           <Grid container>
-            {!state.data_loaded && (
-              <Grid item xs={12} className={classes.placeholder} style={{minHeight: "100vh"}}>
-                <CircularProgress />
-              </Grid>
-            )}
-            {state.data_loaded && !state.success && (
-              <Grid item xs={12} className={classes.placeholder} style={{minHeight: "100vh"}}>
-                <NotFound />
-              </Grid>
-            )}
-            {state.data_loaded && state.success && (
-                <>
+              <>
                 <MetaTags>
                   <title>
                     Soluții pentru problema {name} #{state.problem.pbinfo_id} de pe PbInfo | SOLINFO.ro
@@ -783,10 +770,10 @@ export default function Problema() {
                   <Sidebar showAd />
                 </Grid>
               </>
-            )}
+           
           </Grid>
-        </CSSTransition>
       </Container>
-    </>
+    )};
+  </>
   );
 }

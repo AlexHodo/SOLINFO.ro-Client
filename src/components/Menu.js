@@ -439,7 +439,7 @@ export default function Navbar() {
 
   return (
     <>
-    <div className={classes.grow}>
+    <div className={`${classes.grow} ext--menu`}>
       <AppBar position="fixed" className={classes.menu}>
         <Toolbar>
           <Link to="/">

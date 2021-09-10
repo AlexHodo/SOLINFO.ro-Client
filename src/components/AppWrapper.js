@@ -69,6 +69,9 @@ const useStyles = makeStyles((theme) => ({
 export default function AppWrapper() {
 
   let location = useLocation();
+  let inExt = location.pathname.startsWith('/solutie-noua-ext'); // viewed from extension
+
+  console.log(inExt);
 
   const { rootState } = useContext(RootContext);
 
@@ -88,7 +91,7 @@ export default function AppWrapper() {
           rootState.authStatusChecked && "loaded"
         } App`}
       >
-        <Menu />
+        {!inExt && <Menu />}
         <TransitionGroup
           className={classes.switchWrapper}
         >
@@ -139,13 +142,19 @@ export default function AppWrapper() {
             <Route path="/provocare-saptamanala" exact children={<Suspense fallback={SuspenseFallback}>
               <ProvocareSaptamanala />
             </Suspense>} />
+            <Route path="/solutie-noua-ext/:problemId/:content" exact children={<Suspense fallback={SuspenseFallback}>
+              <SolutieNoua fromExtension />
+            </Suspense>} />
+            <Route path="/solutie-noua-ext/" exact children={<Suspense fallback={SuspenseFallback}>
+              <SolutieNoua fromExtension />
+            </Suspense>} />
             <Route children={<NotFound />} />
           </Switch>
         </CSSTransition>
         </TransitionGroup>
-        <Suspense fallback={SuspenseFallback}>
+        {!inExt && <Suspense fallback={SuspenseFallback}>
           <Footer />
-        </Suspense>
+        </Suspense>}
       </div>
     </>
   );

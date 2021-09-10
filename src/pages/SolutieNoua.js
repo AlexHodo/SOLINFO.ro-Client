@@ -15,7 +15,7 @@ import { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import SendTwoToneIcon from "@material-ui/icons/SendTwoTone";
 import Alert from "@material-ui/lab/Alert";
 import MetaTags from "react-meta-tags";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   formWrapper: {
@@ -47,24 +47,52 @@ const filterOptions = (options, state) => {
   return defaultFilterOptions(options, state).slice(0, OPTIONS_LIMIT);
 };
 
-export default function SolutieNoua() {
+export default function SolutieNoua(props) {
   const { API, rootState, getProblems } = useContext(RootContext);
 
-  const defaultState = {
-    data_loaded: false,
-    data_loading: false,
-    step: 0,
-    success: null,
-    errorMsg: null,
-    responseCode: null,
-    content: "",
-    problemId: rootState.newSolutionIntention? rootState.newSolutionIntention : -1,
-    isLoading: false,
-    isError: false,
-    preselected: rootState.newSolutionIntention !== null,
-    preselectedId: rootState.newSolutionIntention,
-    preselectedName: rootState.newSolutionIntentionName
-  };
+  const {
+    fromExtension
+  } = props;
+
+  const {problemId, content} = useParams()
+
+  let defaultState = {};
+
+  if(fromExtension) {
+    defaultState = {
+      data_loaded: false,
+      data_loading: false,
+      step: 0,
+      success: null,
+      errorMsg: null,
+      responseCode: null,
+      content: content? (atob(content)) : "",
+      problemId: problemId? problemId : -1,
+      isLoading: false,
+      isError: false,
+      preselected: (content && problemId),
+      preselectedId: problemId? problemId : null,
+      preselectedName: null
+    };
+  } else {
+    defaultState = {
+      data_loaded: false,
+      data_loading: false,
+      step: 0,
+      success: null,
+      errorMsg: null,
+      responseCode: null,
+      content: "",
+      problemId: rootState.newSolutionIntention? rootState.newSolutionIntention : -1,
+      isLoading: false,
+      isError: false,
+      preselected: rootState.newSolutionIntention !== null,
+      preselectedId: rootState.newSolutionIntention,
+      preselectedName: rootState.newSolutionIntentionName
+    };
+  }
+
+  
 
   const [state, setState] = React.useState(defaultState);
 
@@ -160,8 +188,8 @@ export default function SolutieNoua() {
           <Grid item xs={12} className={classes.header}>
             <Grid container justify="center" alignItems="center">
               <Grid item xs={12} md={9}>
-                <Typography variant="h5" component="h1" align="center">
-                  Adaugă o soluție nouă pe site
+                <Typography variant={fromExtension? 'h6' : 'h5'} component="h1" align="center">
+                  Adaugă o soluție nouă{!fromExtension && "  pe site"}
                 </Typography>
               </Grid>
             </Grid>
@@ -250,7 +278,7 @@ export default function SolutieNoua() {
                       <TextField
                         label="Soluție"
                         multiline
-                        rows={10}
+                        rows={7}
                         fullWidth
                         placeholder="Introdu soluția aici..."
                         variant="outlined"

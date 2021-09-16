@@ -305,7 +305,7 @@ export default function SolutieNoua(props) {
                         value={state.content}
                       />
                     </Box>
-                    <Box mb={2}>
+                    <Box mb={2} mt={2}>
                       <span>Limbaj:</span>{' '}
                       <Select
                         labelId="language-select-label"

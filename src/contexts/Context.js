@@ -181,6 +181,20 @@ class Context extends Component {
     }
   };
 
+  langToHljsLang = (input) => {
+    console.log(input)
+    switch(input) {
+      case 'cpp': {
+        return 'c';
+        break;
+      }
+      default: {
+        return input;
+        break;
+      }
+    }
+  }
+
   render() {
     const contextValue = {
       rootState: this.state,
@@ -189,6 +203,7 @@ class Context extends Component {
       logout: this.logout,
       API: this.API,
       getProblems: this.getProblems,
+      langToHljsLang: this.langToHljsLang
     };
     return (
       <RootContext.Provider value={contextValue}>

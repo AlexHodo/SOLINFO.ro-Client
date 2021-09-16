@@ -30,6 +30,10 @@ import LanguageTag from "../components/LanguageTag";
 
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
+import php from 'react-syntax-highlighter/dist/esm/languages/hljs/php';
+import pascal from 'react-syntax-highlighter/dist/esm/languages/hljs/delphi';
+import java from 'react-syntax-highlighter/dist/esm/languages/hljs/java';
+import python from 'react-syntax-highlighter/dist/esm/languages/hljs/python';
 import nightOwl from 'react-syntax-highlighter/dist/esm/styles/hljs/night-owl';
 
 SyntaxHighlighter.registerLanguage('c', c);
@@ -252,7 +256,7 @@ const filterOptions = (options, state) => {
 };
 
 export default function Home() {
-  const { API, rootState, getProblems } = useContext(RootContext);
+  const { API, rootState, getProblems, langToHljsLang } = useContext(RootContext);
 
   const state = {
     data_loaded: rootState.homeDataLoaded,
@@ -515,7 +519,7 @@ export default function Home() {
                           </Grid>
                           <SyntaxHighlighter
                             style={nightOwl}
-                            language="c"
+                            language={langToHljsLang(item.language)}
                             className="cool-sha-2 code-wrap"
                             showLineNumbers
                           >
@@ -535,7 +539,7 @@ export default function Home() {
                                     />
                                   }
                                 >
-                                  Vezi soluția{" "}
+                                  Vezi <Box className={classes.hideOnMobile} ml={0.5} component="span">soluția</Box>{" "}
                                   <span className="views">{item.views}</span>
                                 </Button>
                               </Link>

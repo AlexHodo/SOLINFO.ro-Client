@@ -47,6 +47,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import SortIcon from '@material-ui/icons/Sort';
 import CodeIcon from '@material-ui/icons/Code';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const StatsChart = React.lazy(() => import('./../components/ProblemStats'));
 
@@ -62,6 +63,12 @@ const Accordion = withStyles({
   },
   expanded: {},
 })(MuiAccordion);
+
+const MenuProps = {
+  anchorOrigin: { vertical: "bottom", horizontal: "left" },
+  // transformOrigin: { vertical: "top", horizontal: "center" },
+  getContentAnchorEl: null
+};
 
 const useStyles = makeStyles((theme) => ({
   placeholder: {
@@ -176,6 +183,27 @@ const useStyles = makeStyles((theme) => ({
   filterLabel: {
     fontSize: "0.8rem",
     textTransform: "uppercase"
+  },
+  accordion: {
+    // maxHeight: "100px",
+    // transition: "max-height 0.25s ease-out",
+    "&.h": {
+      // maxHeight: 0,
+      // overflow: "hidden"
+      display: "none"
+    },
+    "&:not(.h)": {
+      borderRadius: "4px 4px 0 0 !important",
+      "&:before": {
+        display: "none",
+      }
+    },
+    "&:not(.h) ~ $accordion:not(.h)": {
+      "&:before": {
+        display: "initial",
+
+      }
+    }
   }
 }));
 
@@ -189,7 +217,9 @@ export default function Problema() {
     data_loading: false,
     problem: {},
     solutions: [],
+    filteredSolutions: [],
     solutions_count: 0,
+    filteredSolutionsCount: 0,
     success: null,
     errorMsg: null,
     responseCode: null,
@@ -227,6 +257,8 @@ export default function Problema() {
       problem: logonRequest.problem,
       solutions: logonRequest.solutions,
       solutions_count: logonRequest.solutions_count,
+      filteredSolutionsCount: logonRequest.solutions_count,
+      solutionsFiltered: logonRequest.solutions,
       responseCode: logonRequest.responseCode,
       rating: logonRequest.rating
     });
@@ -350,6 +382,26 @@ export default function Problema() {
 
   const [selectedLanguages, setSelectedLanguages] = React.useState(availableLanguages)
 
+  const handleSelectedLanguagesChange = (event) => {
+    
+    
+    // update state.filteredSolutionsCount
+    let filteredCount = 0
+    for(let i = 0; i < state.solutions.length; i++) {
+      if(event.target.value.indexOf(state.solutions[i].language) > -1) {
+        filteredCount += 1
+      }
+    }
+
+    setSelectedLanguages(event.target.value)
+
+    setState({
+      ...state,
+      filteredSolutionsCount: filteredCount,
+    })
+
+  }
+
   return (
     <>
     {!state.data_loaded && <PageSkeleton type="problem" />}
@@ -424,7 +476,7 @@ export default function Problema() {
                 </Grid>
                 <Grid item xs={12} sm={8} md={9}>
                   <Grid container spacing={2} alignItems="center">
-                    <Grid item xs={6} md={4}>
+                    <Grid item xs={4} md={4}>
                       <Typography variant="h6" component="h2">
                         Soluții
                         <Link to="/solutie-noua">
@@ -442,18 +494,19 @@ export default function Problema() {
                         </Link>
                       </Typography>
                     </Grid>
-                    <Grid item xs={6} md={8}>
+                    <Grid item xs={8} md={8}>
                         <Grid container spacing={1} justifyContent="flex-end" alignItems="flex-end">
-                          <Grid item xs={12} md={9}>
+                          <Grid item xs={8} md={9}>
                             <InputLabel className={classes.filterLabel}>Limbaje</InputLabel>
                             <FormControl className={classes.languageSelectWrapper}>
                               <Select
+                                autoWidth
                                 id="language-select"
                                 multiple
                                 value={selectedLanguages}
-                                //onChange={handleChange}
+                                onChange={handleSelectedLanguagesChange}
                                 input={<Input />}
-                                //MenuProps={MenuProps}
+                                MenuProps={MenuProps}
                                 renderValue={(selectedLanguages) => (
                                   <>
                                   {selectedLanguages.map((value) => (
@@ -462,33 +515,22 @@ export default function Problema() {
                                   </>
                                 )}
                               >
-                                <MenuItem key={'cpp'} value={"cpp"} >
-                                  <LanguageTag language="cpp" noMargin />
-                                </MenuItem>
-                                <MenuItem key={'c'} value={"c"} >
-                                  <LanguageTag language="c" noMargin />
-                                </MenuItem>
-                                <MenuItem key={'java'} value={"java"} >
-                                  <LanguageTag language="java" noMargin />
-                                </MenuItem>
-                                <MenuItem key={'python'} value={"python"} >
-                                  <LanguageTag language="python" noMargin />
-                                </MenuItem>
-                                <MenuItem key={'php'} value={"php"} >
-                                  <LanguageTag language="php" noMargin />
-                                </MenuItem>
-                                <MenuItem key={'pascal'} value={"pascal"} >
-                                  <LanguageTag language="pascal" noMargin />
-                                </MenuItem>
+                                {availableLanguages.map((language) => (
+                                  <MenuItem key={language} value={language} style={{background: "white", padding: "0 0.5rem 0 0.25rem"}}>
+                                    <Checkbox checked={selectedLanguages.indexOf(language) > -1} />
+                                    <LanguageTag language={language} noMargin size="small" />
+                                  </MenuItem>
+                                ))}
                               </Select>
                             </FormControl>
                           </Grid>
-                          <Grid item xs={12} md={3}>
-                            <InputLabel className={classes.filterLabel}>Sortează după</InputLabel>
+                          <Grid item xs={4} md={3}>
+                            <InputLabel className={classes.filterLabel}>Sortare</InputLabel>
                             <Select
                               value={sortValue}
                               onChange={handleSortChange}
                               style={{width: "100%"}}
+                              MenuProps={MenuProps}
                             >
                               <MenuItem value={"views_count"}>vizualizări</MenuItem>
                               <MenuItem value={"rating"}>scor</MenuItem>
@@ -499,6 +541,17 @@ export default function Problema() {
                     </Grid>
                     <Grid item xs={12}>
                       <div>
+                        {state.solutions_count > 0 && state.filteredSolutionsCount === 0 && (
+                          <Paper className={`${classes.card} cool-sha`} style={{margin: 0}}>
+                            <div className={classes.cardInner}>
+                              <Box mt={2} mb={2}>
+                                <Typography variant="body1" align="center">
+                                  Nicio soluție nu se potrivește filtrelor. Încearcă să alegi și alte limbaje.
+                                </Typography>
+                              </Box>
+                            </div>
+                          </Paper>
+                        )}
                         {state.solutions.length === 0 && (
                           <Paper className={`${classes.card} cool-sha`} style={{margin: 0}}>
                             <div className={classes.cardInner}>
@@ -535,7 +588,7 @@ export default function Problema() {
                               expanded={state.expandedArr.indexOf(item.id) > -1}
                               onChange={handleChange(item.id)}
                               key={index + "~" + state.update}
-                              className={`cool-sha`}
+                              className={`${classes.accordion}${selectedLanguages.indexOf(item.language) == -1? " h" : ""} cool-sha`}
                             >
                               <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}

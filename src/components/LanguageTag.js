@@ -28,8 +28,6 @@ export default function LanguageTag(props) {
 	let { language, noMargin } = props;
 
 	let wrapperClassName = `${classes.wrapper}${!noMargin && "--ml"}`
-
-	console.log(props)
 	
 	return (
 		<>

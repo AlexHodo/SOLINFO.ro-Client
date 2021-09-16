@@ -28,6 +28,7 @@ import {
 } from "react-transition-group";
 import AdSense from "react-adsense";
 import PageSkeleton from "./../components/PageSkeleton";
+import LanguageTag from "../components/LanguageTag";
 
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
@@ -438,6 +439,9 @@ export default function Profil() {
                                             </span>
                                           </Button>
                                         </Link>
+                                        <span>
+                                          <LanguageTag language={item.language? item.language : null} />
+                                        </span>
                                       </Grid>
                                       <Grid item xs={5}>
                                         <Box className={classes.ratingWrapper}>

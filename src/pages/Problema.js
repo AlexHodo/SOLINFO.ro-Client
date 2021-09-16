@@ -28,8 +28,6 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import SortTwoToneIcon from "@material-ui/icons/SortTwoTone";
 import ReactGA from "react-ga";
-import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
-import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
 import nightOwl from 'react-syntax-highlighter/dist/esm/styles/hljs/night-owl';
 import HelpUs from "./../components/HelpUs";
 import UserBadges from "./../components/UserBadges";
@@ -48,6 +46,15 @@ import InputLabel from '@material-ui/core/InputLabel';
 import SortIcon from '@material-ui/icons/Sort';
 import CodeIcon from '@material-ui/icons/Code';
 import Checkbox from '@material-ui/core/Checkbox';
+
+import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
+import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
+import php from 'react-syntax-highlighter/dist/esm/languages/hljs/php';
+import java from 'react-syntax-highlighter/dist/esm/languages/hljs/java';
+import python from 'react-syntax-highlighter/dist/esm/languages/hljs/python';
+import pascal from 'react-syntax-highlighter/dist/esm/languages/hljs/delphi';
+
+import Ad from "../components/Ad";
 
 const StatsChart = React.lazy(() => import('./../components/ProblemStats'));
 
@@ -210,7 +217,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Problema() {
   let { name } = useParams();
 
-  const { API, rootState, setRootState } = useContext(RootContext);
+  const { API, rootState, setRootState, langToHljsLang } = useContext(RootContext);
 
   const defaultState = {
     data_loaded: false,
@@ -476,7 +483,7 @@ export default function Problema() {
                 </Grid>
                 <Grid item xs={12} sm={8} md={9}>
                   <Grid container spacing={2} alignItems="center">
-                    <Grid item xs={4} md={4}>
+                    <Grid item xs={4} md={5}>
                       <Typography variant="h6" component="h2">
                         Soluții
                         <Link to="/solutie-noua">
@@ -494,7 +501,7 @@ export default function Problema() {
                         </Link>
                       </Typography>
                     </Grid>
-                    <Grid item xs={8} md={8}>
+                    <Grid item xs={8} md={7}>
                         <Grid container spacing={1} justifyContent="flex-end" alignItems="flex-end">
                           <Grid item xs={8} md={9}>
                             <InputLabel className={classes.filterLabel}>Limbaje</InputLabel>
@@ -635,6 +642,9 @@ export default function Problema() {
                                     xs={4}
                                     md={3}
                                     className={classes.hiddenOnMobile}
+                                    style={{
+                                      paddingLeft: "1.1rem"
+                                    }}
                                   >
                                     <Typography
                                       className={
@@ -671,7 +681,7 @@ export default function Problema() {
                                       <div className={classes.loadContentWrapper}>
                                         <SyntaxHighlighter
                                           style={nightOwl}
-                                          language="c"
+                                          language={'c'}
                                           className={`${classes.loadContentPlaceholder} code-wrap cool-sha-2`}
                                           showLineNumbers
                                         >
@@ -722,7 +732,7 @@ export default function Problema() {
                                         >
                                           <SyntaxHighlighter
                                             style={nightOwl}
-                                            language="c"
+                                            language={'c'}
                                             className={`${classes.loadContentPlaceholder} code-wrap cool-sha-2`}
                                             showLineNumbers
                                           >
@@ -760,7 +770,7 @@ export default function Problema() {
                                           <Box mb={1}>
                                             <SyntaxHighlighter
                                               style={nightOwl}
-                                              language="c"
+                                              language={langToHljsLang(state.solutions[index].language)}
                                               className="cool-sha-2 code-wrap"
                                               showLineNumbers
                                             >
@@ -796,10 +806,7 @@ export default function Problema() {
                       </div>
                     </Grid>
                     {rootState.showAds && <Grid item xs={12}>
-                      <AdSense.Google
-                        client='ca-pub-9101356904433905'
-                        slot='6294567843'
-                      />
+                      <Ad slot='5446909080' />
                     </Grid>}
                     <Grid item xs={12}>
                       <HelpUs />

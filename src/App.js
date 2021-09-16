@@ -9,9 +9,10 @@ import MetaTags from "react-meta-tags";
 import ReactGA from "react-ga";
 import { createBrowserHistory } from "history";
 
-
-
 const theme = createMuiTheme({
+  typography: {
+    "fontFamily": `"Nunito", "Helvetica", "Arial", sans-serif`,
+  },
   palette: {
     primary: {
       main: "#3C59FB",

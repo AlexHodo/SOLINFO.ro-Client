@@ -32,6 +32,10 @@ import LanguageTag from "../components/LanguageTag";
 
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
+import php from 'react-syntax-highlighter/dist/esm/languages/hljs/php';
+import pascal from 'react-syntax-highlighter/dist/esm/languages/hljs/delphi';
+import java from 'react-syntax-highlighter/dist/esm/languages/hljs/java';
+import python from 'react-syntax-highlighter/dist/esm/languages/hljs/python';
 import nightOwl from 'react-syntax-highlighter/dist/esm/styles/hljs/night-owl';
 
 const useStyles = makeStyles((theme) => ({
@@ -148,7 +152,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Profil() {
   let { username } = useParams();
 
-  const { API, rootState } = useContext(RootContext);
+  const { API, rootState, langToHljsLang } = useContext(RootContext);
 
   const defaultState = {
     data_loaded: false,
@@ -409,7 +413,7 @@ export default function Profil() {
                                     </Grid>
                                     <SyntaxHighlighter
                                       style={nightOwl}
-                                      language="c"
+                                      language={langToHljsLang(item.language)}
                                       className="cool-sha-2 code-wrap"
                                       showLineNumbers
                                     >

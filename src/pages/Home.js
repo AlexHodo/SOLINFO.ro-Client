@@ -30,33 +30,37 @@ import LanguageTag from "../components/LanguageTag";
 
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
+import php from 'react-syntax-highlighter/dist/esm/languages/hljs/php';
+import pascal from 'react-syntax-highlighter/dist/esm/languages/hljs/delphi';
+import java from 'react-syntax-highlighter/dist/esm/languages/hljs/java';
+import python from 'react-syntax-highlighter/dist/esm/languages/hljs/python';
 import nightOwl from 'react-syntax-highlighter/dist/esm/styles/hljs/night-owl';
+
+import heroBg from "../media/hero-bg.svg";
 
 SyntaxHighlighter.registerLanguage('c', c);
 
 const useStyles = makeStyles((theme) => ({
   hero: {
-    backgroundImage:
-      "linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url()",
-    backgroundPosition: "center center",
-    backgroundSize: "cover",
+    // backgroundColor: fade(theme.palette.primary.main, 1),
     textAlign: "left",
+    backgroundColor: theme.palette.primary.main,
+    backgroundImage: `url(${heroBg})`
   },
   heroGrid: {
     marginTop: 0,
-    height: "100%",
     padding: theme.spacing(8, 0),
     [theme.breakpoints.up("md")]: {
-      padding: theme.spacing(16, 0),
+      padding: theme.spacing(12, 0),
     },
   },
   heroTextField: {
-    background: "rgba(255,255,255,0.8)",
-    backdropFilter: "saturate(15) blur(10px)",
+    margin: theme.spacing(2, 0),
+    background: "rgba(255,255,255,0.95)",
     width: "100%",
     borderRadius: "2rem",
     border: "none !important",
-    boxShadow: theme.shadows[2],
+    // boxShadow: theme.shadows[2],
     "& ::before": {
       display: "none",
     },
@@ -92,41 +96,43 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: "1.5rem",
   },
   heroLogo: {
-    color: "white",
-    textAlign: "center",
+    color: fade(theme.palette.common.white, 1),
+    fontWeight: 800,
+    textAlign: "left",
     "& span": {
-      backgroundColor: fade(theme.palette.common.black, 0.8),
       display: "inline-block",
-      backdropFilter: "saturate(15) blur(10px)",
-      padding: theme.spacing(1, 2),
-      boxShadow: theme.shadows[0],
-      borderRadius: "2rem",
+      background: theme.palette.primary.main,
+      padding: theme.spacing(0, 3),
       [theme.breakpoints.down("sm")]: {
-        fontSize: "1.2rem",
+        fontSize: "1.75rem",
+        textAlign: "center"
       },
+    },
+    [theme.breakpoints.down("sm")]: {
+      textAlign: "center"
     },
     marginBottom: theme.spacing(2),
-    //fontStyle: "italic"
-    fontWeight: 600,
-    opacity: 0.95,
-    fontSize: "1.85rem",
+    fontSize: "2.25rem",
   },
   heroTitle: {
-    color: "white",
-    textAlign: "center",
+    color: fade(theme.palette.common.white, 0.95),
+    fontWeight: 800,
+    textAlign: "left",
+    fontSize: "1.65rem",
+    lineHeight: 1,
+    marginTop: theme.spacing(-1),
     "& span": {
-      backgroundColor: fade(theme.palette.common.black, 0.8),
       display: "inline-block",
-      backdropFilter: "saturate(15) blur(10px)",
-      padding: theme.spacing(1, 2),
-      boxShadow: theme.shadows[0],
-      borderRadius: "2rem",
+      background: theme.palette.primary.main,
+      padding: theme.spacing(0, 3),
       [theme.breakpoints.down("sm")]: {
-        fontSize: "1.2rem",
+        fontSize: "1.5rem",
+        textAlign: "center"
       },
-      textAlign: "center",
     },
-    opacity: 0.9,
+    [theme.breakpoints.down("sm")]: {
+      textAlign: "center"
+    },
   },
   heroTitleLarge: {
     [theme.breakpoints.down("sm")]: {
@@ -136,27 +142,6 @@ const useStyles = makeStyles((theme) => ({
   heroTitleSmall: {
     [theme.breakpoints.up("md")]: {
       display: "none !important",
-    },
-  },
-  heroImageCredits: {
-    color: fade(theme.palette.common.white, 0.8),
-    padding: theme.spacing(0, 3),
-    textAlign: "right",
-    "& span": {
-      backgroundColor: fade(theme.palette.common.black, 0.5),
-      backdropFilter: "saturate(5) blur(10px)",
-      display: "inline-block",
-      padding: theme.spacing(0.5, 2),
-      borderRadius: "2rem",
-    },
-    "& a": {
-      color: fade(theme.palette.common.white, 1),
-      textDecoration: "none",
-    },
-    fontSize: "0.8rem",
-    [theme.breakpoints.down("sm")]: {
-      textAlign: "center",
-      margin: theme.spacing(3, 0),
     },
   },
   moreBtn: {
@@ -192,12 +177,12 @@ const useStyles = makeStyles((theme) => ({
   },
   statsWrapperOuter: {
     minHeight: "150px",
-    marginTop: "-60px",
   },
   statWrapper: {
     "& *": {
       textAlign: "right",
     },
+    background: fade(theme.palette.common.white, 0.95),
     padding: theme.spacing(3),
     position: "relative",
     [theme.breakpoints.down("sm")]: {
@@ -212,6 +197,10 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "uppercase",
     fontWeight: 300,
     fontSize: "0.9rem",
+    width: "75%",
+    marginLeft: "25%",
+    textAlign: "right",
+    lineHeight: 1.25
   },
   statContent: {
     fontSize: "1.35rem",
@@ -252,7 +241,7 @@ const filterOptions = (options, state) => {
 };
 
 export default function Home() {
-  const { API, rootState, getProblems } = useContext(RootContext);
+  const { API, rootState, getProblems, langToHljsLang } = useContext(RootContext);
 
   const state = {
     data_loaded: rootState.homeDataLoaded,
@@ -282,159 +271,139 @@ export default function Home() {
       </MetaTags>
       <div
         className={classes.hero}
-        style={{
-          backgroundImage: `linear-gradient(rgba(20,22,24, 0.5), rgba(20,22,24, 0.5)), url(${
-            state.hero && state.hero.wallpaper_url
-              ? state.hero.wallpaper_url
-              : ""
-          })`,
-        }}
+        
       >
-        <Container maxWidth="md" style={{maxWidth: "700px"}}>
-          <Grid container spacing={3} className={classes.heroGrid}>
-            <Grid item xs={12}>
-              <Typography
-                className={classes.heroLogo}
-                variant="h4"
-                component="h1"
-              >
-                <span>SOLINFO.ro</span>
-              </Typography>
-              <Typography
-                className={classes.heroTitle}
-                variant="h5"
-                component="h2"
-              >
-                <span className={classes.heroTitleLarge}>
-                  Soluții pentru problemele de pe PbInfo.ro cu explicații
-                </span>
-                <span className={classes.heroTitleSmall}>
-                  Soluții pentru problemele de pe PbInfo.ro
-                </span>
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Autocomplete
-                filterOptions={filterOptions}
-                options={rootState.problems}
-                getOptionLabel={(option) =>
-                  option.name + " (ID " + option.id + ")"
-                }
-                fullWidth
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    className={classes.heroTextField}
-                    label="Caută după numele sau ID-ul problemei..."
-                    variant="filled"
-                    classes={{ root: classes.heroTextFieldRoot }}
-                  />
-                )}
-                onChange={(event: any, option: any) => {
-                  setSearchInputValue("");
-                  history.push("/problema/" + option.name);
-                }}
-                inputValue={searchInputValue}
-                onInputChange={(event) =>
-                  event && setSearchInputValue(event.target.value)
-                }
-                open={searchInputValue.length > 0}
-                classes={{ endAdornment: classes.heroSearchEndAdornment }}
-                noOptionsText={
-                  !rootState.problemsDataLoaded
-                    ? "Se caută..."
-                    : "Niciun rezultat"
-                }
-                onFocus={getProblems}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <center>
-                <Link to="/despre-contact">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    className={classes.moreBtn}
+        <Container maxWidth="lg">
+          <Grid container spacing={6} alignItems="center" style={{justifyContent: 'space-between'}}>
+            <Grid item xs={12} sm={6}>
+              <Grid container spacing={3} className={classes.heroGrid}>
+                <Grid item xs={12}>
+                  <Typography
+                    className={classes.heroLogo}
+                    variant="h4"
+                    component="h1"
                   >
-                    Mai multe despre proiect
-                  </Button>
-                </Link>
-              </center>
+                    <span>SOLINFO.ro</span>
+                  </Typography>
+                  <Typography
+                    className={classes.heroTitle}
+                    variant="h5"
+                    component="h2"
+                  >
+                    <span className={classes.heroTitleLarge}>
+                      Soluții pentru problemele de pe PbInfo.ro cu explicații
+                    </span>
+                    <span className={classes.heroTitleSmall}>
+                      Soluții pentru problemele de pe PbInfo.ro
+                    </span>
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Autocomplete
+                    filterOptions={filterOptions}
+                    options={rootState.problems}
+                    getOptionLabel={(option) =>
+                      option.name + " (ID " + option.id + ")"
+                    }
+                    fullWidth
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        className={`${classes.heroTextField} cool-sha`}
+                        label="Caută după nume sau ID..."
+                        variant="filled"
+                        classes={{ root: classes.heroTextFieldRoot }}
+                      />
+                    )}
+                    onChange={(event: any, option: any) => {
+                      setSearchInputValue("");
+                      history.push("/problema/" + option.name);
+                    }}
+                    inputValue={searchInputValue}
+                    onInputChange={(event) =>
+                      event && setSearchInputValue(event.target.value)
+                    }
+                    open={searchInputValue.length > 0}
+                    classes={{ endAdornment: classes.heroSearchEndAdornment }}
+                    noOptionsText={
+                      !rootState.problemsDataLoaded
+                        ? "Se caută..."
+                        : "Niciun rezultat"
+                    }
+                    onFocus={getProblems}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Box pl={3}>
+                    <center>
+                      <Link to="/despre-contact">
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          size="large"
+                          disableElevation
+                          className={classes.moreBtn}
+                        >
+                          Mai multe despre proiect
+                        </Button>
+                      </Link>
+                    </center>
+                  </Box>
+                </Grid>
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <Typography variant="body2" className={classes.heroImageCredits}>
-                  <span>
-                    Image by{" "}
-                    <a
-                      href={state.hero.wallpaper_author_url}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {state.hero.wallpaper_author_name}
-                    </a>{" "}
-                    on{" "}
-                    <a
-                      href="https://unsplash.com"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Unsplash
-                    </a>
-                  </span>
-              </Typography>
+            <Grid item xs={12} sm={6} md={5}>
+              <Grid container spacing={2} className={classes.statsWrapperOuter}>
+                <Grid item xs={12} md={6}>
+                  <Paper className={`${classes.statWrapper} cool-sha`}>
+                    <Typography className={classes.statTitle} variant="body1">
+                      Utilizatori înscriși
+                    </Typography>
+                    <Typography className={classes.statContent} variant="h6">
+                      {state.stats.users_count}
+                    </Typography>
+                    <PeopleAltTwoToneIcon className={classes.statIcon} />
+                  </Paper>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Paper className={`${classes.statWrapper} cool-sha`}>
+                    <Typography className={classes.statTitle} variant="body1">
+                      Soluții disponibile
+                    </Typography>
+                    <Typography className={classes.statContent} variant="h6">
+                      {state.stats.solutions_count}
+                    </Typography>
+                    <LibraryAddCheckTwoToneIcon className={classes.statIcon} />
+                  </Paper>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Paper className={`${classes.statWrapper} cool-sha`}>
+                    <Typography className={classes.statTitle} variant="body1">
+                      Vizualizări soluții
+                    </Typography>
+                    <Typography className={classes.statContent} variant="h6">
+                      {state.stats.views_count}
+                    </Typography>
+                    <VisibilityTwoToneIcon className={classes.statIcon} />
+                  </Paper>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Paper className={`${classes.statWrapper} cool-sha`}>
+                    <Typography className={classes.statTitle} variant="body1">
+                      Note de cinci stele &#9733;
+                    </Typography>
+                    <Typography className={classes.statContent} variant="h6">
+                      {state.stats.rating_5_count}
+                    </Typography>
+                    <StarTwoToneIcon className={classes.statIcon} />
+                  </Paper>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
+          
         </Container>
       </div>
-      <Container maxWidth="lg">
-        <Grid container spacing={2} className={classes.statsWrapperOuter}>
-          <Grid item xs={12} sm={6} md={3}>
-            <Paper className={`${classes.statWrapper} cool-sha`}>
-              <Typography className={classes.statTitle} variant="body1">
-                Utilizatori înscriși
-              </Typography>
-              <Typography className={classes.statContent} variant="h6">
-                {state.stats.users_count}
-              </Typography>
-              <PeopleAltTwoToneIcon className={classes.statIcon} />
-            </Paper>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <Paper className={`${classes.statWrapper} cool-sha`}>
-              <Typography className={classes.statTitle} variant="body1">
-                Soluții disponibile
-              </Typography>
-              <Typography className={classes.statContent} variant="h6">
-                {state.stats.solutions_count}
-              </Typography>
-              <LibraryAddCheckTwoToneIcon className={classes.statIcon} />
-            </Paper>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <Paper className={`${classes.statWrapper} cool-sha`}>
-              <Typography className={classes.statTitle} variant="body1">
-                Vizualizări de soluții
-              </Typography>
-              <Typography className={classes.statContent} variant="h6">
-                {state.stats.views_count}
-              </Typography>
-              <VisibilityTwoToneIcon className={classes.statIcon} />
-            </Paper>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <Paper className={`${classes.statWrapper} cool-sha`}>
-              <Typography className={classes.statTitle} variant="body1">
-                Note de 5 &#9733;
-              </Typography>
-              <Typography className={classes.statContent} variant="h6">
-                {state.stats.rating_5_count}
-              </Typography>
-              <StarTwoToneIcon className={classes.statIcon} />
-            </Paper>
-          </Grid>
-        </Grid>
-      </Container>
       <Container maxWidth="md">
         <Grid container className={classes.content}>
           <Grid item xs={12} sm={8} md={9}>
@@ -515,7 +484,7 @@ export default function Home() {
                           </Grid>
                           <SyntaxHighlighter
                             style={nightOwl}
-                            language="c"
+                            language={langToHljsLang(item.language)}
                             className="cool-sha-2 code-wrap"
                             showLineNumbers
                           >
@@ -535,7 +504,7 @@ export default function Home() {
                                     />
                                   }
                                 >
-                                  Vezi soluția{" "}
+                                  Vezi <Box className={classes.hideOnMobile} ml={0.5} component="span">soluția</Box>{" "}
                                   <span className="views">{item.views}</span>
                                 </Button>
                               </Link>

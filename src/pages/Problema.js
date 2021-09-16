@@ -193,15 +193,15 @@ const useStyles = makeStyles((theme) => ({
       display: "none"
     },
     "&:not(.h)": {
-      borderRadius: "4px 4px 0 0 !important",
+      borderRadius: "0",
       "&:before": {
         display: "none",
       }
     },
     "&:not(.h) ~ $accordion:not(.h)": {
       "&:before": {
-        display: "initial",
-
+        display: "inherit",
+        // borderRadius: "0 !important",
       }
     }
   }

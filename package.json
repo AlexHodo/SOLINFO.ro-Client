@@ -25,6 +25,7 @@
     "react-ga": "^3.3.0",
     "react-google-ads": "^1.0.5",
     "react-google-recaptcha": "^2.1.0",
+    "react-icons": "^4.2.0",
     "react-jss": "^10.7.1",
     "react-meta-tags": "^1.0.1",
     "react-router-dom": "^5.2.0",

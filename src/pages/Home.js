@@ -26,6 +26,7 @@ import MetaTags from "react-meta-tags";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import HelpUs from "./../components/HelpUs";
 import AdSense from "react-adsense";
+import LanguageTag from "../components/LanguageTag";
 
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
@@ -538,6 +539,9 @@ export default function Home() {
                                   <span className="views">{item.views}</span>
                                 </Button>
                               </Link>
+                              <span>
+                                <LanguageTag language={item.language? item.language : null} />
+                              </span>
                             </Grid>
                             <Grid item xs={5}>
                               <Box className={classes.ratingWrapper}>

@@ -41,6 +41,13 @@ import {
   CSSTransition
 } from "react-transition-group";
 import PageSkeleton from "./../components/PageSkeleton";
+import LanguageTag from "../components/LanguageTag";
+import Input from '@material-ui/core/Input';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import SortIcon from '@material-ui/icons/Sort';
+import CodeIcon from '@material-ui/icons/Code';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const StatsChart = React.lazy(() => import('./../components/ProblemStats'));
 
@@ -56,6 +63,12 @@ const Accordion = withStyles({
   },
   expanded: {},
 })(MuiAccordion);
+
+const MenuProps = {
+  anchorOrigin: { vertical: "bottom", horizontal: "left" },
+  // transformOrigin: { vertical: "top", horizontal: "center" },
+  getContentAnchorEl: null
+};
 
 const useStyles = makeStyles((theme) => ({
   placeholder: {
@@ -164,6 +177,34 @@ const useStyles = makeStyles((theme) => ({
   fixMargin: {
     margin: "12px 0 !important",
   },
+  languageSelectWrapper: {
+    width: "100%"
+  },
+  filterLabel: {
+    fontSize: "0.8rem",
+    textTransform: "uppercase"
+  },
+  accordion: {
+    // maxHeight: "100px",
+    // transition: "max-height 0.25s ease-out",
+    "&.h": {
+      // maxHeight: 0,
+      // overflow: "hidden"
+      display: "none"
+    },
+    "&:not(.h)": {
+      borderRadius: "0",
+      "&:before": {
+        display: "none",
+      }
+    },
+    "&:not(.h) ~ $accordion:not(.h)": {
+      "&:before": {
+        display: "inherit",
+        // borderRadius: "0 !important",
+      }
+    }
+  }
 }));
 
 export default function Problema() {
@@ -176,7 +217,9 @@ export default function Problema() {
     data_loading: false,
     problem: {},
     solutions: [],
+    filteredSolutions: [],
     solutions_count: 0,
+    filteredSolutionsCount: 0,
     success: null,
     errorMsg: null,
     responseCode: null,
@@ -214,6 +257,8 @@ export default function Problema() {
       problem: logonRequest.problem,
       solutions: logonRequest.solutions,
       solutions_count: logonRequest.solutions_count,
+      filteredSolutionsCount: logonRequest.solutions_count,
+      solutionsFiltered: logonRequest.solutions,
       responseCode: logonRequest.responseCode,
       rating: logonRequest.rating
     });
@@ -333,6 +378,30 @@ export default function Problema() {
 
   const currentKey = location.pathname.split('/')[1] || '/'
 
+  const availableLanguages = ["cpp", "java", "python", "php", "c", "pascal"]
+
+  const [selectedLanguages, setSelectedLanguages] = React.useState(availableLanguages)
+
+  const handleSelectedLanguagesChange = (event) => {
+    
+    
+    // update state.filteredSolutionsCount
+    let filteredCount = 0
+    for(let i = 0; i < state.solutions.length; i++) {
+      if(event.target.value.indexOf(state.solutions[i].language) > -1) {
+        filteredCount += 1
+      }
+    }
+
+    setSelectedLanguages(event.target.value)
+
+    setState({
+      ...state,
+      filteredSolutionsCount: filteredCount,
+    })
+
+  }
+
   return (
     <>
     {!state.data_loaded && <PageSkeleton type="problem" />}
@@ -407,7 +476,7 @@ export default function Problema() {
                 </Grid>
                 <Grid item xs={12} sm={8} md={9}>
                   <Grid container spacing={2} alignItems="center">
-                    <Grid item xs={4}>
+                    <Grid item xs={4} md={4}>
                       <Typography variant="h6" component="h2">
                         Soluții
                         <Link to="/solutie-noua">
@@ -424,32 +493,65 @@ export default function Problema() {
                           </IconButton>
                         </Link>
                       </Typography>
-
-
                     </Grid>
-                    <Grid item xs={8}>
-                      <Typography
-                        variant="body1"
-                        component="h2"
-                        style={{ textAlign: "right" }}
-                      >
-                        <span style={{ paddingRight: "0.5rem" }}>
-                          Sortează după
-                        </span>
-                        <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          value={sortValue}
-                          onChange={handleSortChange}
-                        >
-                          <MenuItem value={"views_count"}>vizualizări</MenuItem>
-                          <MenuItem value={"rating"}>scor</MenuItem>
-                          <MenuItem value={"id"}>dată</MenuItem>
-                        </Select>
-                      </Typography>
+                    <Grid item xs={8} md={8}>
+                        <Grid container spacing={1} justifyContent="flex-end" alignItems="flex-end">
+                          <Grid item xs={8} md={9}>
+                            <InputLabel className={classes.filterLabel}>Limbaje</InputLabel>
+                            <FormControl className={classes.languageSelectWrapper}>
+                              <Select
+                                autoWidth
+                                id="language-select"
+                                multiple
+                                value={selectedLanguages}
+                                onChange={handleSelectedLanguagesChange}
+                                input={<Input />}
+                                MenuProps={MenuProps}
+                                renderValue={(selectedLanguages) => (
+                                  <>
+                                  {selectedLanguages.map((value) => (
+                                    <LanguageTag key={value} language={value} size="small" noMargin style={{marginRight: "0.5rem"}} />
+                                  ))}
+                                  </>
+                                )}
+                              >
+                                {availableLanguages.map((language) => (
+                                  <MenuItem key={language} value={language} style={{background: "white", padding: "0 0.5rem 0 0.25rem"}}>
+                                    <Checkbox checked={selectedLanguages.indexOf(language) > -1} />
+                                    <LanguageTag language={language} noMargin size="small" />
+                                  </MenuItem>
+                                ))}
+                              </Select>
+                            </FormControl>
+                          </Grid>
+                          <Grid item xs={4} md={3}>
+                            <InputLabel className={classes.filterLabel}>Sortare</InputLabel>
+                            <Select
+                              value={sortValue}
+                              onChange={handleSortChange}
+                              style={{width: "100%"}}
+                              MenuProps={MenuProps}
+                            >
+                              <MenuItem value={"views_count"}>vizualizări</MenuItem>
+                              <MenuItem value={"rating"}>scor</MenuItem>
+                              <MenuItem value={"id"}>dată</MenuItem>
+                            </Select>
+                          </Grid>
+                        </Grid>
                     </Grid>
                     <Grid item xs={12}>
                       <div>
+                        {state.solutions_count > 0 && state.filteredSolutionsCount === 0 && (
+                          <Paper className={`${classes.card} cool-sha`} style={{margin: 0}}>
+                            <div className={classes.cardInner}>
+                              <Box mt={2} mb={2}>
+                                <Typography variant="body1" align="center">
+                                  Nicio soluție nu se potrivește filtrelor. Încearcă să alegi și alte limbaje.
+                                </Typography>
+                              </Box>
+                            </div>
+                          </Paper>
+                        )}
                         {state.solutions.length === 0 && (
                           <Paper className={`${classes.card} cool-sha`} style={{margin: 0}}>
                             <div className={classes.cardInner}>
@@ -486,7 +588,7 @@ export default function Problema() {
                               expanded={state.expandedArr.indexOf(item.id) > -1}
                               onChange={handleChange(item.id)}
                               key={index + "~" + state.update}
-                              className={`cool-sha`}
+                              className={`${classes.accordion}${selectedLanguages.indexOf(item.language) == -1? " h" : ""} cool-sha`}
                             >
                               <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
@@ -497,11 +599,12 @@ export default function Problema() {
                                   alignItems="center"
                                   justify="center"
                                 >
-                                  <Grid item xs={8} md={4}>
+                                  <Grid item xs={8} md={5}>
                                     <Typography
                                       className={classes.accordionHeading}
                                     >
                                       sol-{item.id}
+                                      <LanguageTag language={item.language? item.language : null} size="small" />
                                       <Chip
                                         className={classes.authorStats}
                                         icon={<VisibilityTwoToneIcon />}
@@ -530,6 +633,7 @@ export default function Problema() {
                                   <Grid
                                     item
                                     xs={4}
+                                    md={3}
                                     className={classes.hiddenOnMobile}
                                   >
                                     <Typography

@@ -182,7 +182,6 @@ class Context extends Component {
   };
 
   langToHljsLang = (input) => {
-    console.log(input)
     switch(input) {
       case 'cpp': {
         return 'c';

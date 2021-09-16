@@ -54,6 +54,8 @@ import java from 'react-syntax-highlighter/dist/esm/languages/hljs/java';
 import python from 'react-syntax-highlighter/dist/esm/languages/hljs/python';
 import pascal from 'react-syntax-highlighter/dist/esm/languages/hljs/delphi';
 
+import Ad from "../components/Ad";
+
 const StatsChart = React.lazy(() => import('./../components/ProblemStats'));
 
 ReactGA.initialize("UA-199814762-1");
@@ -804,10 +806,7 @@ export default function Problema() {
                       </div>
                     </Grid>
                     {rootState.showAds && <Grid item xs={12}>
-                      <AdSense.Google
-                        client='ca-pub-9101356904433905'
-                        slot='6294567843'
-                      />
+                      <Ad slot='5446909080' />
                     </Grid>}
                     <Grid item xs={12}>
                       <HelpUs />

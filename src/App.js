@@ -12,6 +12,9 @@ import { createBrowserHistory } from "history";
 
 
 const theme = createMuiTheme({
+  typography: {
+    "fontFamily": `"Nunito", "Helvetica", "Arial", sans-serif`,
+  },
   palette: {
     primary: {
       main: "#3C59FB",

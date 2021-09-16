@@ -338,7 +338,7 @@ export default function SolutieNoua(props) {
                     <Box>
                       <Typography variant="body2">
                         Soluția va apărea pe site asociată numelui tău de
-                        utilizator, {rootState.userInfo.username}.
+                        utilizator, @{rootState.userInfo.username}.
                       </Typography>
                     </Box>
                   </Box>

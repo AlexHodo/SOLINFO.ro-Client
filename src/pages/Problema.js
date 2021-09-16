@@ -481,7 +481,7 @@ export default function Problema() {
                 </Grid>
                 <Grid item xs={12} sm={8} md={9}>
                   <Grid container spacing={2} alignItems="center">
-                    <Grid item xs={4} md={4}>
+                    <Grid item xs={4} md={5}>
                       <Typography variant="h6" component="h2">
                         Soluții
                         <Link to="/solutie-noua">
@@ -499,7 +499,7 @@ export default function Problema() {
                         </Link>
                       </Typography>
                     </Grid>
-                    <Grid item xs={8} md={8}>
+                    <Grid item xs={8} md={7}>
                         <Grid container spacing={1} justifyContent="flex-end" alignItems="flex-end">
                           <Grid item xs={8} md={9}>
                             <InputLabel className={classes.filterLabel}>Limbaje</InputLabel>
@@ -640,6 +640,9 @@ export default function Problema() {
                                     xs={4}
                                     md={3}
                                     className={classes.hiddenOnMobile}
+                                    style={{
+                                      paddingLeft: "1.1rem"
+                                    }}
                                   >
                                     <Typography
                                       className={

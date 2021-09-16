@@ -41,6 +41,12 @@ import {
   CSSTransition
 } from "react-transition-group";
 import PageSkeleton from "./../components/PageSkeleton";
+import LanguageTag from "../components/LanguageTag";
+import Input from '@material-ui/core/Input';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import SortIcon from '@material-ui/icons/Sort';
+import CodeIcon from '@material-ui/icons/Code';
 
 const StatsChart = React.lazy(() => import('./../components/ProblemStats'));
 
@@ -164,6 +170,13 @@ const useStyles = makeStyles((theme) => ({
   fixMargin: {
     margin: "12px 0 !important",
   },
+  languageSelectWrapper: {
+    width: "100%"
+  },
+  filterLabel: {
+    fontSize: "0.8rem",
+    textTransform: "uppercase"
+  }
 }));
 
 export default function Problema() {
@@ -333,6 +346,10 @@ export default function Problema() {
 
   const currentKey = location.pathname.split('/')[1] || '/'
 
+  const availableLanguages = ["cpp", "java", "python", "php", "c", "pascal"]
+
+  const [selectedLanguages, setSelectedLanguages] = React.useState(availableLanguages)
+
   return (
     <>
     {!state.data_loaded && <PageSkeleton type="problem" />}
@@ -407,7 +424,7 @@ export default function Problema() {
                 </Grid>
                 <Grid item xs={12} sm={8} md={9}>
                   <Grid container spacing={2} alignItems="center">
-                    <Grid item xs={4}>
+                    <Grid item xs={6} md={4}>
                       <Typography variant="h6" component="h2">
                         Soluții
                         <Link to="/solutie-noua">
@@ -424,29 +441,61 @@ export default function Problema() {
                           </IconButton>
                         </Link>
                       </Typography>
-
-
                     </Grid>
-                    <Grid item xs={8}>
-                      <Typography
-                        variant="body1"
-                        component="h2"
-                        style={{ textAlign: "right" }}
-                      >
-                        <span style={{ paddingRight: "0.5rem" }}>
-                          Sortează după
-                        </span>
-                        <Select
-                          labelId="demo-simple-select-label"
-                          id="demo-simple-select"
-                          value={sortValue}
-                          onChange={handleSortChange}
-                        >
-                          <MenuItem value={"views_count"}>vizualizări</MenuItem>
-                          <MenuItem value={"rating"}>scor</MenuItem>
-                          <MenuItem value={"id"}>dată</MenuItem>
-                        </Select>
-                      </Typography>
+                    <Grid item xs={6} md={8}>
+                        <Grid container spacing={1} justifyContent="flex-end" alignItems="flex-end">
+                          <Grid item xs={12} md={9}>
+                            <InputLabel className={classes.filterLabel}>Limbaje</InputLabel>
+                            <FormControl className={classes.languageSelectWrapper}>
+                              <Select
+                                id="language-select"
+                                multiple
+                                value={selectedLanguages}
+                                //onChange={handleChange}
+                                input={<Input />}
+                                //MenuProps={MenuProps}
+                                renderValue={(selectedLanguages) => (
+                                  <>
+                                  {selectedLanguages.map((value) => (
+                                    <LanguageTag key={value} language={value} size="small" noMargin style={{marginRight: "0.5rem"}} />
+                                  ))}
+                                  </>
+                                )}
+                              >
+                                <MenuItem key={'cpp'} value={"cpp"} >
+                                  <LanguageTag language="cpp" noMargin />
+                                </MenuItem>
+                                <MenuItem key={'c'} value={"c"} >
+                                  <LanguageTag language="c" noMargin />
+                                </MenuItem>
+                                <MenuItem key={'java'} value={"java"} >
+                                  <LanguageTag language="java" noMargin />
+                                </MenuItem>
+                                <MenuItem key={'python'} value={"python"} >
+                                  <LanguageTag language="python" noMargin />
+                                </MenuItem>
+                                <MenuItem key={'php'} value={"php"} >
+                                  <LanguageTag language="php" noMargin />
+                                </MenuItem>
+                                <MenuItem key={'pascal'} value={"pascal"} >
+                                  <LanguageTag language="pascal" noMargin />
+                                </MenuItem>
+                              </Select>
+                            </FormControl>
+                          </Grid>
+                          <Grid item xs={12} md={3}>
+                            <InputLabel className={classes.filterLabel}>Sortează după</InputLabel>
+                            <Select
+                              value={sortValue}
+                              onChange={handleSortChange}
+                              style={{width: "100%"}}
+                            >
+                              <MenuItem value={"views_count"}>vizualizări</MenuItem>
+                              <MenuItem value={"rating"}>scor</MenuItem>
+                              <MenuItem value={"id"}>dată</MenuItem>
+                            </Select>
+                          </Grid>
+                        </Grid>
                     </Grid>
                     <Grid item xs={12}>
                       <div>
@@ -497,11 +546,12 @@ export default function Problema() {
                                   alignItems="center"
                                   justify="center"
                                 >
-                                  <Grid item xs={8} md={4}>
+                                  <Grid item xs={8} md={5}>
                                     <Typography
                                       className={classes.accordionHeading}
                                     >
                                       sol-{item.id}
+                                      <LanguageTag language={item.language? item.language : null} size="small" />
                                       <Chip
                                         className={classes.authorStats}
                                         icon={<VisibilityTwoToneIcon />}
@@ -530,6 +580,7 @@ export default function Problema() {
                                   <Grid
                                     item
                                     xs={4}
+                                    md={3}
                                     className={classes.hiddenOnMobile}
                                   >
                                     <Typography

@@ -14,8 +14,7 @@ import { createBrowserHistory } from "history";
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#546de5",
-      dark: "#574b90",
+      main: "#3C59FB",
     },
     secondary: {
       main: "#303952",

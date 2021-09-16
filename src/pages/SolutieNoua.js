@@ -14,6 +14,8 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import SendTwoToneIcon from "@material-ui/icons/SendTwoTone";
 import Alert from "@material-ui/lab/Alert";
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import MetaTags from "react-meta-tags";
 import { Link, useParams } from "react-router-dom";
 
@@ -66,13 +68,14 @@ export default function SolutieNoua(props) {
       success: null,
       errorMsg: null,
       responseCode: null,
-      content: content? (atob(content)) : "",
+      content: content? (content == "_"? "" : atob(content)) : "",
       problemId: problemId? problemId : -1,
       isLoading: false,
       isError: false,
       preselected: (content && problemId),
       preselectedId: problemId? problemId : null,
-      preselectedName: null
+      preselectedName: null,
+      language: 'cpp'
     };
   } else {
     defaultState = {
@@ -88,7 +91,8 @@ export default function SolutieNoua(props) {
       isError: false,
       preselected: rootState.newSolutionIntention !== null,
       preselectedId: rootState.newSolutionIntention,
-      preselectedName: rootState.newSolutionIntentionName
+      preselectedName: rootState.newSolutionIntentionName,
+      language: 'cpp'
     };
   }
 
@@ -147,7 +151,13 @@ export default function SolutieNoua(props) {
       isLoading: true,
     });
 
-    const request = await API("endpoint/page/adaugare-solutie.php", state);
+    const request = await API("endpoint/page/adaugare-solutie.php", {
+      content: state.content,
+      problemId: state.problemId,
+      language: state.language,
+      ext: fromExtension,
+      step: state.step
+    });
 
     if (!request.success) {
       setState({
@@ -189,11 +199,18 @@ export default function SolutieNoua(props) {
             <Grid container justify="center" alignItems="center">
               <Grid item xs={12} md={9}>
                 <Typography variant={fromExtension? 'h6' : 'h5'} component="h1" align="center">
-                  Adaugă o soluție nouă{!fromExtension && "  pe site"}
+                  Adaugă o soluție nouă{fromExtension? " pe SOLINFO.ro" : "  pe site"}
                 </Typography>
               </Grid>
             </Grid>
           </Grid>
+          {!rootState.authStatusChecked && (
+            <Grid item xs={12}>
+              <Box>
+                <center>Se încarcă...</center>
+              </Box>
+            </Grid>
+          )}
           {rootState.authStatusChecked && !rootState.isLoggedIn && (
             <Grid item xs={12}>
               <Box>
@@ -287,9 +304,20 @@ export default function SolutieNoua(props) {
                       />
                     </Box>
                     <Box mb={2}>
-                      <Typography variant="body2">
-                        * Momentan accepăm doar soluții în limbajul C++
-                      </Typography>
+                      <span>Limbaj:</span>{' '}
+                      <Select
+                        labelId="language-select-label"
+                        id="language-select"
+                        value={state.language}
+                        onChange={handleChange('language')}
+                      >
+                        <MenuItem value={'cpp'}>C++</MenuItem>
+                        <MenuItem value={'c'}>C</MenuItem>
+                        <MenuItem value={'java'}>Java</MenuItem>
+                        <MenuItem value={'python'}>Python</MenuItem>
+                        <MenuItem value={'php'}>PHP</MenuItem>
+                        <MenuItem value={'pascal'}>Pascal</MenuItem>
+                      </Select>
                     </Box>
                     <Box mb={2}>
                       <Button

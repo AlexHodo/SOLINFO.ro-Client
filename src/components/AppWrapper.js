@@ -14,12 +14,14 @@ import {
   CSSTransition
 } from "react-transition-group";
 
+import SolutieNoua from "./../pages/SolutieNoua";
+
 const Cont = React.lazy(() => import('./../pages/Cont'));
 const Probleme = React.lazy(() => import('./../pages/Probleme'));
 const Problema = React.lazy(() => import('./../pages/Problema'));
 const ContActivare = React.lazy(() => import('./../pages/ContActivare'));
 const Parola = React.lazy(() => import('./../pages/Parola'));
-const SolutieNoua = React.lazy(() => import('./../pages/SolutieNoua'));
+// const SolutieNoua = React.lazy(() => import('./../pages/SolutieNoua'));
 const Profil = React.lazy(() => import('./../pages/Profil'));
 const Setari = React.lazy(() => import('./../pages/Setari'));
 const DespreContact = React.lazy(() => import('./../pages/DespreContact'));
@@ -70,8 +72,6 @@ export default function AppWrapper() {
 
   let location = useLocation();
   let inExt = location.pathname.startsWith('/solutie-noua-ext'); // viewed from extension
-
-  console.log(inExt);
 
   const { rootState } = useContext(RootContext);
 

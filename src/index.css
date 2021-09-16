@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #F2F3FA;
+  background: #F6F8FF;
 }
 
 img {
@@ -38,10 +38,10 @@ a {
 }
 
 .cool-sha {
-  box-shadow: 0 5px 10px rgba(154,160,185,.025), 0 15px 40px rgba(166,173,201,.2) !important;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,.1)!important;
 }
 .cool-sha-2 {
-  box-shadow: 1px 2px 3px rgba(0,0,0,0.35),
+  box-shadow: 1 2px 2px 0 rgba(0,0,0,.35)!important;
 }
 
 .cool-sha.cool-bord {

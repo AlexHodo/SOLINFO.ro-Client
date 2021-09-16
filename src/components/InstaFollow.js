@@ -11,7 +11,7 @@ ReactGA.initialize("UA-199814762-1");
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    border: `1px solid #DEDEDE`,
+    // border: `1px solid #DEDEDE`,
     padding: theme.spacing(2),
     borderRadius: "2px",
     maxWidth: 200,

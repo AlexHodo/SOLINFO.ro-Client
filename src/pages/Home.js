@@ -36,12 +36,16 @@ import java from 'react-syntax-highlighter/dist/esm/languages/hljs/java';
 import python from 'react-syntax-highlighter/dist/esm/languages/hljs/python';
 import nightOwl from 'react-syntax-highlighter/dist/esm/styles/hljs/night-owl';
 
+import heroBg from "../media/hero-bg.svg";
+
 SyntaxHighlighter.registerLanguage('c', c);
 
 const useStyles = makeStyles((theme) => ({
   hero: {
-    backgroundColor: fade(theme.palette.primary.main, 1),
+    // backgroundColor: fade(theme.palette.primary.main, 1),
     textAlign: "left",
+    backgroundColor: theme.palette.primary.main,
+    backgroundImage: `url(${heroBg})`
   },
   heroGrid: {
     marginTop: 0,
@@ -97,6 +101,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "left",
     "& span": {
       display: "inline-block",
+      background: theme.palette.primary.main,
       padding: theme.spacing(0, 3),
       [theme.breakpoints.down("sm")]: {
         fontSize: "1.75rem",
@@ -118,6 +123,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(-1),
     "& span": {
       display: "inline-block",
+      background: theme.palette.primary.main,
       padding: theme.spacing(0, 3),
       [theme.breakpoints.down("sm")]: {
         fontSize: "1.5rem",
@@ -176,7 +182,7 @@ const useStyles = makeStyles((theme) => ({
     "& *": {
       textAlign: "right",
     },
-    background: fade(theme.palette.common.white, 0.9),
+    background: fade(theme.palette.common.white, 0.95),
     padding: theme.spacing(3),
     position: "relative",
     [theme.breakpoints.down("sm")]: {
@@ -304,7 +310,7 @@ export default function Home() {
                       <TextField
                         {...params}
                         className={`${classes.heroTextField} cool-sha`}
-                        label="Caută după numele sau ID-ul problemei..."
+                        label="Caută după nume sau ID..."
                         variant="filled"
                         classes={{ root: classes.heroTextFieldRoot }}
                       />

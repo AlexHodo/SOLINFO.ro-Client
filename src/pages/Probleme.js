@@ -213,7 +213,7 @@ export default function Probleme() {
                   </Grid>
                   <Grid item xs={12}>
                     <Paper className="cool-sha" style={{width: "100%", overflow: "scroll"}}>
-                      <div style={{minWidth: "600px"}}>
+                      <div style={{minWidth: "700px"}}>
                         <DelayedRenderer delay={300}>
                         <DataGrid 
                           style = {{width: "100%"}}

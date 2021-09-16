@@ -57,23 +57,19 @@ a {
 
 ._anim--1-enter {
   opacity: 0;
-  transform: scale(1.1);
 }
 
 ._anim--1-enter-active {
   opacity: 1;
-  transform: scale(1);
   transition: opacity 300ms, transform 300ms;
 }
 
 ._anim--1-exit {
   opacity: 1;
-  transform: scale(1);
 }
 
 ._anim--1-exit-active {
   opacity: 0;
-  transform: scale(0.9);
   transition: opacity 300ms, transform 300ms;
 }
 

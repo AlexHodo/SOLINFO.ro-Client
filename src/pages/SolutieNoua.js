@@ -112,6 +112,8 @@ export default function SolutieNoua(props) {
       step: 0,
       content: -1,
       problemId: -1,
+      language: 'cpp',
+      ext: fromExtension? 1:0 
     });
 
     setState({
@@ -155,7 +157,7 @@ export default function SolutieNoua(props) {
       content: state.content,
       problemId: state.problemId,
       language: state.language,
-      ext: fromExtension,
+      ext: fromExtension? 1:0,
       step: state.step
     });
 

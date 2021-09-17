@@ -8,13 +8,12 @@ export default class Ad extends React.Component {
 
   render () {
     return (
-      <div className='ad' {...this.props}>
+      <div className='ad'>
         <ins 
           className='adsbygoogle'
           style={{ display: 'block' }}
           data-ad-client='ca-pub-9101356904433905'
-          data-ad-slot={this.props.slot}
-          data-ad-format='fluid' 
+          {...this.props}
         />
       </div>
     );

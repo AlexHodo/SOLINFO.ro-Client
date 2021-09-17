@@ -49,7 +49,9 @@ ReactGA.initialize("UA-199814762-1");
 const historyInstance = createBrowserHistory();
 
 historyInstance.listen((location) => {
-  ReactGA.pageview(location.pathname + location.search);
+  if(!(!process.env.NODE_ENV || process.env.NODE_ENV === 'development')) { // if not dev
+    ReactGA.pageview(location.pathname + location.search);
+  }
 });
 
 

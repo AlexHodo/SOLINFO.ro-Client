@@ -502,9 +502,14 @@ export default function Problema() {
                       </Typography>
                     </Grid>
                     <Grid item xs={8} md={7}>
-                        <Grid container spacing={1} justifyContent="flex-end" alignItems="flex-end">
+                        <Grid container spacing={0} justifyContent="flex-end" alignItems="flex-end">
                           <Grid item xs={8} md={9}>
                             <InputLabel className={classes.filterLabel}>Limbaje</InputLabel>
+                          </Grid>
+                          <Grid item xs={4} md={3} style={{paddingLeft: "0.5rem"}}>
+                            <InputLabel className={classes.filterLabel}>Sortare</InputLabel>
+                          </Grid>
+                          <Grid item xs={8} md={9}>
                             <FormControl className={classes.languageSelectWrapper}>
                               <Select
                                 autoWidth
@@ -531,8 +536,7 @@ export default function Problema() {
                               </Select>
                             </FormControl>
                           </Grid>
-                          <Grid item xs={4} md={3}>
-                            <InputLabel className={classes.filterLabel}>Sortare</InputLabel>
+                          <Grid item xs={4} md={3} style={{paddingLeft: "0.5rem"}}>
                             <Select
                               value={sortValue}
                               onChange={handleSortChange}
@@ -546,6 +550,15 @@ export default function Problema() {
                           </Grid>
                         </Grid>
                     </Grid>
+                    {rootState.showAds && <Grid item xs={12}>
+                      <div style={{maxHeight: "130px"}}>
+                        <Ad 
+                          data-ad-slot='3627680512'
+                          data-ad-format='fluid'
+                          data-ad-layout-key="-gi+14+5q-4h+2l"
+                        />
+                      </div>
+                    </Grid>}
                     <Grid item xs={12}>
                       <div>
                         {state.solutions_count > 0 && state.filteredSolutionsCount === 0 && (
@@ -806,7 +819,13 @@ export default function Problema() {
                       </div>
                     </Grid>
                     {rootState.showAds && <Grid item xs={12}>
-                      <Ad slot='5446909080' />
+                      <div style={{maxHeight: "130px"}}>
+                        <Ad 
+                          data-ad-slot='3627680512'
+                          data-ad-format='fluid' 
+                          data-ad-layout-key="-gi+14+5q-4h+2l"
+                        />
+                      </div>
                     </Grid>}
                     <Grid item xs={12}>
                       <HelpUs />

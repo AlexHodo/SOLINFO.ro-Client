@@ -45,11 +45,11 @@ class Context extends Component {
       },
       latest_solutions: [],
       stats: {
-        rating_5_count: this.loadingTxt,
-        solutions_count: this.loadingTxt,
+        rating_5_count: '...',
+        solutions_count: '...',
         top_users: [],
-        users_count: this.loadingTxt,
-        views_count: this.loadingTxt,
+        users_count: '...',
+        views_count: '...',
         articles: []
       },
     },

@@ -230,7 +230,7 @@ export default function Sidebar(props) {
             </iframe>
           </DelayedRenderer>
         </Grid>}
-        {props.showAd && rootState.showAds && <Grid item xs={12} sm={11}>
+        {props.showAd && rootState.showAds && false && <Grid item xs={12} sm={11}>
           <AdSense.Google
             client='ca-pub-9101356904433905'
             slot='2987546523'

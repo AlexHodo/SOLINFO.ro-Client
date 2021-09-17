@@ -8,6 +8,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #F6F8FF;
+  overflow-x: hidden;
 }
 
 img {
@@ -43,7 +44,7 @@ a {
   box-shadow: 0 1px 2px 0 rgba(0,0,0,.1)!important;
 }
 .cool-sha-2 {
-  box-shadow: 1 2px 2px 0 rgba(0,0,0,.35)!important;
+  box-shadow: 1px 2px 2px 0 rgba(0,0,0,.35)!important;
 }
 
 .cool-sha.cool-bord {
@@ -73,3 +74,6 @@ a {
   transition: opacity 300ms, transform 300ms;
 }
 
+ins.adsbygoogle[data-ad-status="unfilled"] {
+    display: none !important;
+}

@@ -176,24 +176,41 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  statsWrapperMiddle: {
+
+  },
   statsWrapperOuter: {
     minHeight: "150px",
+    [theme.breakpoints.up("md")]: {
+      "& $statsWrapperMiddle:nth-child(1)": {
+        // transform: 'translateX(0.75rem)'
+      },
+      "& $statsWrapperMiddle:nth-child(2)": {
+        // transform: 'translateX(0.75rem)'
+      },
+      "& $statsWrapperMiddle:nth-child(3)": {
+        transform: 'translateX(-1.5rem)'
+      },
+      "& $statsWrapperMiddle:nth-child(4)": {
+        transform: 'translateX(-1.5rem)'
+      }
+    }
   },
   statWrapper: {
     "& *": {
       textAlign: "right",
     },
     background: fade(theme.palette.common.white, 0.95),
-    padding: theme.spacing(3),
+    padding: theme.spacing(1.5, 4, 1.5, 1),
     position: "relative",
     [theme.breakpoints.down("sm")]: {
-      padding: theme.spacing(1, 3),
+      padding: theme.spacing(1, 3.5),
     },
     "&:hover": {
       transform: "scale(1.025)",
     },
     transition: "all .2s ease-in-out",
-    borderRadius: "100px"
+    borderRadius: "100px",
   },
   statTitle: {
     textTransform: "uppercase",
@@ -358,7 +375,7 @@ export default function Home() {
             </Grid>
             <Grid item xs={12} sm={6} md={5}>
               <Grid container spacing={2} className={classes.statsWrapperOuter}>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={6} className={classes.statsWrapperMiddle}>
                   <Paper className={`${classes.statWrapper} cool-sha`}>
                     <Typography className={classes.statTitle} variant="body1">
                       Utilizatori înscriși
@@ -369,7 +386,7 @@ export default function Home() {
                     <PeopleAltTwoToneIcon className={classes.statIcon} />
                   </Paper>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={6} className={classes.statsWrapperMiddle}>
                   <Paper className={`${classes.statWrapper} cool-sha`}>
                     <Typography className={classes.statTitle} variant="body1">
                       Soluții disponibile
@@ -380,7 +397,7 @@ export default function Home() {
                     <LibraryAddCheckTwoToneIcon className={classes.statIcon} />
                   </Paper>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={6} className={classes.statsWrapperMiddle}>
                   <Paper className={`${classes.statWrapper} cool-sha`}>
                     <Typography className={classes.statTitle} variant="body1">
                       Vizualizări soluții
@@ -391,7 +408,7 @@ export default function Home() {
                     <VisibilityTwoToneIcon className={classes.statIcon} />
                   </Paper>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={6} className={classes.statsWrapperMiddle}>
                   <Paper className={`${classes.statWrapper} cool-sha`}>
                     <Typography className={classes.statTitle} variant="body1">
                       Note de cinci stele

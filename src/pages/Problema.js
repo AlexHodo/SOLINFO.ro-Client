@@ -878,7 +878,7 @@ export default function Problema() {
                                           className={classes.infoSectionTitle}
                                           variant="h6"
                                           component="h3"
-                                          style={{fontWeight: 400}}
+                                          style={{fontWeight: 600}}
                                         >
                                           {item.title}
                                         </Typography>
@@ -886,8 +886,8 @@ export default function Problema() {
                                       {item.content && (
                                           <div>
                                             <Typography
-                                              variant="body1"
-                                              style={{fontWeight: 300}}
+                                              variant="body2"
+                                              style={{fontWeight: 400}}
                                               dangerouslySetInnerHTML={{
                                                 __html: item.content,
                                               }}

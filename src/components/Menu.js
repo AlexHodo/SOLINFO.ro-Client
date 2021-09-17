@@ -30,6 +30,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import CookieNotification from "./CookieNotification";
 import DnsTwoToneIcon from '@material-ui/icons/DnsTwoTone';
 import ThumbUpTwoToneIcon from '@material-ui/icons/ThumbUpTwoTone';
+import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
 
 const useStyles = makeStyles((theme) => ({
   offset: theme.mixins.toolbar,
@@ -543,7 +544,8 @@ export default function Navbar() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircleTwoToneIcon />
+              <AccountCircleTwoToneIcon className={classes.hiddenOnMobile} />
+              <MenuRoundedIcon className={classes.hideOnDesktop} />
             </IconButton>
           </div>
         </Toolbar>

@@ -18,6 +18,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import MetaTags from "react-meta-tags";
 import { Link, useParams } from "react-router-dom";
+import logo from "../media/logo.svg";
 
 const useStyles = makeStyles((theme) => ({
   formWrapper: {
@@ -199,9 +200,20 @@ export default function SolutieNoua(props) {
         >
           <Grid item xs={12} className={classes.header}>
             <Grid container justify="center" alignItems="center">
+              {fromExtension && <Grid item xs={12} md={9}>
+                <Box style={{
+                    height: 64
+                  }}
+                  mb={1}
+                >
+                  <center>
+                    <img src={logo} width={64}/>
+                  </center>
+                </Box>
+              </Grid>}
               <Grid item xs={12} md={9}>
                 <Typography variant={fromExtension? 'h6' : 'h5'} component="h1" align="center">
-                  Adaugă o soluție nouă{fromExtension? " pe SOLINFO.ro" : "  pe site"}
+                  Adaugă o soluție nouă{fromExtension? "" : "  pe site"}
                 </Typography>
               </Grid>
             </Grid>
@@ -297,7 +309,7 @@ export default function SolutieNoua(props) {
                       <TextField
                         label="Soluție"
                         multiline
-                        rows={7}
+                        rows={fromExtension? 5 : 7}
                         fullWidth
                         placeholder="Introdu soluția aici..."
                         variant="outlined"

@@ -105,10 +105,10 @@ const useStyles = makeStyles((theme) => ({
       textAlign: "right",
     },
     background: fade(theme.palette.common.white, 0.95),
-    padding: theme.spacing(3),
+    padding: theme.spacing(1.5, 4, 1.5, 1),
     position: "relative",
     [theme.breakpoints.down("sm")]: {
-      padding: theme.spacing(1, 3),
+      padding: theme.spacing(1, 3.5),
     },
     "&:hover": {
       transform: "scale(1.025)",
@@ -132,13 +132,13 @@ const useStyles = makeStyles((theme) => ({
   },
   statIcon: {
     position: "absolute",
-    fontSize: "4rem",
+    fontSize: "3.5rem",
     left: "1.5rem",
     top: "50%",
     transform: "translateY(-50%)",
     color: fade(theme.palette.primary.main, 0.75),
     [theme.breakpoints.down("sm")]: {
-      fontSize: "3rem",
+      fontSize: "2.5rem",
     },
   },
   hideOnMobile: {

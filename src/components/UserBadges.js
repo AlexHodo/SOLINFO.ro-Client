@@ -57,12 +57,13 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     padding: "0 10px",
     borderRadius: "50px",
-    color: fade(theme.palette.secondary.main, 0.75)
+    color: fade(theme.palette.secondary.main, 0.75),
+    background: "white"
   },
   pointsWrapper: {
     minWidth: "30px",
     height: "22px",
-    marginTop: "-0.5rem"
+    marginTop: "-0.5rem",
     // border: `1px solid ${fade(theme.palette.primary.main, 0.5)}`
   }
 }));

@@ -125,11 +125,11 @@ export default function WeeklyChallenge(props) {
       <Box p={2} pt={0}>
         {rootState.isLoggedIn? <>
           <BorderLinearProgress variant="determinate" value={state.props.challengeSolved * (100 / state.props.challengeTotal)}/>
-          <Typography variant="body2" component="p">
+          <Typography variant="body2" component="p" style={{marginTop: "0.25rem"}}>
             {state.props.challengeSolved}/{state.props.challengeTotal} rezolvate.
           </Typography>
         </> : <>
-          <Typography variant="body2" component="p">
+          <Typography variant="body2" component="p" style={{marginTop: "0.25rem"}}>
             <Link to="/cont">Autentifică-te</Link> pentru a vedea progresul personal.
           </Typography>
         </>}

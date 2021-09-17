@@ -46,6 +46,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import SortIcon from '@material-ui/icons/Sort';
 import CodeIcon from '@material-ui/icons/Code';
 import Checkbox from '@material-ui/core/Checkbox';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
@@ -238,10 +240,18 @@ export default function Problema() {
       value: 0,
       rating: 0,
       count: 0
-    }
+    },
+    activeTab: 0
   };
 
   const [state, setState] = React.useState(defaultState);
+
+  const handleTabChange = (event, newTab) => {
+    setState({
+      ...state,      
+      activeTab: newTab,
+    })
+  }
 
   const classes = useStyles();
 
@@ -315,6 +325,7 @@ export default function Problema() {
       category: "Solution",
       action: "Requested a solution",
       value: request.success,
+      label: rootState.isLoggedIn? 'logged_in' : 'logged_out'
     });
 
     if (request.success) {
@@ -482,7 +493,7 @@ export default function Problema() {
                   <Divider className={classes.divider} />
                 </Grid>
                 <Grid item xs={12} sm={8} md={9}>
-                  <Grid container spacing={2} alignItems="center">
+                  <Grid container spacing={2} alignItems="flex-end">
                     <Grid item xs={4} md={5}>
                       <Typography variant="h6" component="h2">
                         Soluții
@@ -502,9 +513,14 @@ export default function Problema() {
                       </Typography>
                     </Grid>
                     <Grid item xs={8} md={7}>
-                        <Grid container spacing={1} justifyContent="flex-end" alignItems="flex-end">
+                        <Grid container spacing={0} justifyContent="flex-end" alignItems="flex-end">
                           <Grid item xs={8} md={9}>
                             <InputLabel className={classes.filterLabel}>Limbaje</InputLabel>
+                          </Grid>
+                          <Grid item xs={4} md={3} style={{paddingLeft: "0.5rem"}}>
+                            <InputLabel className={classes.filterLabel}>Sortare</InputLabel>
+                          </Grid>
+                          <Grid item xs={8} md={9}>
                             <FormControl className={classes.languageSelectWrapper}>
                               <Select
                                 autoWidth
@@ -531,8 +547,7 @@ export default function Problema() {
                               </Select>
                             </FormControl>
                           </Grid>
-                          <Grid item xs={4} md={3}>
-                            <InputLabel className={classes.filterLabel}>Sortare</InputLabel>
+                          <Grid item xs={4} md={3} style={{paddingLeft: "0.5rem"}}>
                             <Select
                               value={sortValue}
                               onChange={handleSortChange}
@@ -546,6 +561,15 @@ export default function Problema() {
                           </Grid>
                         </Grid>
                     </Grid>
+                    {rootState.showAds && <Grid item xs={12}>
+                      <div style={{maxHeight: "130px"}}>
+                        <Ad 
+                          data-ad-slot='3627680512'
+                          data-ad-format='fluid'
+                          data-ad-layout-key="-gi+14+5q-4h+2l"
+                        />
+                      </div>
+                    </Grid>}
                     <Grid item xs={12}>
                       <div>
                         {state.solutions_count > 0 && state.filteredSolutionsCount === 0 && (
@@ -806,74 +830,84 @@ export default function Problema() {
                       </div>
                     </Grid>
                     {rootState.showAds && <Grid item xs={12}>
-                      <Ad slot='5446909080' />
+                      <div style={{maxHeight: "130px"}}>
+                        <Ad 
+                          data-ad-slot='3627680512'
+                          data-ad-format='fluid' 
+                          data-ad-layout-key="-gi+14+5q-4h+2l"
+                        />
+                      </div>
                     </Grid>}
                     <Grid item xs={12}>
                       <HelpUs />
                     </Grid>
-                    <Grid item xs={12}>
-                      <Typography
-                        variant="h6"
-                        component="h2"
-                      >
-                        Statistici problemă
-                      </Typography>
-                      <Paper className={`${classes.card} cool-sha`}>
-                        <Box pb={2}>
-                          <Suspense fallback={<Box pt={2}><center>Se încarcă...</center></Box>}>
-                            <StatsChart problemId={state.problem.pbinfo_id}/>
-                          </Suspense>
-                        </Box>
-                      </Paper>
-                    </Grid>
                     {rootState.showAds && <Grid item xs={12}>
-                      <AdSense.Google
-                        client='ca-pub-9101356904433905'
+                      <Ad
+                        data-ad-client="ca-pub-9101356904433905"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true"
                         slot='3485884754'
                       />
                     </Grid>}
-                    {state.problem.info.length > 0 && (
-                      <Grid item xs={12}>
-                        <Typography
-                          style={{ marginBottom: "-0.5rem" }}
-                          variant="h6"
-                          component="h2"
+                    <Grid item xs={12}>
+                      <Typography variant="h6" align="center">
+                        Informații despre problemă
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Paper className="cool-sha">
+                        <Tabs
+                          value={state.activeTab}
+                          onChange={handleTabChange}
+                          indicatorColor="primary"
+                          textColor="primary"
+                          
                         >
-                          Informații despre problemă
-                        </Typography>
-                      </Grid>
-                    )}
-                    {state.problem.info.map(function (item, index) {
-                      return (
-                        <>
-                          {(item.title || item.content) && (
-                            <Grid item xs={12}>
-                              {item.title && (
-                                <Typography
-                                  className={classes.infoSectionTitle}
-                                  variant="h6"
-                                  component="h3"
-                                >
-                                  {item.title}
-                                </Typography>
-                              )}
-                              {item.content && (
-                                <Paper className={`${classes.card} cool-sha`}>
-                                  <div className={classes.cardInner}>
-                                    <Typography
-                                      variant="body1"
-                                      dangerouslySetInnerHTML={{
-                                        __html: item.content,
-                                      }}
-                                    />
-                                  </div>
-                                </Paper>
-                              )}
-                            </Grid>
-                          )}
-                        </>
-                      );
-                    })}
+                          <Tab label="Enunț" key={0} id="tab--0" />
+                          <Tab label="Statistici" key={1} id="tab--1" />
+                        </Tabs>
+                        <Box>
+                          {state.activeTab === 0 && <Box pt={3} px={3} pb={2}>
+                            {state.problem.info.map(function (item, index) {
+                              return (
+                                <>
+                                  {(item.title || item.content) && (
+                                    <Grid item xs={12}>
+                                      {item.title && (
+                                        <Typography
+                                          className={classes.infoSectionTitle}
+                                          variant="h6"
+                                          component="h3"
+                                          style={{fontWeight: 400}}
+                                        >
+                                          {item.title}
+                                        </Typography>
+                                      )}
+                                      {item.content && (
+                                          <div>
+                                            <Typography
+                                              variant="body1"
+                                              style={{fontWeight: 300}}
+                                              dangerouslySetInnerHTML={{
+                                                __html: item.content,
+                                              }}
+                                            />
+                                          </div>
+                                      )}
+                                    </Grid>
+                                  )}
+                                </>
+                              );
+                            })}
+                          </Box>}
+                          {state.activeTab === 1 && <>
+                            <Suspense fallback={<Box pt={2}><center>Se încarcă...</center></Box>}>
+                              <StatsChart problemId={state.problem.pbinfo_id}/>
+                            </Suspense>
+                          </>}
+                        </Box>
+                      </Paper>
+                    </Grid>
                   </Grid>
                 </Grid>
                 <Grid item xs={12} sm={4} md={3}>

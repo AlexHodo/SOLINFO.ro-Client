@@ -330,6 +330,7 @@ export default function SolutieNoua(props) {
                         disableElevation
                         variant="contained"
                         fullWidth
+                        disabled={state.isLoading}
                       >
                         {!state.isLoading && <>Trimite soluție</>}
                         {state.isLoading && <>Se trimite...</>}

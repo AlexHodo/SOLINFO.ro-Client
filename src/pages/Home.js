@@ -25,8 +25,9 @@ import Sidebar from "./../components/Sidebar";
 import MetaTags from "react-meta-tags";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import HelpUs from "./../components/HelpUs";
-import AdSense from "react-adsense";
 import LanguageTag from "../components/LanguageTag";
+
+import Ad from "../components/Ad";
 
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
@@ -186,12 +187,13 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     position: "relative",
     [theme.breakpoints.down("sm")]: {
-      padding: theme.spacing(1, 2),
+      padding: theme.spacing(1, 3),
     },
     "&:hover": {
       transform: "scale(1.025)",
     },
     transition: "all .2s ease-in-out",
+    borderRadius: "100px"
   },
   statTitle: {
     textTransform: "uppercase",
@@ -204,6 +206,8 @@ const useStyles = makeStyles((theme) => ({
   },
   statContent: {
     fontSize: "1.35rem",
+    color: theme.palette.primary.main,
+    fontWeight: 800
   },
   statIcon: {
     position: "absolute",
@@ -211,7 +215,7 @@ const useStyles = makeStyles((theme) => ({
     left: "1.5rem",
     top: "50%",
     transform: "translateY(-50%)",
-    color: fade(theme.palette.primary.main, 0.3),
+    color: fade(theme.palette.primary.main, 0.75),
     [theme.breakpoints.down("sm")]: {
       fontSize: "3rem",
     },
@@ -334,7 +338,7 @@ export default function Home() {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <Box pl={3}>
+                  <Box>
                     <center>
                       <Link to="/despre-contact">
                         <Button
@@ -390,7 +394,7 @@ export default function Home() {
                 <Grid item xs={12} md={6}>
                   <Paper className={`${classes.statWrapper} cool-sha`}>
                     <Typography className={classes.statTitle} variant="body1">
-                      Note de cinci stele &#9733;
+                      Note de cinci stele
                     </Typography>
                     <Typography className={classes.statContent} variant="h6">
                       {state.stats.rating_5_count}
@@ -436,9 +440,10 @@ export default function Home() {
                     <Grid item xs={12} key={index}>
                       {rootState.showAds && (index+1)%4 == 0 && <> {/* before the 4th and 8th  */}
                         <Box mb={2}>
-                          <AdSense.Google
-                            client='ca-pub-9101356904433905'
-                            slot='1123445298'
+                          <Ad 
+                            data-ad-slot="1123445298"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true"
                           />
                         </Box>
                       </>}
@@ -498,11 +503,6 @@ export default function Home() {
                                   variant="contained"
                                   disableElevation
                                   color="primary"
-                                  endIcon={
-                                    <ForwardTwoToneIcon
-                                      className={classes.hideOnMobile}
-                                    />
-                                  }
                                 >
                                   Vezi <Box className={classes.hideOnMobile} ml={0.5} component="span">soluția</Box>{" "}
                                   <span className="views">{item.views}</span>

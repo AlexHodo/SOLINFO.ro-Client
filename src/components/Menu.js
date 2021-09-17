@@ -100,6 +100,7 @@ const useStyles = makeStyles((theme) => ({
   menu: {
     backgroundColor: fade(theme.palette.common.black, 0.9),
     backdropFilter: "saturate(15) blur(15px)",
+
   },
   menuItemIcon: {
     marginRight: theme.spacing(2),
@@ -151,7 +152,7 @@ const useStyles = makeStyles((theme) => ({
     width: "45px",
     height: "45px",
     backgroundSize: "contain",
-  }
+  },
 }));
 
 const defaultFilterOptions = createFilterOptions();
@@ -440,7 +441,7 @@ export default function Navbar() {
   return (
     <>
     <div className={`${classes.grow} ext--menu`}>
-      <AppBar position="fixed" className={classes.menu}>
+      <AppBar position="fixed" className={`${classes.menu} cool-sha-2`}>
         <Toolbar>
           <Link to="/">
             <div 

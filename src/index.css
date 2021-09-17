@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;0,800;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;0,800;0,400;0,300;1,300&display=swap');
 
 body {
   margin: 0;
@@ -8,6 +8,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #F6F8FF;
+  overflow-x: hidden;
 }
 
 img {
@@ -73,3 +74,6 @@ a {
   transition: opacity 300ms, transform 300ms;
 }
 
+ins.adsbygoogle[data-ad-status="unfilled"] {
+    display: none !important;
+}

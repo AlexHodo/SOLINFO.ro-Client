@@ -25,8 +25,9 @@ import Sidebar from "./../components/Sidebar";
 import MetaTags from "react-meta-tags";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import HelpUs from "./../components/HelpUs";
-import AdSense from "react-adsense";
 import LanguageTag from "../components/LanguageTag";
+
+import Ad from "../components/Ad";
 
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
@@ -439,9 +440,10 @@ export default function Home() {
                     <Grid item xs={12} key={index}>
                       {rootState.showAds && (index+1)%4 == 0 && <> {/* before the 4th and 8th  */}
                         <Box mb={2}>
-                          <AdSense.Google
-                            client='ca-pub-9101356904433905'
-                            slot='1123445298'
+                          <Ad 
+                            data-ad-slot="1123445298"
+                            data-ad-format="auto"
+                            data-full-width-responsive="true"
                           />
                         </Box>
                       </>}

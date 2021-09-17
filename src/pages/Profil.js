@@ -26,9 +26,10 @@ import {
   TransitionGroup,
   CSSTransition
 } from "react-transition-group";
-import AdSense from "react-adsense";
 import PageSkeleton from "./../components/PageSkeleton";
 import LanguageTag from "../components/LanguageTag";
+
+import Ad from "../components/Ad"
 
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
@@ -300,7 +301,7 @@ export default function Profil() {
                         <Typography className={classes.statContent} variant="h6">
                           {state.profile.points}
                         </Typography>
-                        <ThumbUpTwoToneIcon className={classes.statIcon} />
+                        <PermIdentityTwoToneIcon className={classes.statIcon} />
                       </Paper>
                     </Grid>
                     <Grid item xs={12} sm={6} md={3}>
@@ -322,7 +323,7 @@ export default function Profil() {
                         <Typography className={classes.statContent} variant="h6">
                           {state.profile.challenges_count}
                         </Typography>
-                        <PermIdentityTwoToneIcon className={classes.statIcon} />
+                        <ThumbUpTwoToneIcon className={classes.statIcon} />
                       </Paper>
                     </Grid>
                     <Grid item xs={12} sm={6} md={3}>
@@ -380,9 +381,10 @@ export default function Profil() {
                               <Grid item xs={12} key={index}>
                                 {index == 1 && <> {/* after the first item */}
                                   <Box mb={2}>
-                                    <AdSense.Google
-                                      client='ca-pub-9101356904433905'
-                                      slot='1035815388'
+                                    <Ad 
+                                      data-ad-slot="1035815388"
+                                      data-ad-format="auto"
+                                      data-full-width-responsive="true"
                                     />
                                   </Box>
                                 </>}

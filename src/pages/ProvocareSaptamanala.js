@@ -53,14 +53,14 @@ export default function ProvocareSaptamanala() {
             <>
               <MetaTags>
                 <title>
-                  Provocarea Săptămânală | SOLINFO.ro
+                  Provocarea săptămânii | SOLINFO.ro
                 </title>
               </MetaTags>
               <Grid item xs={12} className={classes.header}>
             <Grid container justify="center" alignItems="center">
               <Grid item xs={12} md={12}>
                 <Typography variant="h5" component="h1">
-                  Provocarea Săptămânală
+                  Provocarea săptămânii
                 </Typography>
               </Grid>
             </Grid>
@@ -82,7 +82,7 @@ export default function ProvocareSaptamanala() {
                       În fiecare luni, alegem câteva probleme ceva mai complicate și vă provocăm să le rezolvați pe parcursul săptămânii, până duminică inclusiv. Rezolvarea fiecărei probleme din provocare îți va aduce 3 puncte, în loc de unul singur, cât ți-ar aduce rezolvarea oricărei alte probleme.
                     </Typography>
                     <Typography variant="body1">
-                      De altfel, rezolvarea problemelor din provocări e singura modalitate prin care poți obține <Link to="/despre-contact">trofeul <i>Ambițios</i></Link>.
+                      De altfel, rezolvarea problemelor din provocări e singura modalitate prin care poți obține <Link to="/despre-contact">trofeul Ambițios</Link>.
                     </Typography>
                   </Box>
                 </Paper>

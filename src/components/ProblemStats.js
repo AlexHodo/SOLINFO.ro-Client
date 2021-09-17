@@ -283,14 +283,15 @@ class ProblemStats extends React.Component {
 
     return (
       <>
-        {this.state.isLoading? <Box pt={2}><center>Se încarcă...</center></Box> : <>
-          {this.state.errorMsg? <Box pt={2}><center>this.state.errorMsg</center></Box> : <>
+        {this.state.isLoading? <Box pt={2} pb={2}><center>Se încarcă...</center></Box> : <>
+          {this.state.errorMsg? <Box pt={2}><center>this.state.errorMsg</center></Box> : <Box>            
 
-            <Tabs
+          <Tabs
               value={this.state.activeTab}
               indicatorColor="primary"
               textColor="primary"
               onChange={handleTabChange}
+              
             >
               <Tab label="Ultima lună" key={0} id="tab--0"/>
               <Tab label="Ultimul an" key={1} id="tab--1"/>
@@ -304,7 +305,9 @@ class ProblemStats extends React.Component {
               />
             </div>
 
-          </>}
+            
+
+          </Box>}
         </>}
       </>
     );

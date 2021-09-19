@@ -562,18 +562,17 @@ export default function Problema() {
                         </Grid>
                     </Grid>
                     {rootState.showAds && <Grid item xs={12}>
-                      <div style={{maxHeight: "130px"}}>
                         <Ad 
-                          data-ad-slot='3627680512'
+                          card
+                          data-ad-slot='3038816711' 
                           data-ad-format='fluid'
                           data-ad-layout-key="-gi+14+5q-4h+2l"
                         />
-                      </div>
                     </Grid>}
                     <Grid item xs={12}>
                       <div>
                         {state.solutions_count > 0 && state.filteredSolutionsCount === 0 && (
-                          <Paper className={`${classes.card} cool-sha`} style={{margin: 0}}>
+                          <Paper className={`${classes.card} cool-sha no-br`} style={{margin: 0}}>
                             <div className={classes.cardInner}>
                               <Box mt={2} mb={2}>
                                 <Typography variant="body1" align="center">
@@ -584,7 +583,7 @@ export default function Problema() {
                           </Paper>
                         )}
                         {state.solutions.length === 0 && (
-                          <Paper className={`${classes.card} cool-sha`} style={{margin: 0}}>
+                          <Paper className={`${classes.card} cool-sha no-br`} style={{margin: 0}}>
                             <div className={classes.cardInner}>
                               <Box mt={2} mb={2}>
                                 <Typography variant="body1" align="center">
@@ -830,13 +829,12 @@ export default function Problema() {
                       </div>
                     </Grid>
                     {rootState.showAds && <Grid item xs={12}>
-                      <div style={{maxHeight: "130px"}}>
                         <Ad 
-                          data-ad-slot='3627680512'
-                          data-ad-format='fluid' 
+                          card
+                          data-ad-slot='3038816711' 
+                          data-ad-format='fluid'
                           data-ad-layout-key="-gi+14+5q-4h+2l"
                         />
-                      </div>
                     </Grid>}
                     <Grid item xs={12}>
                       <HelpUs />

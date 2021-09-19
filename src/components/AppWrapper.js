@@ -28,6 +28,7 @@ const ParolaResetare = React.lazy(() => import('./../pages/ParolaResetare'));
 const Footer = React.lazy(() => import('./../components/Footer'));
 const Home = React.lazy(() => import('./../pages/Home'));
 const ProvocareSaptamanala = React.lazy(() => import('./../pages/ProvocareSaptamanala'));
+const ImportSolutii = React.lazy(() => import('./../pages/ImportSolutii'));
 
 const useStylesFacebook = makeStyles((theme) => ({
   root: {
@@ -206,6 +207,9 @@ export default function AppWrapper() {
             </Suspense>} />
             <Route path="/solutie-noua-ext/" exact children={<Suspense fallback={SuspenseFallback}>
               <SolutieNoua fromExtension />
+            </Suspense>} />
+            <Route path="/import-solutii" exact children={<Suspense fallback={SuspenseFallback}>
+              <ImportSolutii />
             </Suspense>} />
             <Route children={<NotFound />} />
           </Switch>

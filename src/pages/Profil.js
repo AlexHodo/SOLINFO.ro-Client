@@ -380,8 +380,9 @@ export default function Profil() {
                             return (
                               <Grid item xs={12} key={index}>
                                 {index == 1 && <> {/* after the first item */}
-                                  <Box mb={2}>
+                                  <Box px={2}>
                                     <Ad 
+                                      marginBottom
                                       data-ad-slot="1035815388"
                                       data-ad-format="auto"
                                       data-full-width-responsive="true"

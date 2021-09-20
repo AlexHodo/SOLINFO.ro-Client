@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
@@ -63,9 +63,7 @@ export default function SolutieNoua(props) {
 
   if(fromExtension) {
     defaultState = {
-      data_loaded: false,
-      data_loading: false,
-      step: 0,
+      step: 1,
       success: null,
       errorMsg: null,
       responseCode: null,
@@ -80,9 +78,7 @@ export default function SolutieNoua(props) {
     };
   } else {
     defaultState = {
-      data_loaded: false,
-      data_loading: false,
-      step: 0,
+      step: 1,
       success: null,
       errorMsg: null,
       responseCode: null,
@@ -97,40 +93,9 @@ export default function SolutieNoua(props) {
     };
   }
 
-  
-
   const [state, setState] = React.useState(defaultState);
 
   const classes = useStyles();
-
-  const onLoad = async (event) => {
-    setState({
-      ...state,
-      data_loading: true,
-    });
-
-    const logonRequest = await API("endpoint/page/adaugare-solutie.php", {
-      step: 0,
-      content: -1,
-      problemId: -1,
-      language: 'cpp',
-      ext: fromExtension? 1:0 
-    });
-
-    setState({
-      ...state,
-      data_loaded: true,
-      data_loading: false,
-      success: logonRequest.success,
-      errorMsg: logonRequest.errorMsg,
-      responseCode: logonRequest.responseCode,
-      step: 1,
-    });
-  };
-
-  if (!state.data_loading && !state.data_loaded && rootState.isLoggedIn) {
-    onLoad();
-  }
 
   const handleChange = (prop) => (event) => {
     setState({
@@ -160,25 +125,25 @@ export default function SolutieNoua(props) {
       language: state.language,
       ext: fromExtension? 1:0,
       step: state.step
-    });
-
-    if (!request.success) {
-      setState({
-        ...state,
-        errorMsg: request.errorMsg,
-        isError: true,
-        step: 1,
-        isLoading: false,
-      });
-    } else {
-      setState({
-        ...state,
-        success: true,
-        isError: false,
-        step: 2,
-        isLoading: false,
-      });
-    }
+    }).then((response) => {
+      if (!response.success) {
+        setState({
+          ...state,
+          errorMsg: response.errorMsg,
+          isError: true,
+          step: 1,
+          isLoading: false,
+        });
+      } else {
+        setState({
+          ...state,
+          success: true,
+          isError: false,
+          step: 2,
+          isLoading: false,
+        });
+      }
+    })
   };
 
   const restart = (event) => {
@@ -221,7 +186,9 @@ export default function SolutieNoua(props) {
           {!rootState.authStatusChecked && (
             <Grid item xs={12}>
               <Box>
-                <center>Se încarcă...</center>
+                <center>
+                  <CircularProgress />
+                </center>
               </Box>
             </Grid>
           )}
@@ -239,17 +206,7 @@ export default function SolutieNoua(props) {
               </Box>
             </Grid>
           )}
-          {!state.data_loaded && rootState.isLoggedIn && (
-            <Grid item xs={12} className={classes.placeholder}>
-              <CircularProgress />
-            </Grid>
-          )}
-          {state.data_loaded && !state.success && (
-            <Grid item xs={12} className={classes.placeholder}>
-              {state.errorMsg}
-            </Grid>
-          )}
-          {state.data_loaded && state.step === 1 && state.success && (
+          {rootState.isLoggedIn && state.step === 1 && (
             <>
               <Grid item xs={12}>
                 <Paper className="cool-sha">
@@ -359,7 +316,7 @@ export default function SolutieNoua(props) {
               </Grid>
             </>
           )}
-          {state.data_loaded && state.step === 2 && state.success && (
+          {rootState.isLoggedIn && state.step === 2 && (
             <>
               <Grid item xs={12}>
                 <Paper className="cool-sha">

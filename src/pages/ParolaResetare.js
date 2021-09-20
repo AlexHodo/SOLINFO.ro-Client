@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
@@ -30,8 +30,7 @@ export default function ParolaResetare() {
   const classes = useStyles();
 
   const initialState = {
-    data_loaded: false,
-    data_loading: false,
+    dataLoaded: false,
     success: false,
     errorMsg: "",
     successMsg: "",
@@ -86,41 +85,38 @@ export default function ParolaResetare() {
     }
   };
 
-  const onLoad = async (event) => {
-    setState({
-      ...state,
-      data_loading: true,
-    });
+  useEffect(() => {
 
-    const request = await API("endpoint/auth/password-new.php", state.input);
-
-    if (request.success) {
-      setState({
-        ...state,
-        data_loading: false,
-        data_loaded: true,
-        input: {
-          ...state.input,
-          step: 2,
-        },
-      });
-    } else {
-      setState({
-        ...state,
-        data_loaded: true,
-        data_loading: false,
-        errorMsg: request.errorMsg,
-        inpit: {
-          ...state.input,
-          step: 1,
-        },
-      });
+    async function logon() {
+      await API("endpoint/auth/password-new.php", state.input).then((logonResponse) => {
+        if (logonResponse.success) {
+          setState({
+            ...state,
+            data_loading: false,
+            dataLoaded: true,
+            input: {
+              ...state.input,
+              step: 2,
+            },
+          });
+        } else {
+          setState({
+            ...state,
+            dataLoaded: true,
+            data_loading: false,
+            errorMsg: logonResponse.errorMsg,
+            inpit: {
+              ...state.input,
+              step: 1,
+            },
+          });
+        }
+      })
     }
-  };
 
-  if (!state.data_loading && !state.data_loaded) {
-    onLoad();
-  }
+    logon()
+
+  }, [])
 
   return (
     <>
@@ -133,6 +129,7 @@ export default function ParolaResetare() {
           justify="center"
           alignItems="center"
           className={classes.formWrapper}
+          style={{minHeight: "calc(100vh - 100px)"}}
         >
           <Grid item xs={12} sm={8} md={5}>
             <Box mb={3} mt={3}>
@@ -142,14 +139,14 @@ export default function ParolaResetare() {
             </Box>
             <Paper className={`cool-sha ${classes.wrapperPaper}`}>
               <Grid container spacing={3}>
-                {!state.data_loaded && (
-                  <Grid item xs={12} style={{minHeight: "100vh"}}>
+                {!state.dataLoaded && (
+                  <Grid item xs={12}>
                     <center>
                       <CircularProgress />
                     </center>
                   </Grid>
                 )}
-                {state.data_loaded && state.input.step === 1 && state.errorMsg && (
+                {state.dataLoaded && state.input.step === 1 && state.errorMsg && (
                   <Grid item xs={12}>
                     <Alert severity="error">{state.errorMsg}</Alert>
                   </Grid>

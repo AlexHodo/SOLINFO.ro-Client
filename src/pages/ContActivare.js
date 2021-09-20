@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
@@ -25,8 +25,7 @@ export default function ContActivare() {
   const classes = useStyles();
 
   const defaultState = {
-    data_loaded: false,
-    data_loading: false,
+    dataLoaded: false,
     success: false,
     errorMsg: "",
     successMsg: "",
@@ -35,29 +34,27 @@ export default function ContActivare() {
 
   const [state, setState] = React.useState(defaultState);
 
-  const onLoad = async (event) => {
-    setState({
-      ...state,
-      data_loading: true,
-    });
+  useEffect(() => {
 
-    const request = await API("endpoint/auth/confirm.php", {
-      token: token,
-    });
+    async function logon() {
 
-    setState({
-      ...state,
-      errorMsg: request.errorMsg,
-      success: request.success,
-      successMsg: request.successMsg,
-      data_loaded: true,
-      data_loading: false,
-    });
-  };
+      await API("endpoint/auth/confirm.php", {
+        token: token,
+      }).then((logonResponse) => {
+        setState({
+          ...state,
+          errorMsg: logonResponse.errorMsg,
+          success: logonResponse.success,
+          successMsg: logonResponse.successMsg,
+          dataLoaded: true,
+        });
+      })
+      
+    }
 
-  if (!state.data_loading && !state.data_loaded) {
-    onLoad();
-  }
+    logon()
+
+  }, [])
 
   return (
     <>
@@ -70,17 +67,18 @@ export default function ContActivare() {
           justify="center"
           alignItems="center"
           className={classes.formWrapper}
+          style={{minHeight: "calc(100vh - 100px)"}}
         >
           <Grid item xs={12} sm={8} md={5}>
             <Paper className="cool-sha">
-              {!state.data_loaded && (
-                <Box p={2} style={{minHeight: "100vh"}}>
+              {!state.dataLoaded && (
+                <Box p={2}>
                   <center>
                     <CircularProgress />
                   </center>
                 </Box>
               )}
-              {state.data_loaded && state.success && (
+              {state.dataLoaded && state.success && (
                 <Box p={2}>
                   <Alert severity="success">{state.successMsg}</Alert>
                   <Box mt={2}>
@@ -98,7 +96,7 @@ export default function ContActivare() {
                   </Box>
                 </Box>
               )}
-              {state.data_loaded && !state.success && (
+              {state.dataLoaded && !state.success && (
                 <Box p={2}>
                   <Alert severity="error">{state.errorMsg}</Alert>
                   <Box mt={2}>

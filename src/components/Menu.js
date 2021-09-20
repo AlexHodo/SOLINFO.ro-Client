@@ -109,6 +109,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menuItemText: {
     color: theme.palette.primary.dark,
+    fontWeight: 600
   },
   menuRightSide: {
     minWidth: "90px",
@@ -147,7 +148,11 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   menuItem: {
-    color: fade(theme.palette.common.white, 0.9)
+    color: fade(theme.palette.common.white, 0.9),
+    "& *": {
+      fontWeight: "600 !important"
+    }
+    
   },
   logoWrapper: {
     width: "45px",
@@ -364,6 +369,11 @@ export default function Navbar() {
   };
 
   React.useEffect(() => {
+
+    setTimeout(() => {
+      getCount()
+    }, 1500)
+
     const interval = setInterval(() => {
       getCount();
     }, 30000); // every 30 seconds

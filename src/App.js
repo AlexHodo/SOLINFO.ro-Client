@@ -1,7 +1,7 @@
 import "./App.css";
 import React from "react";
 import { Router } from "react-router-dom";
-import { MuiThemeProvider, createMuiTheme, createGenerateClassName } from "@material-ui/core/styles";
+import { ThemeProvider, createMuiTheme, createGenerateClassName } from "@material-ui/core/styles";
 import Context from "./contexts/Context";
 import AppWrapper from "./components/AppWrapper";
 import ScrollToTop from "react-router-scroll-top";
@@ -11,7 +11,10 @@ import { createBrowserHistory } from "history";
 
 const theme = createMuiTheme({
   typography: {
-    "fontFamily": `"Nunito", "Helvetica", "Arial", sans-serif`,
+    fontFamily: `"Nunito", "Helvetica", "Arial", sans-serif`,
+    button: {
+      fontWeight: 600
+    }
   },
   palette: {
     primary: {
@@ -66,11 +69,11 @@ export default function App() {
           />
           <meta property="og:title" content="SOLINFO.ro" />
         </MetaTags>
-        <MuiThemeProvider theme={theme} >
+        <ThemeProvider theme={theme} >
           <Context>
             <AppWrapper />
           </Context>
-        </MuiThemeProvider>
+        </ThemeProvider>
       </ScrollToTop>
     </Router>
   );

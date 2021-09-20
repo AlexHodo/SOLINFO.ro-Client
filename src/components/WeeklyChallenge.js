@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { RootContext } from "./../contexts/Context";
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles, fade } from '@material-ui/core/styles';
 import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
@@ -23,7 +23,9 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.success.main,
   },
   chip: {
-    
+    color: fade(theme.palette.secondary.main, 0.85),
+    borderColor: fade(theme.palette.secondary.main, 0.25),
+    fontWeight: "400 !important",
   },
   textRoot: {
     textOverflow: "ellipsis",
@@ -31,7 +33,10 @@ const useStyles = makeStyles((theme) => ({
     whiteSpace: "nowrap",
     margin: 0,
     marginRight: theme.spacing(1),
-    display: "inline-block"
+    display: "inline-block",
+  },
+  problemTitle: {
+    fontWeight: 600
   },
   solvedIcon: {
     color: theme.palette.success.main,
@@ -42,7 +47,10 @@ const useStyles = makeStyles((theme) => ({
   },
   solvedByChip: {
     marginLeft: theme.spacing(1),
-    border: "1px solid rgba(0, 0, 0, 0.25)"
+    color: fade(theme.palette.secondary.main, 0.85),
+    borderColor: fade(theme.palette.secondary.main, 0.25),
+    fontWeight: "400 !important",
+    paddingLeft: "0.15rem",
   }
 }));
 
@@ -86,7 +94,7 @@ export default function WeeklyChallenge(props) {
             <Link to={`/problema/${item.name}`} key={index}>
               <ListItem button className={`${classes.problem} ${item.solved && classes.problem_solved}`}>
                 <ListItemText 
-                  classes={{root: classes.textRoot}} 
+                  classes={{root: classes.textRoot, primary: classes.problemTitle}} 
                   primary={item.name}
                   secondary={
                     <React.Fragment>
@@ -125,7 +133,7 @@ export default function WeeklyChallenge(props) {
       <Box p={2} pt={0}>
         {rootState.isLoggedIn? <>
           <BorderLinearProgress variant="determinate" value={state.props.challengeSolved * (100 / state.props.challengeTotal)}/>
-          <Typography variant="body2" component="p" style={{marginTop: "0.25rem"}}>
+          <Typography variant="body2" component="p" style={{marginTop: "0.25rem", fontWeight: 600}}>
             {state.props.challengeSolved}/{state.props.challengeTotal} rezolvate.
           </Typography>
         </> : <>

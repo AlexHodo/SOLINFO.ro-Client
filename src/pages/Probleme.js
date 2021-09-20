@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { fade, makeStyles, withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
@@ -80,7 +80,7 @@ export default function Probleme() {
   const { API } = useContext(RootContext);
 
   const defaultState = {
-    data_loaded: false,
+    dataLoaded: false,
     data_loading: false,
     problems: [],
     success: null,
@@ -152,35 +152,33 @@ export default function Probleme() {
     }
   ];
 
-  const onLoad = async (event) => {
-    setState({
-      ...state,
-      data_loading: true,
-    });
+  useEffect(() => {
 
-    const logonRequest = await API("endpoint/page/probleme.php");
+    async function logon() {
 
-    setState({
-      ...state,
-      data_loaded: true,
-      data_loading: false,
-      success: logonRequest.success,
-      errorMsg: logonRequest.errorMsg,
-      problems: logonRequest.problems,
-      responseCode: logonRequest.responseCode,
-    });
-  };
+      await API("endpoint/page/probleme.php").then((logonResponse) => {
+        setState({
+          ...state,
+          dataLoaded: true,
+          success: logonResponse.success,
+          errorMsg: logonResponse.errorMsg,
+          problems: logonResponse.problems,
+          responseCode: logonResponse.responseCode,
+        });
+      })
 
-  if (!state.data_loading && !state.data_loaded) {
-    onLoad();
-  }
+    }
+
+    logon()
+
+  }, [])
 
   let location = useLocation()
 
   return (
     <>
-    {!state.data_loaded && <PageSkeleton type="problem" /> }
-    {state.data_loaded && state.success && <Container maxWidth="md">
+    {!state.dataLoaded && <PageSkeleton type="problem" /> }
+    {state.dataLoaded && state.success && <Container maxWidth="md">
         <Grid container>
               <MetaTags>
                 <title>

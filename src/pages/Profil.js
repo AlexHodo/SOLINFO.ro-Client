@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
@@ -120,15 +120,15 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "uppercase",
     fontWeight: 300,
     fontSize: "0.9rem",
-    width: "50%",
-    marginLeft: "50%",
+    width: "70%",
+    marginLeft: "30%",
     textAlign: "right",
     lineHeight: 1.25
   },
   statContent: {
     fontSize: "1.35rem",
     color: theme.palette.primary.main,
-    fontWeight: 800
+    fontWeight: "800 !important"
   },
   statIcon: {
     position: "absolute",
@@ -161,6 +161,7 @@ const useStyles = makeStyles((theme) => ({
   },
   previewCardTitle: {
     lineHeight: "1.25rem",
+    fontWeight: 600
   },
   profileStatsWrapper: {
     marginTop: theme.spacing(1)
@@ -173,8 +174,7 @@ export default function Profil() {
   const { API, rootState, langToHljsLang } = useContext(RootContext);
 
   const defaultState = {
-    data_loaded: false,
-    data_loading: false,
+    dataLoaded: false,
     success: null,
     errorMsg: null,
     responseCode: null,
@@ -188,41 +188,39 @@ export default function Profil() {
 
   const classes = useStyles();
 
-  const onLoad = async (event) => {
-    setState({
-      ...state,
-      data_loading: true,
-    });
+  useEffect(() => {
 
-    const logonRequest = await API("endpoint/page/profil.php", {
-      username: username ? username : rootState.userInfo.username,
-    });
+    async function logon() {
 
-    setState({
-      ...state,
-      data_loaded: true,
-      data_loading: false,
-      success: logonRequest.success,
-      errorMsg: logonRequest.errorMsg,
-      responseCode: logonRequest.responseCode,
-      profile: logonRequest.profile,
-      latest_solutions: logonRequest.latest_solutions,
-      badges: logonRequest.badges,
-      points: logonRequest.points
-    });
-  };
+      await API("endpoint/page/profil.php", {
+        username: username ? username : rootState.userInfo.username,
+      }).then((logonResponse) => {
+        setState({
+          ...state,
+          dataLoaded: true,
+          success: logonResponse.success,
+          errorMsg: logonResponse.errorMsg,
+          responseCode: logonResponse.responseCode,
+          profile: logonResponse.profile,
+          latest_solutions: logonResponse.latest_solutions,
+          badges: logonResponse.badges,
+          points: logonResponse.points
+        });
+      });
 
-  if (!state.data_loading && !state.data_loaded) {
-    onLoad();
-  }
+    }
+
+    logon();
+
+  }, []);
 
   let location = useLocation()
 
   return (
     <>
-    {!state.data_loaded && <PageSkeleton type="profile" />}
-    {state.data_loaded && !state.success && <NotFound />}   
-    {state.data_loaded && state.success && (
+    {!state.dataLoaded && <PageSkeleton type="profile" />}
+    {state.dataLoaded && !state.success && <NotFound />}   
+    {state.dataLoaded && state.success && (
         <>
           <MetaTags>
             <title>

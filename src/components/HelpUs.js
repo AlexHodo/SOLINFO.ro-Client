@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   title: {
-    fontWeight: 400,
+    fontWeight: 500,
     fontSize: "1.25rem",
     fontStyle: "italic",
   },

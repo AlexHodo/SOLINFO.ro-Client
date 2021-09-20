@@ -1,4 +1,4 @@
-import React, { useContext, Suspense } from "react";
+import React, { useContext, useEffect, Suspense } from "react";
 import { fade, makeStyles, withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
@@ -48,6 +48,7 @@ import CodeIcon from '@material-ui/icons/Code';
 import Checkbox from '@material-ui/core/Checkbox';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import Credits from "../components/Credits";
 
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
@@ -155,13 +156,21 @@ const useStyles = makeStyles((theme) => ({
     flexBasis: "33.33%",
     flexShrink: 0,
     fontWeight: 600,
+    "& span.sol": {
+      fontWeight: "800 !important"
+    }
   },
   accordionSecondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
+    fontWeight: 600
   },
   authorStats: {
     marginLeft: theme.spacing(1),
+    color: fade(theme.palette.secondary.main, 0.85),
+    borderColor: fade(theme.palette.secondary.main, 0.25),
+    fontWeight: "400 !important",
+    paddingLeft: "0.15rem",
   },
   hiddenOnMobile: {
     [theme.breakpoints.down("sm")]: {
@@ -222,8 +231,7 @@ export default function Problema() {
   const { API, rootState, setRootState, langToHljsLang } = useContext(RootContext);
 
   const defaultState = {
-    data_loaded: false,
-    data_loading: false,
+    dataLoaded: false,
     problem: {},
     solutions: [],
     filteredSolutions: [],
@@ -255,35 +263,34 @@ export default function Problema() {
 
   const classes = useStyles();
 
-  const onLoad = async (event) => {
-    setState({
-      ...state,
-      data_loading: true,
-    });
+  useEffect(() => {
 
-    const logonRequest = await API("endpoint/page/problema.php", {
-      name: name,
-    });
+    async function logon() {
 
-    setState({
-      ...state,
-      data_loaded: true,
-      data_loading: false,
-      success: logonRequest.success,
-      errorMsg: logonRequest.errorMsg,
-      problem: logonRequest.problem,
-      solutions: logonRequest.solutions,
-      solutions_count: logonRequest.solutions_count,
-      filteredSolutionsCount: logonRequest.solutions_count,
-      solutionsFiltered: logonRequest.solutions,
-      responseCode: logonRequest.responseCode,
-      rating: logonRequest.rating
-    });
-  };
+      console.log("logon called")
+      await API("endpoint/page/problema.php", {
+        name: name,
+      }).then((logonResponse) => {
+        setState({
+          ...state,
+          dataLoaded: true,
+          success: logonResponse.success,
+          errorMsg: logonResponse.errorMsg,
+          problem: logonResponse.problem,
+          solutions: logonResponse.solutions,
+          solutions_count: logonResponse.solutions_count,
+          filteredSolutionsCount: logonResponse.solutions_count,
+          solutionsFiltered: logonResponse.solutions,
+          responseCode: logonResponse.responseCode,
+          rating: logonResponse.rating
+        });
+      });
 
-  if (!state.data_loading && !state.data_loaded) {
-    onLoad();
-  }
+    }
+
+    logon()
+    
+  }, [])
 
   const handleChange = (panel) => (event, isExpanded) => {
     if (state.expandedArr.includes(panel)) {
@@ -422,9 +429,9 @@ export default function Problema() {
 
   return (
     <>
-    {!state.data_loaded && <PageSkeleton type="problem" />}
-    {state.data_loaded && !state.success && <NotFound />}      
-    {state.data_loaded && state.success && (
+    {!state.dataLoaded && <PageSkeleton type="problem" />}
+    {state.dataLoaded && !state.success && <NotFound />}      
+    {state.dataLoaded && state.success && (
       <Container maxWidth="md">
           <Grid container>
               <>
@@ -449,7 +456,7 @@ export default function Problema() {
                         <Typography style={{fontSize: "0.85rem"}} component="span" color="secondary">{state.problem.name}</Typography>
                       </Breadcrumbs>
                       <Typography variant="h5" component="h1">
-                        Problema <b>{state.problem.name}</b> #
+                        Problema <span style={{fontWeight: 800}}>{state.problem.name}</span> #
                         {state.problem.pbinfo_id}
                         <a
                           rel="noreferrer"
@@ -633,7 +640,7 @@ export default function Problema() {
                                     <Typography
                                       className={classes.accordionHeading}
                                     >
-                                      sol-{item.id}
+                                      <span className="sol">sol-{item.id}</span>
                                       <LanguageTag language={item.language? item.language : null} size="small" />
                                       <Chip
                                         className={classes.authorStats}
@@ -837,6 +844,9 @@ export default function Problema() {
                         />
                     </Grid>}
                     <Grid item xs={12}>
+                      <Credits align="left" />
+                    </Grid>
+                    <Grid item xs={12}>
                       <HelpUs />
                     </Grid>
                     {rootState.showAds && <Grid item xs={12}>
@@ -899,7 +909,7 @@ export default function Problema() {
                             })}
                           </Box>}
                           {state.activeTab === 1 && <>
-                            <Suspense fallback={<Box pt={2}><center>Se încarcă...</center></Box>}>
+                            <Suspense fallback={<Box pt={2} pb={2}><center>Se încarcă...</center></Box>}>
                               <StatsChart problemId={state.problem.pbinfo_id}/>
                             </Suspense>
                           </>}

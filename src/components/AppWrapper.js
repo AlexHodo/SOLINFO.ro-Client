@@ -14,6 +14,7 @@ import {
 } from "react-transition-group";
 
 import SolutieNoua from "./../pages/SolutieNoua";
+import Logo from "../media/logo.svg"
 
 const Cont = React.lazy(() => import('./../pages/Cont'));
 const Probleme = React.lazy(() => import('./../pages/Probleme'));
@@ -96,10 +97,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
   },
   app: {
-    //transitionDuration: "0.2s",
-    // opacity: 0,
     "&.loaded": {
-      opacity: 1,
     },
   },
   progress: {
@@ -124,6 +122,10 @@ const useStyles = makeStyles((theme) => ({
       opacity: 1
     }
   },
+  suspenseLogo: {
+    width: "48px",
+    height: "48px"
+  }
 }));
 
 
@@ -138,13 +140,13 @@ export default function AppWrapper() {
 
   var SuspenseFallback = <Box m={2} style={{minHeight: "100vh"}}>
     <center>
-      Se încarcă...
+      <img src={Logo} className={`${classes.suspenseLogo} spinning`} />
     </center>
   </Box>
 
   return (
     <>
-      {/*<LinearProgress color="secondary" className={`${classes.loader} ${rootState.showLoader && "v"}`}/>*/}
+      {/* Legacy top loader *//* <LinearProgress color="secondary" className={`${classes.loader} ${rootState.showLoader && "v"}`}/>*/}
       <FacebookCircularProgress show={rootState.showLoader} />
       <div
         className={`${classes.app} ${
@@ -156,64 +158,116 @@ export default function AppWrapper() {
           className={classes.switchWrapper}
         >
           <CSSTransition
-            key={location.key}
             classNames="_anim--1"
             timeout={300}
+            key={location.key}
           >
-          <Switch>
-            <Route path="/" exact children={<Suspense fallback={SuspenseFallback}>
-              <Home />
-            </Suspense>} />
-            <Route
-              path="/problema/:name"
-              render={(props) => (
-                <Suspense fallback={SuspenseFallback}>
-                  <Problema {...props} key={window.location.pathname} />
-                </Suspense>
-              )}
-            />
-            <Route path="/probleme" children={<Suspense fallback={SuspenseFallback}>
-              <Probleme />
-            </Suspense>} />
-            <Route path="/cont" exact children={<Suspense fallback={SuspenseFallback}>
-              <Cont />
-            </Suspense>} />
-            <Route path="/cont/activare/:token" children={<Suspense fallback={SuspenseFallback}>
-              <ContActivare />
-            </Suspense>} />
-            <Route path="/cont/parola" exact children={<Suspense fallback={SuspenseFallback}>
-              <Parola />
-            </Suspense>} />
-            <Route path="/cont/parola/resetare/:token" children={<Suspense fallback={SuspenseFallback}>
-              <ParolaResetare />
-            </Suspense>} />
-            <Route path="/cont/setari" exact children={<Suspense fallback={SuspenseFallback}>
-              <Setari />
-            </Suspense>} />
-            <Route path="/profil/:username" children={<Suspense fallback={SuspenseFallback}>
-              <Profil />
-            </Suspense>} />
-            <Route path="/solutie-noua" exact children={<Suspense fallback={SuspenseFallback}>
-              <SolutieNoua />
-            </Suspense>} />
-            <Route path="/despre-contact" exact children={<Suspense fallback={SuspenseFallback}>
-              <DespreContact />
-            </Suspense>} />
-            <Route path="/provocare-saptamanala" exact children={<Suspense fallback={SuspenseFallback}>
-              <ProvocareSaptamanala />
-            </Suspense>} />
-            <Route path="/solutie-noua-ext/:problemId/:content" exact children={<Suspense fallback={SuspenseFallback}>
-              <SolutieNoua fromExtension />
-            </Suspense>} />
-            <Route path="/solutie-noua-ext/" exact children={<Suspense fallback={SuspenseFallback}>
-              <SolutieNoua fromExtension />
-            </Suspense>} />
-            <Route path="/import-solutii" exact children={<Suspense fallback={SuspenseFallback}>
-              <ImportSolutii />
-            </Suspense>} />
-            <Route children={<NotFound />} />
-          </Switch>
-        </CSSTransition>
+            <Switch location={location}>
+              <Route 
+                path="/" 
+                exact 
+                children={<Suspense fallback={SuspenseFallback}>
+                  <Home />
+                </Suspense>} 
+              />
+              <Route
+                path="/problema/:name" 
+                children={<Suspense fallback={SuspenseFallback}>
+                  <Problema />
+                </Suspense>} 
+              />
+              <Route 
+                path="/probleme" 
+                children={<Suspense fallback={SuspenseFallback}>
+                  <Probleme />
+                </Suspense>} 
+              />
+              <Route 
+                path="/cont" 
+                exact 
+                children={<Suspense fallback={SuspenseFallback}>
+                  <Cont />
+                </Suspense>} 
+              />
+              <Route 
+                path="/cont/activare/:token" 
+                children={<Suspense fallback={SuspenseFallback}>
+                  <ContActivare />
+                </Suspense>} 
+              />
+              <Route 
+                path="/cont/parola" 
+                exact 
+                children={<Suspense fallback={SuspenseFallback}>
+                  <Parola />
+                </Suspense>} 
+              />
+              <Route 
+                path="/cont/parola/resetare/:token" 
+                children={<Suspense fallback={SuspenseFallback}>
+                  <ParolaResetare />
+                </Suspense>} 
+              />
+              <Route 
+                path="/cont/setari" 
+                exact 
+                children={<Suspense fallback={SuspenseFallback}>
+                  <Setari />
+                </Suspense>} 
+              />
+              <Route 
+                path="/profil/:username" 
+                children={<Suspense fallback={SuspenseFallback}>
+                  <Profil />
+                </Suspense>} 
+              />
+              <Route 
+                path="/solutie-noua" 
+                exact 
+                children={<Suspense fallback={SuspenseFallback}>
+                  <SolutieNoua />
+                </Suspense>} 
+              />
+              <Route 
+                path="/despre-contact" 
+                exact 
+                children={<Suspense fallback={SuspenseFallback}>
+                  <DespreContact />
+                </Suspense>} 
+              />
+              <Route 
+                path="/provocare-saptamanala" 
+                exact 
+                children={<Suspense fallback={SuspenseFallback}>
+                  <ProvocareSaptamanala />
+                </Suspense>} 
+              />
+              <Route 
+                path="/solutie-noua-ext/:problemId/:content" 
+                exact 
+                children={<Suspense fallback={SuspenseFallback}>
+                  <SolutieNoua fromExtension />
+                </Suspense>} 
+              />
+              <Route 
+                path="/solutie-noua-ext/" 
+                exact 
+                children={<Suspense fallback={SuspenseFallback}>
+                  <SolutieNoua fromExtension />
+                </Suspense>} 
+              />
+              <Route 
+                path="/import-solutii" 
+                exact 
+                children={<Suspense fallback={SuspenseFallback}>
+                  <ImportSolutii />
+                </Suspense>} 
+              />
+              <Route 
+                children={<NotFound />} 
+              />
+            </Switch>
+          </CSSTransition>
         </TransitionGroup>
         {!inExt && <Suspense fallback={SuspenseFallback}>
           <Footer />

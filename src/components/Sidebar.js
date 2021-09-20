@@ -18,6 +18,7 @@ import UserBadges from "./UserBadges";
 import Button from "@material-ui/core/Button";
 import AdSense from "react-adsense";
 import { DelayedRenderer } from "react-delayed-renderer"
+import Credits from "./Credits"
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -82,13 +83,6 @@ const useStyles = makeStyles((theme) => ({
     color: fade(theme.palette.secondary.main, 0.5),
     margin: theme.spacing(0, 1),
   },
-  heart: {
-    color: "#E91E63",
-  },
-  copyright: {
-    marginTop: theme.spacing(2),
-    textAlign: "center !important",
-  },
   donateBtn: {
     background: "#FD434D",
     color: "white"
@@ -96,7 +90,8 @@ const useStyles = makeStyles((theme) => ({
   title: {
     lineHeight: "1.25rem",
     fontSize: "1.25rem",
-    margin: theme.spacing(0.75, 0)
+    margin: theme.spacing(0.75, 0),
+    fontWeight: 600,
   }
 }));
 
@@ -164,7 +159,7 @@ export default function Sidebar(props) {
                         </Avatar>
                       </ListItemIcon>
                       <ListItemText>
-                        @{item.username}{' '}
+                        <b>@{item.username}{' '}</b>
                         <Typography
                           component="span"
                           variant="body2"
@@ -258,19 +253,9 @@ export default function Sidebar(props) {
                 Despre & Contact
               </Link>
             </Typography>
-            <Typography
-              variant="body2"
-              className={`${classes.copyright} ${classes.hideOnMobile}`}
-            >
-              Creat cu <span className={classes.heart}>&#10084;</span> de{" "}
-              <a
-                href="https://instagram.com/alexhodo"
-                rel="noreferrer"
-                target="_blank"
-              >
-                Alex Hodo
-              </a>
-            </Typography>
+            <Box pb={1}>
+              <Credits align="center" />
+            </Box>
           </Box>
         </Grid>
         <Grid item xs={12} sm={11} className={`${rootState.showPersonalAd && classes.hideOnMobile}`}>

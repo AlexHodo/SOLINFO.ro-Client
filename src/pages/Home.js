@@ -36,6 +36,7 @@ import pascal from 'react-syntax-highlighter/dist/esm/languages/hljs/delphi';
 import java from 'react-syntax-highlighter/dist/esm/languages/hljs/java';
 import python from 'react-syntax-highlighter/dist/esm/languages/hljs/python';
 import nightOwl from 'react-syntax-highlighter/dist/esm/styles/hljs/night-owl';
+import { DelayedRenderer } from "react-delayed-renderer"
 
 import heroBg from "../media/hero-bg.svg";
 
@@ -105,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
       background: theme.palette.primary.main,
       padding: theme.spacing(0, 3),
       [theme.breakpoints.down("sm")]: {
-        fontSize: "1.75rem",
+        fontSize: "1.85rem",
         textAlign: "center"
       },
     },
@@ -214,17 +215,17 @@ const useStyles = makeStyles((theme) => ({
   },
   statTitle: {
     textTransform: "uppercase",
-    fontWeight: 300,
+    fontWeight: 400,
     fontSize: "0.9rem",
-    width: "75%",
-    marginLeft: "25%",
+    width: "60%",
+    marginLeft: "40%",
     textAlign: "right",
     lineHeight: 1.25
   },
   statContent: {
     fontSize: "1.35rem",
     color: theme.palette.primary.main,
-    fontWeight: 800
+    fontWeight: "800 !important"
   },
   statIcon: {
     position: "absolute",
@@ -242,6 +243,7 @@ const useStyles = makeStyles((theme) => ({
   },
   previewCardTitle: {
     lineHeight: "1.25rem",
+    fontWeight: 600
   },
   hideOnDesktop: {
     [theme.breakpoints.up("sm")]: {
@@ -425,13 +427,14 @@ export default function Home() {
           
         </Container>
       </div>
-      <Container maxWidth="md">
+      <DelayedRenderer delay={200}>
+        <Container maxWidth="md">
         <Grid container className={classes.content}>
           <Grid item xs={12} sm={8} md={9}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Box pt={3}>
-                  <Typography variant="h5">
+                  <Typography variant="h5" style={{fontWeight: 600}}>
                     Ultimele soluții adăugate
                   </Typography>
                 </Box>
@@ -555,7 +558,8 @@ export default function Home() {
             </Box>
           </Grid>
         </Grid>
-      </Container>
+        </Container>
+      </DelayedRenderer>
     </>
   );
 }

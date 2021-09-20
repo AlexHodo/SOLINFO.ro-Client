@@ -55,16 +55,17 @@ const useStyles = makeStyles((theme) => ({
   points: {
     // padding: "0.5rem 0.25rem"
     textAlign: "center",
-    padding: "0 10px",
+    padding: "0 0.35rem",
     borderRadius: "50px",
-    color: fade(theme.palette.secondary.main, 0.75),
-    background: "white"
+    background: "white",
+    color: fade(theme.palette.secondary.main, 0.85),
+    borderColor: fade(theme.palette.secondary.main, 0.25),
+    fontSize: "0.9rem"
   },
   pointsWrapper: {
     minWidth: "30px",
     height: "22px",
-    marginTop: "-0.5rem",
-    // border: `1px solid ${fade(theme.palette.primary.main, 0.5)}`
+    marginTop: "-0.4rem",
   }
 }));
 
@@ -92,36 +93,35 @@ export default function UserBadges(props) {
   return (
     <Box>
       <div className={classes.wrapper}>
-        
-        <Grid container justify="left" alignItems="center">
-          {state.props.badges.staff && state.props.badges.staff > 0? <Grid item >
-            <Tooltip title={`Staff`}>
+        <Grid container alignItems="center" justify="left">
+          {state.props.badges.staff && state.props.badges.staff > 0? <Grid item>
+            <div><Tooltip title={`Staff`}>
               <PersonOutlineTwoToneIcon fontSize={state.props.size} className={`${classes.badge} ${classes.badge_level}--4`} />
-            </Tooltip>
+            </Tooltip></div>
           </Grid> : <></>}
-          {state.props.badges.premium && state.props.badges.premium > 0? <Grid item >
-            <Tooltip title={`Premium`}> 
+          {state.props.badges.premium && state.props.badges.premium > 0? <Grid item>
+            <div><Tooltip title={`Premium`}> 
               <OfflineBoltTwoToneIcon fontSize={state.props.size} className={`${classes.badge} ${classes.badge_level}--4`} />
-            </Tooltip>
+            </Tooltip></div>
           </Grid> : <></>}
           {state.props.badges.contributor && state.props.badges.contributor > 0? <Grid item>
-            <Tooltip title={`Contributor lvl. ${state.props.badges.contributor}`}>
+            <div><Tooltip title={`Contributor lvl. ${state.props.badges.contributor}`}>
               <AddCircleTwoToneIcon fontSize={state.props.size} className={`${classes.badge} ${classes.badge_level}--${state.props.badges.contributor}`} />
-            </Tooltip> 
+            </Tooltip></div> 
           </Grid> : <></>}
           {state.props.badges.ambitios && state.props.badges.ambitios > 0? <Grid item>
-            <Tooltip title={`Ambițios lvl. ${state.props.badges.ambitios}`}>
+            <div><Tooltip title={`Ambițios lvl. ${state.props.badges.ambitios}`}>
               <ThumbUpTwoToneIcon fontSize={state.props.size} className={`${classes.badge} ${classes.badge_level}--${state.props.badges.ambitios}`} />
-            </Tooltip>
+            </Tooltip></div>
           </Grid> : <></>}
           {state.props.points && state.props.points > 0? <Grid item>
-            <Tooltip title={`${state.props.points} puncte`}> 
+            <div><Tooltip title={`${state.props.points} puncte`}> 
               <div className={classes.pointsWrapper}>
                 <Typography className={`${classes.points} ${classes.badge}`}>
                   {state.props.points}
                 </Typography>
               </div>
-            </Tooltip>
+            </Tooltip></div>
           </Grid> : <></>}
         </Grid>
       </div>

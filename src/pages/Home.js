@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
   },
   heroLogo: {
     color: fade(theme.palette.common.white, 1),
-    fontWeight: 800,
+    fontWeight: "800 !important",
     textAlign: "left",
     "& span": {
       display: "inline-block",
@@ -152,7 +152,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     margin: theme.spacing(3, 0),
     "& *": {
-      textAlign: "left",
+      // textAlign: "left",
     },
   },
   previewCard: {
@@ -340,7 +340,7 @@ export default function Home() {
                     )}
                     onChange={(event: any, option: any) => {
                       setSearchInputValue("");
-                      history.push("/problema/" + option.name);
+                      history.push("/problema/" + option.name + "&utm_source=search");
                     }}
                     inputValue={searchInputValue}
                     onInputChange={(event) =>
@@ -459,7 +459,7 @@ export default function Home() {
                   return (
                     <Grid item xs={12} key={index}>
                       {rootState.showAds && (index+1)%4 == 0 && <> {/* before the 4th and 8th  */}
-                        <Box px={2}>
+                        <Box px={2} mb={2}>
                           <Ad 
                             marginBottom
                             data-ad-slot="1123445298"

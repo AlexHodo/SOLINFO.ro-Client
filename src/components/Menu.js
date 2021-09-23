@@ -492,7 +492,7 @@ export default function Navbar() {
               onChange={(event: any, option: any) => {
                 setSearchInputValue("");
                 if (option && option.name) {
-                  history.push(`/problema/${option.name}`);
+                  history.push(`/problema/${option.name}?utm_source=search`);
                 }
               }}
               inputValue={searchInputValue}

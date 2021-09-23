@@ -50,7 +50,8 @@ class Context extends Component {
         top_users: [],
         users_count: '...',
         views_count: '...',
-        articles: []
+        articles: [],
+        latest_problems: []
       },
     },
     homeDataLoaded: false,
@@ -81,7 +82,7 @@ class Context extends Component {
       ...input,
       _bearer_token: localStorage.getItem("authToken"),
     };
-    const request = await Axios.post(action, input, {
+    const request = await Axios.post(action.replace(".php", ""), input, {
       headers: {
         'Accept': 'text/plain',
         'Content-Type': 'text/plain'

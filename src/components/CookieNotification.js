@@ -27,10 +27,11 @@ const useStyles = makeStyles((theme) => ({
   },
   text: {
     fontSize: "0.8rem",
+    lineHeight: 1,
     "& a": {
       color: theme.palette.common.white,
       textDecoration: "underline"
-    }
+    },
   },
 }));
 

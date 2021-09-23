@@ -459,7 +459,7 @@ export default function Home() {
                   return (
                     <Grid item xs={12} key={index}>
                       {rootState.showAds && (index+1)%4 == 0 && <> {/* before the 4th and 8th  */}
-                        <Box px={2} mb={2}>
+                        <Box px={2}>
                           <Ad 
                             marginBottom
                             data-ad-slot="1123445298"

@@ -28,6 +28,7 @@ class Context extends Component {
       lastName: null,
       emailAddress: null,
       id: null,
+      isStaff: null,
       username: null,
     },
     problems: [],
@@ -64,7 +65,8 @@ class Context extends Component {
     weeklyChallengeSolved: 0,
     newSolutionIntention: null,
     newSolutionIntentionName: null,
-    showAds: false
+    showAds: false,
+    staff: []
   };
 
   API = async (action, input = []) => {
@@ -155,7 +157,8 @@ class Context extends Component {
         weeklyChallenge: data.weekly_challenge,
         weeklyChallengeTotal: data.weekly_challenge_total,
         weeklyChallengeSolved: data.weekly_challenge_solved,
-        showAds: data.show_ads? data.show_ads : false
+        showAds: data.show_ads? data.show_ads : false,
+        staff: data.staff
       });
     }
 

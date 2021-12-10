@@ -16,6 +16,7 @@ import SendTwoToneIcon from "@material-ui/icons/SendTwoTone";
 import Alert from "@material-ui/lab/Alert";
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import Chip from '@material-ui/core/Chip';
 import MetaTags from "react-meta-tags";
 import { Link, useParams } from "react-router-dom";
 import logo from "../media/logo.svg";
@@ -310,6 +311,10 @@ export default function SolutieNoua(props) {
                         Soluția va apărea pe site asociată numelui tău de
                         utilizator, @{rootState.userInfo.username}.
                       </Typography>
+                      {!fromExtension && <Typography variant="body2" style={{marginTop: "0.25rem"}}>
+                        <Chip label="NOU!" color="primary" size="small" style={{marginRight: "0.5rem", marginTop: "-0.25rem"}}/> 
+                        Acum poți importa mai multe soluții direct din contul tău pbinfo.ro <Link to="/import-solutii">aici</Link>.
+                      </Typography>}
                     </Box>
                   </Box>
                 </Paper>

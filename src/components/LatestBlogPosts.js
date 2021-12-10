@@ -121,7 +121,7 @@ export default function LatestBlogPosts(props) {
                   <div className="_i" style={{backgroundImage: `url(${item.thumbnail})`}}></div>
                   <div className="_oi"/>
                   <Typography className={classes.articleHeading}>
-                    {item.title}
+                    <span dangerouslySetInnerHTML={{__html: item.title}}></span>
                     <Box className="_a">
                       <Grid container alignItems="center">
                         <Grid item>

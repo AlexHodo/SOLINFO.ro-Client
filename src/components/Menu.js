@@ -31,6 +31,7 @@ import CookieNotification from "./CookieNotification";
 import DnsTwoToneIcon from '@material-ui/icons/DnsTwoTone';
 import ThumbUpTwoToneIcon from '@material-ui/icons/ThumbUpTwoTone';
 import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
+import CheckCircleTwoToneIcon from '@material-ui/icons/CheckCircleTwoTone';
 
 const useStyles = makeStyles((theme) => ({
   offset: theme.mixins.toolbar,
@@ -269,6 +270,16 @@ export default function Navbar() {
               </Typography>
             </MenuItem>
           </Link>
+          {rootState.userInfo.isModerator && <Link to="/admin">
+            <MenuItem onClick={handleMenuClose}>
+              <ListItemIcon>
+                <CheckCircleTwoToneIcon className={classes.menuItemIcon} />
+              </ListItemIcon>
+              <Typography variant="inherit" className={classes.menuItemText}>
+                Moderare
+              </Typography>
+            </MenuItem>
+          </Link>}
           <Link to="/">
             <MenuItem onClick={logout}>
               <ListItemIcon>

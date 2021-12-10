@@ -340,7 +340,7 @@ export default function Home() {
                     )}
                     onChange={(event: any, option: any) => {
                       setSearchInputValue("");
-                      history.push("/problema/" + option.name + "&utm_source=search");
+                      history.push("/problema/" + option.name + "?utm_source=search");
                     }}
                     inputValue={searchInputValue}
                     onInputChange={(event) =>

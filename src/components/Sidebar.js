@@ -19,6 +19,7 @@ import Button from "@material-ui/core/Button";
 import AdSense from "react-adsense";
 import { DelayedRenderer } from "react-delayed-renderer"
 import Credits from "./Credits"
+import AvatarGroup from '@material-ui/lab/AvatarGroup';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -212,6 +213,22 @@ export default function Sidebar(props) {
             </>
           )}
         </Grid>
+        {rootState.staff.length > 0 && <>
+          <Grid item xs={12} sm={11}>
+            <Box pb={2}>
+              <Link to="/despre-contact">
+                <Typography variant="h6" className={classes.title}>Membrii staffului</Typography>
+              </Link>
+            </Box>
+            <Box mb={2}>
+              <AvatarGroup max={5}>
+                {rootState.staff.map((staff, key) => {
+                  return <Avatar key={key} alt={`${staff.first_name} ${staff.last_name}`} src={staff.profile_img} />
+                })}
+              </AvatarGroup>
+            </Box>
+          </Grid>
+        </>}
         {rootState.showDiscord && <Grid item xs={12} sm={11}>
           <DelayedRenderer delay={300}>
             <iframe 
@@ -232,7 +249,7 @@ export default function Sidebar(props) {
             slot='2987546523'
           />
         </Grid>}
-        <Grid item xs={12} sm={11}>
+        <Grid item xs={12} sm={11} style={{display: "none"}}>
           <Box pb={2}>
             <Typography variant="h6" className={classes.title}>Probleme recomandate</Typography>
           </Box>

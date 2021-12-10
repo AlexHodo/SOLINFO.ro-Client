@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     bottom: "25px",
     left: "50%",
     width: "85%",
-    maxWidth: "calc(600px - 15%)",
+    maxWidth: "calc(700px - 15%)",
     zIndex: 9999,
     transform: "translateX(-50%)"
   },

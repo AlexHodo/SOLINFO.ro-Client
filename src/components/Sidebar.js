@@ -19,6 +19,7 @@ import Button from "@material-ui/core/Button";
 import AdSense from "react-adsense";
 import { DelayedRenderer } from "react-delayed-renderer"
 import Credits from "./Credits"
+import AvatarGroup from '@material-ui/lab/AvatarGroup';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -103,6 +104,7 @@ export default function Sidebar(props) {
   const date = new Date();
 
   const [topExpanded, setTopExpanded] = React.useState(false);
+  const [latestProblemsExpanded, setLatestProblemsExpanded] = React.useState(false);
 
   return (
     <>
@@ -211,6 +213,22 @@ export default function Sidebar(props) {
             </>
           )}
         </Grid>
+        {rootState.staff.length > 0 && <>
+          <Grid item xs={12} sm={11}>
+            <Box pb={2}>
+              <Link to="/despre-contact">
+                <Typography variant="h6" className={classes.title}>Membrii staffului</Typography>
+              </Link>
+            </Box>
+            <Box mb={2}>
+              <AvatarGroup max={5}>
+                {rootState.staff.map((staff, key) => {
+                  return <Avatar key={key} alt={`${staff.first_name} ${staff.last_name}`} src={staff.profile_img} />
+                })}
+              </AvatarGroup>
+            </Box>
+          </Grid>
+        </>}
         {rootState.showDiscord && <Grid item xs={12} sm={11}>
           <DelayedRenderer delay={300}>
             <iframe 
@@ -231,6 +249,74 @@ export default function Sidebar(props) {
             slot='2987546523'
           />
         </Grid>}
+        <Grid item xs={12} sm={11} style={{display: "none"}}>
+          <Box pb={2}>
+            <Typography variant="h6" className={classes.title}>Probleme recomandate</Typography>
+          </Box>
+          {rootState.home.stats && rootState.home.stats.latest_problems.length > 0 ? (
+            <List className={`${classes.topList} ${latestProblemsExpanded? "_e" : "_ne"} cool-sha dense`} dense>
+              {rootState.home.stats.latest_problems.map(function (item, index) {
+                return (
+                  <Link to={`/problema/${item.name}?utm_source=recommended`} key={index}>
+                    <ListItem button className={`${classes.topListItem}`}
+                      style={{
+                        paddingTop: index == 0? "0.75rem" : "0.25rem",
+                        paddingBottom: index == rootState.home.stats.latest_problems.length - 1? "0.75rem" : "0.25rem"
+                      }}
+                    >
+                      <ListItemText>
+                        <b>{item.name}{' '}</b>
+                        <Typography
+                          component="span"
+                          variant="body2"
+                          color="secondary"
+                          fontWeight={600}
+                        >
+                          #{item.id} 
+                        </Typography>
+                      </ListItemText>
+                    </ListItem>
+                  </Link>
+                );
+              })}
+              {!latestProblemsExpanded && <Box 
+                className={classes.expandTopWrapper} display="flex"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Button 
+                  className={classes.expandTopBtn}
+                  variant="contained"
+                  color="primary"
+                  size="small"
+                  disableElevation
+                  onClick={() => setLatestProblemsExpanded(true)}
+                >
+                  Vezi mai mult
+                </Button>
+              </Box>}
+            </List>
+          ) : (
+            <>
+              {}
+              <Skeleton
+                variant="rect"
+                height={50}
+                style={{ marginBottom: "0.5rem" }}
+              />
+              <Skeleton
+                variant="rect"
+                height={50}
+                style={{ marginBottom: "0.5rem" }}
+              />
+              <Skeleton
+                variant="rect"
+                height={50}
+                style={{ marginBottom: "0.5rem" }}
+              />
+            </>
+          )}
+        </Grid>
         <Grid item xs={12} sm={11}>
           <Box className={classes.hideOnMobile}>
             <Typography ariant="body2" className={classes.menuList} style={{display: "none"}}>

@@ -8,10 +8,16 @@ import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Fade from "@material-ui/core/Fade";
 import Box from "@material-ui/core/Box";
+import Dialog from "@material-ui/core/Dialog";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import DialogContent from "@material-ui/core/DialogContent";
 import {
   TransitionGroup,
   CSSTransition
 } from "react-transition-group";
+import { useDetectAdBlock } from "adblock-detect-react";
+import PanToolTwoToneIcon from '@material-ui/icons/PanToolTwoTone';
 
 import SolutieNoua from "./../pages/SolutieNoua";
 import Logo from "../media/logo.svg"
@@ -30,6 +36,7 @@ const Footer = React.lazy(() => import('./../components/Footer'));
 const Home = React.lazy(() => import('./../pages/Home'));
 const ProvocareSaptamanala = React.lazy(() => import('./../pages/ProvocareSaptamanala'));
 const ImportSolutii = React.lazy(() => import('./../pages/ImportSolutii'));
+const Admin = React.lazy(() => import('./../pages/Admin'));
 
 const useStylesFacebook = makeStyles((theme) => ({
   root: {
@@ -125,12 +132,68 @@ const useStyles = makeStyles((theme) => ({
   suspenseLogo: {
     width: "48px",
     height: "48px"
+  },
+  adBlockGuardBackDrop: {
+    backdropFilter: "blur(5px)",
+    backgroundColor:'rgba(0,0,30,0.4)'
+  },
+  adBlockGuardModalWrapper: {
+    maxWidth: "500px"
+  },
+  adBlockGuardIconWrapper: {
+    textAlign: "center"
+  },
+  adBlockGuardIcon: {
+    fontSize: "3rem",
+    color: theme.palette.error.main
   }
 }));
 
+const AdBlockGuard = (props) => {
+  const classes = useStyles();
+  return <>
+    <Dialog
+      open
+      BackdropProps={{
+        classes: {
+          root: classes.adBlockGuardBackDrop,
+        },
+      }}
+      onClose={() => {}}
+    >
+      <DialogContent style={{ textAlign: "center" }} className={classes.adBlockGuardModalWrapper}>
+        <Box>
+          <Typography variant="h6" align="center" style={{lineHeight: 1}}>SOLINFO.ro este o aplicație gratuită</Typography>
+          <Typography variant="body1" align="center">...însă întreținerea sa costă.</Typography>
+        </Box>
+        <Box p={2}>
+          <div className={classes.adBlockGuardIconWrapper}>
+            <PanToolTwoToneIcon className={classes.adBlockGuardIcon}/>
+          </div>
+        </Box>
+        <Box>
+          <Typography variant="body2" align="center">Am detectat că folosești o extensie care blochează afișarea anunțurilor.</Typography>
+          <Typography variant="body2" align="center">Ne bazăm pe afișarea anunțurilor pentru a putea susține acest proiect.</Typography>
+          <Typography variant="body2" align="center">Te rugăm să dezactivezi <b>AdBlockerul</b> folosit pentru a putea accesa SOLINFO.ro</Typography>
+        </Box>
+        <Box mt={3} mb={1} style={{textAlign: "center"}}>
+          <Button variant="contained" disableElevation color="primary" onClick={() => window.location.reload()} size="small">
+            L-am dezactivat
+          </Button>
+        </Box>
+        <Box style={{textAlign: "center"}} mb={1}>
+          <Button variant="contained" disableElevation color="secondary" component="a" href="https://help.getadblock.com/support/solutions/articles/6000055743-how-to-disable-adblock-on-specific-sites" target="_blank" size="small">
+            Am nevoie de ajutor
+          </Button>
+        </Box>
+      </DialogContent>
+    </Dialog>
+  </>
+}
 
 export default function AppWrapper() {
 
+  const adBlockDetected = useDetectAdBlock();  
   let location = useLocation();
   let inExt = location.pathname.startsWith('/solutie-noua-ext'); // viewed from extension
 
@@ -264,6 +327,13 @@ export default function AppWrapper() {
                 </Suspense>} 
               />
               <Route 
+                path="/admin" 
+                exact 
+                children={<Suspense fallback={SuspenseFallback}>
+                  <Admin />
+                </Suspense>} 
+              />
+              <Route 
                 children={<NotFound />} 
               />
             </Switch>
@@ -273,6 +343,7 @@ export default function AppWrapper() {
           <Footer />
         </Suspense>}
       </div>
+      {adBlockDetected && <AdBlockGuard />}
     </>
   );
 }

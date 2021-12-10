@@ -91,7 +91,7 @@ export default function WeeklyChallenge(props) {
       <List aria-label="Provocare saptamana" dense>
         {state.props.challenge.map((item, index) => {
           return (
-            <Link to={`/problema/${item.name}`} key={index}>
+            <Link to={`/problema/${item.name}?utm_source=challenge`} key={index}>
               <ListItem button className={`${classes.problem} ${item.solved && classes.problem_solved}`}>
                 <ListItemText 
                   classes={{root: classes.textRoot, primary: classes.problemTitle}} 

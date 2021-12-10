@@ -500,11 +500,11 @@ export default function Problema() {
                   <Divider className={classes.divider} />
                 </Grid>
                 <Grid item xs={12} sm={8} md={9}>
-                  <Grid container spacing={2} alignItems="flex-end">
+                  <Grid container spacing={2} alignItems="center">
                     <Grid item xs={4} md={5}>
                       <Typography variant="h6" component="h2">
                         Soluții
-                        <Link to="/solutie-noua">
+                        <Link to="/solutie-noua?utm_source=problem">
                           <IconButton style={{marginLeft: "0.35rem", marginTop: "-0.25rem"}} aria-label="Adauga o solutie noua" color="primary" size="small" 
                             onClick={() => {
                               setRootState({
@@ -600,7 +600,7 @@ export default function Problema() {
                                     Dacă reușești să o rezolvi, te rugăm să încarci soluția{" "}
                                     <Link 
                                       style={{textDecoration: "underline"}} 
-                                      to="/solutie-noua"
+                                      to="/solutie-noua?utm_source=problem"
                                       onClick={() => {
                                         setRootState({
                                           ...rootState,
@@ -780,7 +780,7 @@ export default function Problema() {
                                               {state.solutions[index].errorMsg}
                                             </Alert>
                                             <br />
-                                            <Link to="/cont">
+                                            <Link to="/cont?utm_source=problem">
                                               <Button
                                                 color="primary"
                                                 variant="contained"

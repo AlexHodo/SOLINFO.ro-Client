@@ -120,8 +120,8 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "uppercase",
     fontWeight: 300,
     fontSize: "0.9rem",
-    width: "70%",
-    marginLeft: "30%",
+    width: "60%",
+    marginLeft: "40%",
     textAlign: "right",
     lineHeight: 1.25
   },

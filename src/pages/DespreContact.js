@@ -20,6 +20,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Avatar from '@material-ui/core/Avatar';
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -38,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   tableWrapper: {
     width: "600px",
     maxWidth: "100%",
-    overflow: "scroll",
+    overflow: "auto",
     margin: "0 auto",
     marginTop: "1rem"
   },
@@ -74,7 +77,20 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1rem",
     lineHeight: "1rem",
     textAlign: "left"
-  }
+  },
+  root: {
+    display: 'flex',
+  },
+  details: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  content: {
+    flex: '1 0 auto',
+  },
+  cover: {
+    width: 151,
+  },
 }));
 
 export default function DespreContact() {
@@ -118,6 +134,36 @@ export default function DespreContact() {
                   </Box>
                 </Paper>
               </Grid>
+              {rootState.staff.length > 0 && <>
+                <Grid item xs={12}>
+                  <Typography variant="h6" component="h2">
+                    Membrii staffului
+                  </Typography>
+                </Grid>
+                {rootState.staff.map((staff, key) => {
+                  return <Grid item xs={12} md={6} key={key}>
+                    <Card component={Paper} className="cool-sha">
+                      <CardContent className={classes.content} component={Grid} container alignItems="center">
+                        <Grid item xs={9} md={8}>
+                          <Typography component="h5" variant="h6">
+                            {staff.first_name}{" "}{staff.last_name}
+                          </Typography>
+                          <Typography variant="subtitle1" style={{marginTop: "-0.5rem"}}>
+                            @<Link to={`/profil/${staff.username}`}>{staff.username}</Link>
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={3} md={4}>
+                          <Avatar style={{width: "64px", height: "64px", float: "right"}} alt={`${staff.first_name} ${staff.last_name}`} src={`${staff.profile_img}`} />
+                        </Grid>
+                        <Typography variant="body2" component={Box} mt={2}>
+                          <div dangerouslySetInnerHTML={{__html: staff.statement}}></div>
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                })}
+                
+              </>}
               <Grid item xs={12}>
                 <Typography variant="h6" component="h2">
                   Despre trofee

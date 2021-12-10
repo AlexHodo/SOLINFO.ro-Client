@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
   },
   heroLogo: {
     color: fade(theme.palette.common.white, 1),
-    fontWeight: 800,
+    fontWeight: "800 !important",
     textAlign: "left",
     "& span": {
       display: "inline-block",
@@ -152,7 +152,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     margin: theme.spacing(3, 0),
     "& *": {
-      textAlign: "left",
+      // textAlign: "left",
     },
   },
   previewCard: {
@@ -340,7 +340,7 @@ export default function Home() {
                     )}
                     onChange={(event: any, option: any) => {
                       setSearchInputValue("");
-                      history.push("/problema/" + option.name);
+                      history.push("/problema/" + option.name + "?utm_source=search");
                     }}
                     inputValue={searchInputValue}
                     onInputChange={(event) =>

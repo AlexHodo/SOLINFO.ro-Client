@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap');
-
 html, body {
   overflow-x: hidden;
   width: 100vw;
@@ -96,14 +94,14 @@ h1, h2, h3, h4, h5, h6, b {
 }
 
 .spinning {
-  animation: rotation 1s infinite linear;
+  animation: scale 0.75s ease-in-out infinite alternate;
 }
 
-@keyframes rotation {
-  from {
-    transform: rotate(0deg);
+@keyframes scale {
+  0% {
+    transform: scale(1);
   }
-  to {
-    transform: rotate(359deg);
+  100% {
+    transform: scale(1.25);
   }
 }

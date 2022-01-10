@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   badge: {
     color: fade(theme.palette.common.white, 0.75),
     border: `1px solid ${fade(theme.palette.common.black, 0.05)}`,
-    padding: "0.15rem",
+    padding: "0.125rem",
     borderRadius: "50%",
   },
   badge_level: {
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
   wrapper: {
     "& *": {
-      margin: theme.spacing(0, 0.15),
+      margin: theme.spacing(0, 0.1),
       fontSize: "1rem",
     },
     "& *:nth-child(1)": {

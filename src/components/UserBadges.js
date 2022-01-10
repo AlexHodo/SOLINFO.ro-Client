@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   badge: {
     color: fade(theme.palette.common.white, 0.75),
     border: `1px solid ${fade(theme.palette.common.black, 0.05)}`,
-    padding: "0.15rem",
+    padding: "0.125rem",
     borderRadius: "50%",
   },
   badge_level: {
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
   wrapper: {
     "& *": {
-      margin: theme.spacing(0, 0.15),
+      margin: theme.spacing(0, 0.1),
       fontSize: "1rem",
     },
     "& *:nth-child(1)": {
@@ -115,7 +115,7 @@ export default function UserBadges(props) {
             </Tooltip></div>
           </Grid> : <></>}
           {state.props.points && state.props.points > 0? <Grid item>
-            <div><Tooltip title={`${state.props.points} puncte`}> 
+            <div><Tooltip title={`${state.props.points} ${state.props.points >= 20? "de " : ""}puncte`}> 
               <div className={classes.pointsWrapper}>
                 <Typography className={`${classes.points} ${classes.badge}`}>
                   {state.props.points}

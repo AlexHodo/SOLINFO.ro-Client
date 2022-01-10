@@ -16,7 +16,7 @@ import {
   TransitionGroup,
   CSSTransition
 } from "react-transition-group";
-import { useDetectAdBlock } from "adblock-detect-react";
+// import { useDetectAdBlock } from "adblock-detect-react";
 import PanToolTwoToneIcon from '@material-ui/icons/PanToolTwoTone';
 
 import SolutieNoua from "./../pages/SolutieNoua";
@@ -193,7 +193,7 @@ const AdBlockGuard = (props) => {
 
 export default function AppWrapper() {
 
-  const adBlockDetected = useDetectAdBlock();  
+  // const adBlockDetected = useDetectAdBlock();  
   let location = useLocation();
   let inExt = location.pathname.startsWith('/solutie-noua-ext'); // viewed from extension
 
@@ -343,7 +343,7 @@ export default function AppWrapper() {
           <Footer />
         </Suspense>}
       </div>
-      {adBlockDetected && <AdBlockGuard />}
+      {/*adBlockDetected && <AdBlockGuard />*/}
     </>
   );
 }

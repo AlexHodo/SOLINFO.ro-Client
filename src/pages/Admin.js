@@ -27,6 +27,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import Chip from '@material-ui/core/Chip';
+import InfoTwoToneIcon from '@material-ui/icons/InfoTwoTone';
 
 const useStyles = makeStyles((theme) => ({
     solutionContent: {
@@ -85,12 +86,23 @@ export default function Admin() {
         }).then((logonResponse) => {
             if(logonResponse.success) {
                 let solutions = logonResponse.solutions
+                let accepted = []
+                let rejected = []
+                for(let i = 0; i < solutions.length; i++) {
+                    if(solutions[i].bot_code == 4) {
+                        accepted.push(solutions[i].sid)
+                    } else if(solutions[i].bot_code >= 2) {
+                        rejected.push(solutions[i].sid)
+                    }
+                }
                 setState({
                     ...state,
                     success: true,
                     dataLoaded: true,
                     solutions: solutions,
-                    count: logonResponse.count
+                    count: logonResponse.count,
+                    accepted: accepted,
+                    rejected: rejected
                 })
             } else {
                 setState({
@@ -202,7 +214,7 @@ export default function Admin() {
                     <Grid item className={`cool-sha`} component={Card} xs={12}>
                         <CardContent className={classes.previewCardRoot} component={Box} p={2}>
                             {state.solutions.length === 0 && <>
-                                <center>Nimic nou.</center>
+                                <center style={{marginBottom: "-6px"}}>Nimic nou.</center>
                             </>}
                             {state.solutions.map((solution, key) => {
                                 return <Grid container className={classes.row}>
@@ -230,6 +242,16 @@ export default function Admin() {
                                             </Grid>
                                         </Grid>
                                         <textarea class={classes.solutionContent} defaultValue={solution.content}></textarea>
+                                        <Box py={1}>
+                                            <Chip 
+                                                icon={<InfoTwoToneIcon />} 
+                                                color={solution.bot_code == -1? "default": (solution.bot_code == 4? "primary" : "secondary")}
+                                                label={<>
+                                                    {solution.bot_code > -1 && <><b>{solution.bot_code}</b>{": "}</>}
+                                                    <span>{solution.bot_message}</span>
+                                                </>}
+                                            />
+                                        </Box>
                                         <FormControl component="fieldset" component={Box}>
                                             <FormControlLabel
                                                 control={

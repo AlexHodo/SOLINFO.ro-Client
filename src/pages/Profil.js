@@ -377,7 +377,7 @@ export default function Profil() {
                           {state.latest_solutions.map(function (item, index) {
                             return (
                               <Grid item xs={12} key={index}>
-                                {index == 1 && <> {/* after the first item */}
+                                {rootState.showAds && index == 1 && <> {/* after the first item */}
                                   <Box px={2}>
                                     <Ad 
                                       marginBottom

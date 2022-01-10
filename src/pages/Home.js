@@ -36,7 +36,6 @@ import pascal from 'react-syntax-highlighter/dist/esm/languages/hljs/delphi';
 import java from 'react-syntax-highlighter/dist/esm/languages/hljs/java';
 import python from 'react-syntax-highlighter/dist/esm/languages/hljs/python';
 import nightOwl from 'react-syntax-highlighter/dist/esm/styles/hljs/night-owl';
-import { DelayedRenderer } from "react-delayed-renderer"
 
 import heroBg from "../media/hero-bg.svg";
 
@@ -427,7 +426,6 @@ export default function Home() {
           
         </Container>
       </div>
-      <DelayedRenderer delay={200}>
         <Container maxWidth="md">
         <Grid container className={classes.content}>
           <Grid item xs={12} sm={8} md={9}>
@@ -559,7 +557,6 @@ export default function Home() {
           </Grid>
         </Grid>
         </Container>
-      </DelayedRenderer>
     </>
   );
 }

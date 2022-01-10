@@ -115,7 +115,7 @@ export default function UserBadges(props) {
             </Tooltip></div>
           </Grid> : <></>}
           {state.props.points && state.props.points > 0? <Grid item>
-            <div><Tooltip title={`${state.props.points} puncte`}> 
+            <div><Tooltip title={`${state.props.points} ${state.props.points >= 20? "de " : ""}puncte`}> 
               <div className={classes.pointsWrapper}>
                 <Typography className={`${classes.points} ${classes.badge}`}>
                   {state.props.points}

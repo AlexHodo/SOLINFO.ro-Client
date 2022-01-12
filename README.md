@@ -2,11 +2,11 @@
 <img src="https://github.com/AlexHodo/SOLINFO.ro-Client/blob/master/public/logo192.png?raw=true">
 </p>
 
-# [SolInfo.ro](solinfo.ro) - Client
-Site-ul [SolInfo.ro](solinfo.ro) este o aplicatie web unde poti gasi solutii pentru probleme de programare de pe [pbinfo.ro](pbinfo.ro). Mai multe informatii se pot gasi pe pagina de [contact si despre noi](https://solinfo.ro/despre-contact) a site-ului.
+# [SOLINFO.ro](solinfo.ro) - Client
+Site-ul [SOLINFO.ro](solinfo.ro) este o aplicatie web unde poti gasi solutii pentru probleme de programare de pe [pbinfo.ro](pbinfo.ro). Mai multe informatii se pot gasi pe pagina de [contact si despre noi](https://solinfo.ro/despre-contact) a site-ului.
 
 ## Tehnologiile folosite
-Front-end: [React](https://github.com/facebook/create-react-app) si [Material UI](https://material-ui.com/)  
+Front-end: [ReactJS](https://github.com/facebook/create-react-app) si [Material UI](https://mui.com/)  
 Back-end: PHP + MySQL
 
 ## Contact

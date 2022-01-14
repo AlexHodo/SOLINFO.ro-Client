@@ -315,6 +315,10 @@ export default function SolutieNoua(props) {
                         <Chip label="NOU!" color="primary" size="small" style={{marginRight: "0.5rem", marginTop: "-0.25rem"}}/> 
                         Acum poți importa mai multe soluții direct din contul tău pbinfo.ro <Link to="/import-solutii">aici</Link>.
                       </Typography>}
+                      {!fromExtension && <Typography variant="body2" style={{marginTop: "0.25rem"}}>
+                        <Chip label="NOU!" color="primary" size="small" style={{marginRight: "0.5rem", marginTop: "-0.25rem"}}/> 
+                        Trage bookmarklet-ul <a href={"javascript:if(location.href.indexOf('pbinfo.ro') != -1) {const numeProblema = document.querySelector('h1.text-primary a').innerText.replace(/ /g, '-');window.open('https://solinfo.ro/problema/' + numeProblema + '?utm_source=bookmarklet');}"}>Solinfo: Solutii</a> in bara de favorite, intră pe o problemă si apasa click pe ea pentru a vedea solutiile disponibile.
+                      </Typography>}
                     </Box>
                   </Box>
                 </Paper>

@@ -294,19 +294,19 @@ export default function SolutieNoua(props) {
                           </Select>
                         </Box>
                       </Grid>
-                      {(fromExtension && state.preselected) && <Grid item xs={6}>
+                      {(fromExtension && state.preselected && state.preselectedName) && <Grid item xs={6}>
                         <Box>
-                          <Button
-                            size="small"
-                            color="secondary"
-                            disableElevation
-                            variant="contained"
-                            fullWidth
-                          >
-                            <Link to={`/problema/${state.preselectedName}`} target="_blank">
-                              Vezi alte soluții disponibile
-                            </Link>
-                          </Button>
+                          <Link to={`/problema/${state.preselectedName}`} target="_blank">
+                            <Button
+                              size="small"
+                              color="secondary"
+                              disableElevation
+                              variant="contained"
+                              fullWidth
+                            >
+                              Vezi soluții
+                            </Button>
+                          </Link>
                         </Box>
                       </Grid>}
                     </Grid>
@@ -330,14 +330,20 @@ export default function SolutieNoua(props) {
                         Soluția va apărea pe site asociată numelui tău de
                         utilizator, @{rootState.userInfo.username}.
                       </Typography>
-                      {!fromExtension && <Typography variant="body2" style={{marginTop: "0.25rem"}}>
-                        <Chip label="NOU!" color="primary" size="small" style={{marginRight: "0.5rem", marginTop: "-0.25rem"}}/> 
-                        Acum poți importa mai multe soluții direct din contul tău pbinfo.ro <Link to="/import-solutii">aici</Link>.
-                      </Typography>}
-                      {!fromExtension && <Typography variant="body2" style={{marginTop: "0.25rem"}}>
-                        <Chip label="NOU!" color="primary" size="small" style={{marginRight: "0.5rem", marginTop: "-0.25rem"}}/> 
-                        Trage bookmarklet-ul <a href={"javascript:if(location.href.indexOf('pbinfo.ro') != -1) {const numeProblema = document.querySelector('h1.text-primary a').innerText.replace(/ /g, '-');window.open('https://solinfo.ro/problema/' + numeProblema + '?utm_source=bookmarklet');}"}>Solinfo: Solutii</a> in bara de favorite, intră pe o problemă si apasa click pe ea pentru a vedea solutiile disponibile.
-                      </Typography>}
+                      {!fromExtension && <>
+                        <Typography variant="body2" style={{marginTop: "0.25rem"}}>
+                          <Chip label="NOU!" color="primary" size="small" style={{marginRight: "0.5rem", marginTop: "-0.25rem"}}/> 
+                          Acum poți importa mai multe soluții direct din contul tău pbinfo.ro <Link to="/import-solutii">aici</Link>.
+                        </Typography>
+                        <Typography variant="body2" style={{marginTop: "0.5rem"}}>
+                          <Chip label="NOU!" color="primary" size="small" style={{marginRight: "0.5rem", marginTop: "-0.25rem"}}/> 
+                          Trage bookmarkletul <a href={"javascript:if(location.href.indexOf('pbinfo.ro') != -1) {const numeProblema = document.querySelector('h1.text-primary a').innerText.replace(/ /g, '-');window.open('https://solinfo.ro/problema/' + numeProblema + '?utm_source=bookmarklet');}"}>SOLINFO: Soluții</a> în bara de favorite, intră pe o problemă de pe PbInfo și apasă click pe el pentru a vedea soluțiile disponibile.
+                        </Typography>
+                        <Typography variant="body2" style={{marginTop: "0.5rem"}}>
+                          <Chip label="NOU!" color="primary" size="small" style={{marginRight: "0.5rem", marginTop: "-0.25rem"}}/> 
+                          <a href="https://chrome.google.com/webstore/detail/solinforo/abmhdbimjkobbjbdbafjnamidmjkopkh" target="_blank">Extensia</a> pentru Chrome te ajută să imporți o soluție imediat după ce rezolvi o problemă.
+                        </Typography>
+                      </>}
                     </Box>
                   </Box>
                 </Paper>

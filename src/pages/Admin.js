@@ -247,7 +247,7 @@ export default function Admin() {
                                                 icon={<InfoTwoToneIcon />} 
                                                 color={solution.bot_code == -1? "default": (solution.bot_code == 4? "primary" : "secondary")}
                                                 label={<>
-                                                    {solution.bot_code > -1 && <><b>{solution.bot_code}</b>{": "}</>}
+                                                    {solution.bot_code > -1 && <><b>Cod {solution.bot_code}</b>{" "}</>}
                                                     <span>{solution.bot_message}</span>
                                                 </>}
                                             />

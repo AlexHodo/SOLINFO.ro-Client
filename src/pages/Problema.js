@@ -267,7 +267,6 @@ export default function Problema() {
 
     async function logon() {
 
-      console.log("logon called")
       await API("endpoint/page/problema.php", {
         name: name,
       }).then((logonResponse) => {

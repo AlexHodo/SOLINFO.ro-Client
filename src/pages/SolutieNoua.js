@@ -275,22 +275,41 @@ export default function SolutieNoua(props) {
                         value={state.content}
                       />
                     </Box>
-                    <Box mb={2} mt={2}>
-                      <span>Limbaj:</span>{' '}
-                      <Select
-                        labelId="language-select-label"
-                        id="language-select"
-                        value={state.language}
-                        onChange={handleChange('language')}
-                      >
-                        <MenuItem value={'cpp'}>C++</MenuItem>
-                        <MenuItem value={'c'}>C</MenuItem>
-                        <MenuItem value={'java'}>Java</MenuItem>
-                        <MenuItem value={'python'}>Python</MenuItem>
-                        <MenuItem value={'php'}>PHP</MenuItem>
-                        <MenuItem value={'pascal'}>Pascal</MenuItem>
-                      </Select>
-                    </Box>
+                    <Grid container component={Box} mb={1}>
+                      <Grid item xs={6} >
+                        <Box>
+                          <span>Limbaj:</span>{' '}
+                          <Select
+                            labelId="language-select-label"
+                            id="language-select"
+                            value={state.language}
+                            onChange={handleChange('language')}
+                          >
+                            <MenuItem value={'cpp'}>C++</MenuItem>
+                            <MenuItem value={'c'}>C</MenuItem>
+                            <MenuItem value={'java'}>Java</MenuItem>
+                            <MenuItem value={'python'}>Python</MenuItem>
+                            <MenuItem value={'php'}>PHP</MenuItem>
+                            <MenuItem value={'pascal'}>Pascal</MenuItem>
+                          </Select>
+                        </Box>
+                      </Grid>
+                      {(fromExtension && state.preselected && state.preselectedName) && <Grid item xs={6}>
+                        <Box>
+                          <Link to={`/problema/${state.preselectedName}`} target="_blank">
+                            <Button
+                              size="small"
+                              color="secondary"
+                              disableElevation
+                              variant="contained"
+                              fullWidth
+                            >
+                              Vezi soluții
+                            </Button>
+                          </Link>
+                        </Box>
+                      </Grid>}
+                    </Grid>
                     <Box mb={2}>
                       <Button
                         onClick={submit}
@@ -312,9 +331,13 @@ export default function SolutieNoua(props) {
                         utilizator, @{rootState.userInfo.username}.
                       </Typography>
                       {!fromExtension && <>
-                        <Typography variant="body2" style={{marginTop: "0.5rem"}}>
+                        <Typography variant="body2" style={{marginTop: "0.25rem"}}>
                           <Chip label="NOU!" color="primary" size="small" style={{marginRight: "0.5rem", marginTop: "-0.25rem"}}/> 
                           Acum poți importa mai multe soluții direct din contul tău pbinfo.ro <Link to="/import-solutii">aici</Link>.
+                        </Typography>
+                        <Typography variant="body2" style={{marginTop: "0.5rem"}}>
+                          <Chip label="NOU!" color="primary" size="small" style={{marginRight: "0.5rem", marginTop: "-0.25rem"}}/> 
+                          Trage bookmarkletul <a href={"javascript:if(location.href.indexOf('pbinfo.ro') != -1) {const numeProblema = document.querySelector('h1.text-primary a').innerText.replace(/ /g, '-');window.open('https://solinfo.ro/problema/' + numeProblema + '?utm_source=bookmarklet');}"}>SOLINFO: Soluții</a> în bara de favorite, intră pe o problemă de pe PbInfo și apasă click pe el pentru a vedea soluțiile disponibile.
                         </Typography>
                         <Typography variant="body2" style={{marginTop: "0.5rem"}}>
                           <Chip label="NOU!" color="primary" size="small" style={{marginRight: "0.5rem", marginTop: "-0.25rem"}}/> 

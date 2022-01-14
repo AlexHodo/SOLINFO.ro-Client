@@ -311,10 +311,16 @@ export default function SolutieNoua(props) {
                         Soluția va apărea pe site asociată numelui tău de
                         utilizator, @{rootState.userInfo.username}.
                       </Typography>
-                      {!fromExtension && <Typography variant="body2" style={{marginTop: "0.25rem"}}>
-                        <Chip label="NOU!" color="primary" size="small" style={{marginRight: "0.5rem", marginTop: "-0.25rem"}}/> 
-                        Acum poți importa mai multe soluții direct din contul tău pbinfo.ro <Link to="/import-solutii">aici</Link>.
-                      </Typography>}
+                      {!fromExtension && <>
+                        <Typography variant="body2" style={{marginTop: "0.5rem"}}>
+                          <Chip label="NOU!" color="primary" size="small" style={{marginRight: "0.5rem", marginTop: "-0.25rem"}}/> 
+                          Acum poți importa mai multe soluții direct din contul tău pbinfo.ro <Link to="/import-solutii">aici</Link>.
+                        </Typography>
+                        <Typography variant="body2" style={{marginTop: "0.5rem"}}>
+                          <Chip label="NOU!" color="primary" size="small" style={{marginRight: "0.5rem", marginTop: "-0.25rem"}}/> 
+                          <a href="https://chrome.google.com/webstore/detail/solinforo/abmhdbimjkobbjbdbafjnamidmjkopkh" target="_blank">Extensia</a> pentru Chrome te ajută să imporți o soluție imediat după ce rezolvi o problemă.
+                        </Typography>
+                      </>}
                     </Box>
                   </Box>
                 </Paper>

@@ -294,9 +294,9 @@ export default function SolutieNoua(props) {
                           </Select>
                         </Box>
                       </Grid>
-                      {(fromExtension && state.preselected && state.preselectedName) && <Grid item xs={6}>
+                      {(fromExtension && state.preselected) && <Grid item xs={6}>
                         <Box>
-                          <Link to={`/problema/${state.preselectedName}`} target="_blank">
+                          <a href={`https://api.solinfo.ro/_${state.preselectedId}`} target="_blank">
                             <Button
                               size="small"
                               color="secondary"
@@ -306,7 +306,7 @@ export default function SolutieNoua(props) {
                             >
                               Vezi soluții
                             </Button>
-                          </Link>
+                          </a>
                         </Box>
                       </Grid>}
                     </Grid>

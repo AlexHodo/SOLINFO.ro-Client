@@ -275,22 +275,41 @@ export default function SolutieNoua(props) {
                         value={state.content}
                       />
                     </Box>
-                    <Box mb={2} mt={2}>
-                      <span>Limbaj:</span>{' '}
-                      <Select
-                        labelId="language-select-label"
-                        id="language-select"
-                        value={state.language}
-                        onChange={handleChange('language')}
-                      >
-                        <MenuItem value={'cpp'}>C++</MenuItem>
-                        <MenuItem value={'c'}>C</MenuItem>
-                        <MenuItem value={'java'}>Java</MenuItem>
-                        <MenuItem value={'python'}>Python</MenuItem>
-                        <MenuItem value={'php'}>PHP</MenuItem>
-                        <MenuItem value={'pascal'}>Pascal</MenuItem>
-                      </Select>
-                    </Box>
+                    <Grid container component={Box} mb={1}>
+                      <Grid item xs={6} >
+                        <Box>
+                          <span>Limbaj:</span>{' '}
+                          <Select
+                            labelId="language-select-label"
+                            id="language-select"
+                            value={state.language}
+                            onChange={handleChange('language')}
+                          >
+                            <MenuItem value={'cpp'}>C++</MenuItem>
+                            <MenuItem value={'c'}>C</MenuItem>
+                            <MenuItem value={'java'}>Java</MenuItem>
+                            <MenuItem value={'python'}>Python</MenuItem>
+                            <MenuItem value={'php'}>PHP</MenuItem>
+                            <MenuItem value={'pascal'}>Pascal</MenuItem>
+                          </Select>
+                        </Box>
+                      </Grid>
+                      {(fromExtension && state.preselected) && <Grid item xs={6}>
+                        <Box>
+                          <Button
+                            size="small"
+                            color="secondary"
+                            disableElevation
+                            variant="contained"
+                            fullWidth
+                          >
+                            <Link to={`/problema/${state.preselectedName}`} target="_blank">
+                              Vezi alte soluții disponibile
+                            </Link>
+                          </Button>
+                        </Box>
+                      </Grid>}
+                    </Grid>
                     <Box mb={2}>
                       <Button
                         onClick={submit}

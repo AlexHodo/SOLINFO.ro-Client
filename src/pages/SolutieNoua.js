@@ -337,7 +337,7 @@ export default function SolutieNoua(props) {
                         </Typography>
                         <Typography variant="body2" style={{marginTop: "0.5rem"}}>
                           <Chip label="NOU!" color="primary" size="small" style={{marginRight: "0.5rem", marginTop: "-0.25rem"}}/> 
-                          Trage bookmarkletul <a href={"javascript:if(location.href.indexOf('pbinfo.ro') != -1) {const numeProblema = document.querySelector('h1.text-primary a').innerText.replace(/ /g, '-');window.open('https://solinfo.ro/problema/' + numeProblema + '?utm_source=bookmarklet');}"}>SOLINFO: Soluții</a> în bara de favorite, intră pe o problemă de pe PbInfo și apasă click pe el pentru a vedea soluțiile disponibile.
+                          Trage bookmarkletul <a href={"javascript:if(location.href.indexOf('pbinfo.ro') != -1) {const numeProblema = document.querySelector('h1.text-primary a').innerText.trim().replace(/ /g, '-');window.open('https://solinfo.ro/problema/' + numeProblema + '?utm_source=bookmarklet');}"}>SOLINFO: Soluții</a> în bara de favorite, intră pe o problemă de pe PbInfo și apasă click pe el pentru a vedea soluțiile disponibile.
                         </Typography>
                         <Typography variant="body2" style={{marginTop: "0.5rem"}}>
                           <Chip label="NOU!" color="primary" size="small" style={{marginRight: "0.5rem", marginTop: "-0.25rem"}}/> 

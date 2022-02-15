@@ -13,6 +13,7 @@ import AuthForm from "./../components/AuthForm";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import SendTwoToneIcon from "@material-ui/icons/SendTwoTone";
+import InfoTwoTone from "@material-ui/icons/InfoTwoTone";
 import Alert from "@material-ui/lab/Alert";
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -332,15 +333,15 @@ export default function SolutieNoua(props) {
                       </Typography>
                       {!fromExtension && <>
                         <Typography variant="body2" style={{marginTop: "0.25rem"}}>
-                          <Chip label="NOU!" color="primary" size="small" style={{marginRight: "0.5rem", marginTop: "-0.25rem"}}/> 
+                          <InfoTwoTone style={{marginRight: "0.5rem", fontSize: "1rem", marginBottom: "-3px"}} color="primary" size="small"/>
                           Acum poți importa mai multe soluții direct din contul tău pbinfo.ro <Link to="/import-solutii">aici</Link>.
                         </Typography>
                         <Typography variant="body2" style={{marginTop: "0.5rem"}}>
-                          <Chip label="NOU!" color="primary" size="small" style={{marginRight: "0.5rem", marginTop: "-0.25rem"}}/> 
+                          <InfoTwoTone style={{marginRight: "0.5rem", fontSize: "1rem", marginBottom: "-3px"}} color="primary" size="small"/>
                           Trage bookmarkletul <a href={"javascript:if(location.href.indexOf('pbinfo.ro') == -1) {alert('Trebuie sa fii pe Pbinfo pentru a vedea solutii! Deschide o problema de pe Pbinfo si incearca din nou.')} const idProblema = document.querySelector('span.label.label-primary').innerText.slice(1);window.open('https://api.solinfo.ro/_' + idProblema + '?utm_source=bookmarklet');"}>SOLINFO: Soluții</a> în bara de favorite, intră pe o problemă de pe PbInfo și apasă click pe el pentru a vedea soluțiile disponibile.
                         </Typography>
                         <Typography variant="body2" style={{marginTop: "0.5rem"}}>
-                          <Chip label="NOU!" color="primary" size="small" style={{marginRight: "0.5rem", marginTop: "-0.25rem"}}/> 
+                          <InfoTwoTone style={{marginRight: "0.5rem", fontSize: "1rem", marginBottom: "-3px"}} color="primary" size="small"/>
                           <a href="https://chrome.google.com/webstore/detail/solinforo/abmhdbimjkobbjbdbafjnamidmjkopkh" target="_blank">Extensia</a> pentru Chrome te ajută să imporți o soluție imediat după ce rezolvi o problemă.
                         </Typography>
                       </>}

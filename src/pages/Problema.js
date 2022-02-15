@@ -49,6 +49,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Credits from "../components/Credits";
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
 import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
@@ -222,6 +223,14 @@ const useStyles = makeStyles((theme) => ({
         // borderRadius: "0 !important",
       }
     }
+  },
+  loadedSolutionWrapper: {
+    position: "relative",
+  },
+  copyBtn: {
+    position: "absolute",
+    top: "1rem",
+    right: "1rem",
   }
 }));
 
@@ -796,7 +805,7 @@ export default function Problema() {
                                     !state.solutions[index].errorMsg && (
                                       <>
                                         <Grid item xs={12}>
-                                          <Box mb={1}>
+                                          <Box mb={1} className={classes.loadedSolutionWrapper}>
                                             <SyntaxHighlighter
                                               style={nightOwl}
                                               language={langToHljsLang(state.solutions[index].language)}
@@ -805,6 +814,11 @@ export default function Problema() {
                                             >
                                               {state.solutions[index].content}
                                             </SyntaxHighlighter>
+                                            <CopyToClipboard text={state.solutions[index].content}>
+                                              <Button disableElevation variant="contained" color="primary" size="small" component={Box} ml={2} className={classes.copyBtn}>
+                                                Copiază
+                                              </Button>
+                                            </CopyToClipboard>
                                           </Box>
                                         </Grid>
                                         <Grid item xs={12}>

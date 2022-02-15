@@ -204,7 +204,7 @@ export default function Profil() {
           profile: logonResponse.profile,
           latest_solutions: logonResponse.latest_solutions,
           badges: logonResponse.badges,
-          points: logonResponse.points
+          points: logonResponse.points,
         });
       });
 
@@ -294,10 +294,10 @@ export default function Profil() {
                     <Grid item xs={12} sm={6} md={3}>
                       <Paper className={`${classes.statWrapper} cool-sha`}>
                         <Typography className={classes.statTitle} variant="body1">
-                          Puncte obținute
+                          Persoane ajutate
                         </Typography>
                         <Typography className={classes.statContent} variant="h6">
-                          {state.profile.points}
+                          {state.profile.helped_count}
                         </Typography>
                         <PermIdentityTwoToneIcon className={classes.statIcon} />
                       </Paper>

@@ -32,6 +32,7 @@ import DnsTwoToneIcon from '@material-ui/icons/DnsTwoTone';
 import ThumbUpTwoToneIcon from '@material-ui/icons/ThumbUpTwoTone';
 import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
 import CheckCircleTwoToneIcon from '@material-ui/icons/CheckCircleTwoTone';
+import Logo from "../media/logo.svg"
 
 const useStyles = makeStyles((theme) => ({
   offset: theme.mixins.toolbar,
@@ -159,6 +160,7 @@ const useStyles = makeStyles((theme) => ({
     width: "45px",
     height: "45px",
     backgroundSize: "contain",
+    backgroundImage: `url(${Logo})`
   },
 }));
 
@@ -468,7 +470,6 @@ export default function Navbar() {
           <Link to="/">
             <div 
               className={classes.logoWrapper}
-              style={{backgroundImage: `url(${rootState.fileDomain}/client/logo.svg)`}}
             />
             <div style={{display: "none"}}>
               <h1>SOLINFO.ro</h1>

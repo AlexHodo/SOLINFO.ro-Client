@@ -20,6 +20,9 @@ import AdSense from "react-adsense";
 import { DelayedRenderer } from "react-delayed-renderer"
 import Credits from "./Credits"
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import DraftsTwoTone from '@material-ui/icons/DraftsTwoTone';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -93,6 +96,29 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1.25rem",
     margin: theme.spacing(0.75, 0),
     fontWeight: 600,
+  },
+  socialIconsWrapper: {
+    textAlign: "center",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    "& a": {
+      color: theme.palette.secondary.main
+    }
+  },
+  socialIcon: {
+    fontSize: "2rem",
+    margin: "0.25rem 0.5rem",
+    opacity: 0.5,
+    transitionDuration: "0.2s",
+    display: "inline-block",
+    "&:hover": {
+      opacity: 1,
+      transform: "scale(1.1)"
+    },
+    "&.github": {
+      fontSize: "1.75rem",
+    }
   }
 }));
 
@@ -346,6 +372,17 @@ export default function Sidebar(props) {
         </Grid>
         <Grid item xs={12} sm={11} className={`${rootState.showPersonalAd && classes.hideOnMobile}`}>
           <InstaFollow />
+        </Grid>
+        <Grid item xs={12} sm={11} className={classes.socialIconsWrapper}>
+          <a href="https://github.com/AlexHodo/SOLINFO.ro-Client" target="_blank">
+            <GitHubIcon className={`${classes.socialIcon} github`} />
+          </a>
+          <a href="https://instagram.com/solinfo.ro" target="_blank">
+            <InstagramIcon className={`${classes.socialIcon} instagram`} />
+          </a>
+          <a href="mailto:contact@solinfo.ro" target="_blank">
+            <DraftsTwoTone className={`${classes.socialIcon} email`} />
+          </a>
         </Grid>
       </Grid>
     </>

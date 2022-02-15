@@ -26,6 +26,7 @@ import MetaTags from "react-meta-tags";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import HelpUs from "./../components/HelpUs";
 import LanguageTag from "../components/LanguageTag";
+import { DelayedRenderer } from "react-delayed-renderer"
 
 import Ad from "../components/Ad";
 
@@ -426,6 +427,7 @@ export default function Home() {
           
         </Container>
       </div>
+        <DelayedRenderer delay={100}>
         <Container maxWidth="md">
         <Grid container className={classes.content}>
           <Grid item xs={12} sm={8} md={9}>
@@ -557,6 +559,7 @@ export default function Home() {
           </Grid>
         </Grid>
         </Container>
+        </DelayedRenderer>
     </>
   );
 }

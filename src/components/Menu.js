@@ -18,8 +18,8 @@ import ExitToAppTwoToneIcon from "@material-ui/icons/ExitToAppTwoTone";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Button from "@material-ui/core/Button";
 import AddCircleTwoToneIcon from "@material-ui/icons/AddCircleTwoTone";
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import { createFilterOptions } from '@material-ui/lab/Autocomplete';
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import { createFilterOptions } from "@material-ui/lab/Autocomplete";
 import { useHistory } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
@@ -28,11 +28,12 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import CookieNotification from "./CookieNotification";
-import DnsTwoToneIcon from '@material-ui/icons/DnsTwoTone';
-import ThumbUpTwoToneIcon from '@material-ui/icons/ThumbUpTwoTone';
-import MenuRoundedIcon from '@material-ui/icons/MenuRounded';
-import CheckCircleTwoToneIcon from '@material-ui/icons/CheckCircleTwoTone';
-import Logo from "../media/logo.svg"
+import DnsTwoToneIcon from "@material-ui/icons/DnsTwoTone";
+import ThumbUpTwoToneIcon from "@material-ui/icons/ThumbUpTwoTone";
+import MenuRoundedIcon from "@material-ui/icons/MenuRounded";
+import CheckCircleTwoToneIcon from "@material-ui/icons/CheckCircleTwoTone";
+import Logo from "../media/logo.svg";
+import OfflineBoltTwoToneIcon from "@material-ui/icons/OfflineBoltTwoTone";
 
 const useStyles = makeStyles((theme) => ({
   offset: theme.mixins.toolbar,
@@ -103,7 +104,6 @@ const useStyles = makeStyles((theme) => ({
   menu: {
     backgroundColor: fade(theme.palette.common.black, 0.9),
     backdropFilter: "saturate(15) blur(15px)",
-
   },
   menuItemIcon: {
     marginRight: theme.spacing(2),
@@ -111,13 +111,13 @@ const useStyles = makeStyles((theme) => ({
   },
   menuItemText: {
     color: theme.palette.primary.dark,
-    fontWeight: 600
+    fontWeight: 600,
   },
   menuRightSide: {
     minWidth: "90px",
   },
   addSolutionBtn: {
-    marginRight: theme.spacing(3),
+    marginRight: theme.spacing(1.5),
     [theme.breakpoints.down("sm")]: {
       display: "none",
     },
@@ -147,20 +147,19 @@ const useStyles = makeStyles((theme) => ({
   hideOnDesktop: {
     [theme.breakpoints.up("md")]: {
       display: "none",
-    }
+    },
   },
   menuItem: {
     color: fade(theme.palette.common.white, 0.9),
     "& *": {
-      fontWeight: "600 !important"
-    }
-    
+      fontWeight: "600 !important",
+    },
   },
   logoWrapper: {
     width: "45px",
     height: "45px",
     backgroundSize: "contain",
-    backgroundImage: `url(${Logo})`
+    backgroundImage: `url(${Logo})`,
   },
 }));
 
@@ -176,7 +175,8 @@ const filterOptions = (options, state) => {
 };
 
 export default function Navbar() {
-  const { rootState, logout, API, getProblems } = useContext(RootContext);
+  const { rootState, logout, API, getProblems, setRootState } =
+    useContext(RootContext);
 
   const classes = useStyles();
 
@@ -272,16 +272,18 @@ export default function Navbar() {
               </Typography>
             </MenuItem>
           </Link>
-          {rootState.userInfo.isModerator && <Link to="/admin">
-            <MenuItem onClick={handleMenuClose}>
-              <ListItemIcon>
-                <CheckCircleTwoToneIcon className={classes.menuItemIcon} />
-              </ListItemIcon>
-              <Typography variant="inherit" className={classes.menuItemText}>
-                Moderare
-              </Typography>
-            </MenuItem>
-          </Link>}
+          {rootState.userInfo.isModerator && (
+            <Link to="/admin">
+              <MenuItem onClick={handleMenuClose}>
+                <ListItemIcon>
+                  <CheckCircleTwoToneIcon className={classes.menuItemIcon} />
+                </ListItemIcon>
+                <Typography variant="inherit" className={classes.menuItemText}>
+                  Moderare
+                </Typography>
+              </MenuItem>
+            </Link>
+          )}
           <Link to="/">
             <MenuItem onClick={logout}>
               <ListItemIcon>
@@ -382,10 +384,9 @@ export default function Navbar() {
   };
 
   React.useEffect(() => {
-
     setTimeout(() => {
-      getCount()
-    }, 1500)
+      getCount();
+    }, 1500);
 
     const interval = setInterval(() => {
       getCount();
@@ -464,119 +465,151 @@ export default function Navbar() {
 
   return (
     <>
-    <div className={`${classes.grow} ext--menu`}>
-      <AppBar position="fixed" className={`${classes.menu} cool-sha-2`}>
-        <Toolbar>
-          <Link to="/">
-            <div 
-              className={classes.logoWrapper}
-            />
-            <div style={{display: "none"}}>
-              <h1>SOLINFO.ro</h1>
-            </div>
-          </Link>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <Autocomplete
-              filterOptions={filterOptions}
-              options={rootState.problems}
-              getOptionLabel={(option) =>
-                option.name + " (ID " + option.id + ")"
-              }
-              classes={{ endAdornment: classes.searchEndAdornment }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  size="small"
-                  placeholder="Nume sau ID problemă..."
-                  classes={{
-                    root: classes.inputRoot,
-                  }}
-                  InputProps={{
-                    ...params.InputProps,
-                    disableUnderline: true,
-                    classes: { root: classes.inputRootRoot },
-                  }}
-                />
-              )}
-              onChange={(event: any, option: any) => {
-                setSearchInputValue("");
-                if (option && option.name) {
-                  history.push(`/problema/${option.name}?utm_source=search`);
+      <div className={`${classes.grow} ext--menu`}>
+        <AppBar position="fixed" className={`${classes.menu} cool-sha-2`}>
+          <Toolbar>
+            <Link to="/">
+              <div className={classes.logoWrapper} />
+              <div style={{ display: "none" }}>
+                <h1>SOLINFO.ro</h1>
+              </div>
+            </Link>
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <Autocomplete
+                filterOptions={filterOptions}
+                options={rootState.problems}
+                getOptionLabel={(option) =>
+                  option.name + " (ID " + option.id + ")"
                 }
+                classes={{ endAdornment: classes.searchEndAdornment }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    size="small"
+                    placeholder="Nume sau ID problemă..."
+                    classes={{
+                      root: classes.inputRoot,
+                    }}
+                    InputProps={{
+                      ...params.InputProps,
+                      disableUnderline: true,
+                      classes: { root: classes.inputRootRoot },
+                    }}
+                  />
+                )}
+                onChange={(event: any, option: any) => {
+                  setSearchInputValue("");
+                  if (option && option.name) {
+                    history.push(`/problema/${option.name}?utm_source=search`);
+                  }
+                }}
+                inputValue={searchInputValue}
+                onInputChange={(event) =>
+                  event && setSearchInputValue(event.target.value)
+                }
+                open={searchInputValue.length > 0}
+                noOptionsText={
+                  !rootState.problemsDataLoaded
+                    ? "Se caută..."
+                    : "Niciun rezultat"
+                }
+                onFocus={getProblems}
+              />
+            </div>
+            <Link
+              to="/provocare-saptamanala"
+              className={`${classes.menuItem} ${classes.hiddenOnMobile}`}
+            >
+              <MenuItem
+                style={{
+                  padding: "0 0.5rem",
+                }}
+              >
+                Provocarea săptămânii
+              </MenuItem>
+            </Link>
+            <Link
+              to="/probleme"
+              className={`${classes.menuItem} ${classes.hiddenOnMobile}`}
+            >
+              <MenuItem
+                style={{
+                  padding: "0 0.5rem",
+                }}
+              >
+                Probleme
+              </MenuItem>
+            </Link>
+            <Box
+              className={`${classes.menuItem} ${classes.hiddenOnMobile}`}
+              onClick={() => {
+                setRootState({
+                  ...rootState,
+                  donationModalOpen: true,
+                });
               }}
-              inputValue={searchInputValue}
-              onInputChange={(event) =>
-                event && setSearchInputValue(event.target.value)
-              }
-              open={searchInputValue.length > 0}
-              noOptionsText={
-                !rootState.problemsDataLoaded
-                  ? "Se caută..."
-                  : "Niciun rezultat"
-              }
-              onFocus={getProblems}
-            />
-          </div>
-          <Link to="/provocare-saptamanala" className={`${classes.menuItem} ${classes.hiddenOnMobile}`}>
-            <MenuItem>
-              Provocarea săptămânii 
-            </MenuItem>
-          </Link>
-          <Link to="/probleme" className={`${classes.menuItem} ${classes.hiddenOnMobile}`}>
-            <MenuItem>
-              Probleme
-            </MenuItem>
-          </Link>
-          <div className={classes.grow} />
-          <Link to="/solutie-noua">
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<AddCircleTwoToneIcon />}
-              className={classes.addSolutionBtn}
-              disableElevation
             >
-              Adaugă o soluție
-            </Button>
-          </Link>
-          <div className={classes.menuRightSide}>
-            <Badge
-              badgeContent={notificationsCount}
-              color="secondary"
-              style={{ margin: "0 10px" }}
-            >
-              <NotificationsNoneTwoToneIcon
+              <MenuItem
+                style={{
+                  padding: "0 0.5rem",
+                }}
+              >
+                <OfflineBoltTwoToneIcon
+                  style={{ marginRight: "0.25rem", fontSize: "20px" }}
+                />{" "}
+                Susține-ne!
+              </MenuItem>
+            </Box>
+            <div className={classes.grow} />
+            <Link to="/solutie-noua">
+              <Button
+                variant="contained"
+                color="primary"
+                startIcon={<AddCircleTwoToneIcon />}
+                className={classes.addSolutionBtn}
+                disableElevation
+              >
+                Adaugă o soluție
+              </Button>
+            </Link>
+            <div className={classes.menuRightSide}>
+              <Badge
+                badgeContent={notificationsCount}
+                color="secondary"
+                style={{ margin: "0 10px" }}
+              >
+                <NotificationsNoneTwoToneIcon
+                  edge="end"
+                  aria-label="Contul meu"
+                  aria-controls={notificationsId}
+                  aria-haspopup="true"
+                  onClick={handleNotificationsMenuOpen}
+                  color="inherit"
+                  style={{ cursor: "pointer" }}
+                />
+              </Badge>
+              <IconButton
                 edge="end"
                 aria-label="Contul meu"
-                aria-controls={notificationsId}
+                aria-controls={menuId}
                 aria-haspopup="true"
-                onClick={handleNotificationsMenuOpen}
+                onClick={handleProfileMenuOpen}
                 color="inherit"
-                style={{ cursor: "pointer" }}
-              />
-            </Badge>
-            <IconButton
-              edge="end"
-              aria-label="Contul meu"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircleTwoToneIcon className={classes.hiddenOnMobile} />
-              <MenuRoundedIcon className={classes.hideOnDesktop} />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
-      {renderMenu}
-      {renderNotificationsMenu}
-      <div className={classes.offset} />
-    </div>
-    <CookieNotification />
+              >
+                <AccountCircleTwoToneIcon className={classes.hiddenOnMobile} />
+                <MenuRoundedIcon className={classes.hideOnDesktop} />
+              </IconButton>
+            </div>
+          </Toolbar>
+        </AppBar>
+        {renderMenu}
+        {renderNotificationsMenu}
+        <div className={classes.offset} />
+      </div>
+      <CookieNotification />
     </>
   );
 }

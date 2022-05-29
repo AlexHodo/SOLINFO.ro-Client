@@ -12,17 +12,17 @@ import Avatar from "@material-ui/core/Avatar";
 import { Link } from "react-router-dom";
 import { InstaFollow } from "./InstaFollow";
 import Skeleton from "@material-ui/lab/Skeleton";
-import Paper from "@material-ui/core/Paper"
+import Paper from "@material-ui/core/Paper";
 import WeeklyChallenge from "./WeeklyChallenge";
 import UserBadges from "./UserBadges";
 import Button from "@material-ui/core/Button";
 import AdSense from "react-adsense";
-import { DelayedRenderer } from "react-delayed-renderer"
-import Credits from "./Credits"
-import AvatarGroup from '@material-ui/lab/AvatarGroup';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import InstagramIcon from '@material-ui/icons/Instagram';
-import DraftsTwoTone from '@material-ui/icons/DraftsTwoTone';
+import { DelayedRenderer } from "react-delayed-renderer";
+import Credits from "./Credits";
+import AvatarGroup from "@material-ui/lab/AvatarGroup";
+import GitHubIcon from "@material-ui/icons/GitHub";
+import InstagramIcon from "@material-ui/icons/Instagram";
+import DraftsTwoTone from "@material-ui/icons/DraftsTwoTone";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -38,8 +38,8 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     "&._e": {
       overflowY: "scroll",
-      position: "static"
-    }
+      position: "static",
+    },
   },
   expandTopWrapper: {
     position: "absolute",
@@ -50,10 +50,10 @@ const useStyles = makeStyles((theme) => ({
     height: `calc(50px - 2 * ${theme.spacing(1)}px)`,
     boxShadow: "0px -20px 25px 10px #fff",
     padding: theme.spacing(1),
-    textAlign: "center"
+    textAlign: "center",
   },
   expandTopBtn: {
-    margin: "0 auto"
+    margin: "0 auto",
   },
   topListItem: {
     borderRadius: "3px",
@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
     },
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
-    overflow: "hidden"
+    overflow: "hidden",
   },
   displayOnMobile: {
     display: "none",
@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
   },
   donateBtn: {
     background: "#FD434D",
-    color: "white"
+    color: "white",
   },
   title: {
     lineHeight: "1.25rem",
@@ -103,8 +103,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     "& a": {
-      color: theme.palette.secondary.main
-    }
+      color: theme.palette.secondary.main,
+    },
   },
   socialIcon: {
     fontSize: "2rem",
@@ -114,12 +114,12 @@ const useStyles = makeStyles((theme) => ({
     display: "inline-block",
     "&:hover": {
       opacity: 1,
-      transform: "scale(1.1)"
+      transform: "scale(1.1)",
     },
     "&.github": {
       fontSize: "1.75rem",
-    }
-  }
+    },
+  },
 }));
 
 export default function Sidebar(props) {
@@ -130,50 +130,65 @@ export default function Sidebar(props) {
   const date = new Date();
 
   const [topExpanded, setTopExpanded] = React.useState(false);
-  const [latestProblemsExpanded, setLatestProblemsExpanded] = React.useState(false);
+  const [latestProblemsExpanded, setLatestProblemsExpanded] =
+    React.useState(false);
 
   return (
     <>
       <Grid container spacing={2} justify="flex-end">
-        {!props.hideWeeklyChallenge && <Grid item xs={12} sm={11}>
-          <Box pb={2}>
-            <Link to="/provocare-saptamanala" color="primary">
-              <Typography variant="h6" className={classes.title}>Provocarea săptămânii</Typography>
-            </Link>
-          </Box>
-          {rootState.weeklyChallengeTotal > -1? <Paper className="cool-sha">
-            <Box>
-              <WeeklyChallenge
-                challenge = {rootState.weeklyChallenge}
-                challengeTotal = {rootState.weeklyChallengeTotal}
-                challengeSolved = {rootState.weeklyChallengeSolved}
-              />
+        {!props.hideWeeklyChallenge && (
+          <Grid item xs={12} sm={11}>
+            <Box pb={2}>
+              <Link to="/provocare-saptamanala" color="primary">
+                <Typography variant="h6" className={classes.title}>
+                  Provocarea săptămânii
+                </Typography>
+              </Link>
             </Box>
-          </Paper> : <>
-            <Skeleton
-              variant="rect"
-              height={50}
-              style={{ marginBottom: "0.5rem" }}
-            />
-            <Skeleton
-              variant="rect"
-              height={50}
-              style={{ marginBottom: "0.5rem" }}
-            />
-            <Skeleton
-              variant="rect"
-              height={50}
-              style={{ marginBottom: "0.5rem" }}
-            />
-          </>
-          }
-        </Grid>}
+            {rootState.weeklyChallengeTotal > -1 ? (
+              <Paper className="cool-sha">
+                <Box>
+                  <WeeklyChallenge
+                    challenge={rootState.weeklyChallenge}
+                    challengeTotal={rootState.weeklyChallengeTotal}
+                    challengeSolved={rootState.weeklyChallengeSolved}
+                  />
+                </Box>
+              </Paper>
+            ) : (
+              <>
+                <Skeleton
+                  variant="rect"
+                  height={50}
+                  style={{ marginBottom: "0.5rem" }}
+                />
+                <Skeleton
+                  variant="rect"
+                  height={50}
+                  style={{ marginBottom: "0.5rem" }}
+                />
+                <Skeleton
+                  variant="rect"
+                  height={50}
+                  style={{ marginBottom: "0.5rem" }}
+                />
+              </>
+            )}
+          </Grid>
+        )}
         <Grid item xs={12} sm={11}>
           <Box pb={2}>
-            <Typography variant="h6" className={classes.title}>Top contributori</Typography>
+            <Typography variant="h6" className={classes.title}>
+              Top contributori
+            </Typography>
           </Box>
           {rootState.home.stats && rootState.home.stats.top_users.length > 0 ? (
-            <List className={`${classes.topList} ${topExpanded? "_e" : "_ne"} cool-sha`} dense>
+            <List
+              className={`${classes.topList} ${
+                topExpanded ? "_e" : "_ne"
+              } cool-sha`}
+              dense
+            >
               {rootState.home.stats.top_users.map(function (item, index) {
                 return (
                   <Link to={`/profil/${item.username}`} key={index}>
@@ -187,37 +202,44 @@ export default function Sidebar(props) {
                         </Avatar>
                       </ListItemIcon>
                       <ListItemText>
-                        <b>@{item.username}{' '}</b>
+                        <b>@{item.username} </b>
                         <Typography
                           component="span"
                           variant="body2"
                           color="secondary"
                           fontWeight={600}
                         >
-                          #{index + 1} 
+                          #{index + 1}
                         </Typography>
-                        <UserBadges size="small" badges={item.badges} points={item.points} />
+                        <UserBadges
+                          size="small"
+                          badges={item.badges}
+                          points={item.points}
+                        />
                       </ListItemText>
                     </ListItem>
                   </Link>
                 );
               })}
-              {!topExpanded && <Box 
-                className={classes.expandTopWrapper} display="flex"
-                justifyContent="center"
-                alignItems="center"
-              >
-                <Button 
-                  className={classes.expandTopBtn}
-                  variant="contained"
-                  color="primary"
-                  size="small"
-                  disableElevation
-                  onClick={() => setTopExpanded(true)}
+              {!topExpanded && (
+                <Box
+                  className={classes.expandTopWrapper}
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
                 >
-                  Vezi mai mult
-                </Button>
-              </Box>}
+                  <Button
+                    className={classes.expandTopBtn}
+                    variant="contained"
+                    color="primary"
+                    size="small"
+                    disableElevation
+                    onClick={() => setTopExpanded(true)}
+                  >
+                    Vezi mai mult
+                  </Button>
+                </Box>
+              )}
             </List>
           ) : (
             <>
@@ -239,88 +261,121 @@ export default function Sidebar(props) {
             </>
           )}
         </Grid>
-        {rootState.staff.length > 0 && <>
+        {rootState.staff.length > 0 && (
+          <>
+            <Grid item xs={12} sm={11}>
+              <Box pb={2}>
+                <Link to="/despre-contact">
+                  <Typography variant="h6" className={classes.title}>
+                    Membrii staffului
+                  </Typography>
+                </Link>
+              </Box>
+              <Box mb={2}>
+                <AvatarGroup max={5}>
+                  {rootState.staff.map((staff, key) => {
+                    return (
+                      <Avatar
+                        key={key}
+                        alt={`${staff.first_name} ${staff.last_name}`}
+                        src={staff.profile_img}
+                      />
+                    );
+                  })}
+                </AvatarGroup>
+              </Box>
+            </Grid>
+          </>
+        )}
+        {rootState.showDiscord && (
           <Grid item xs={12} sm={11}>
-            <Box pb={2}>
-              <Link to="/despre-contact">
-                <Typography variant="h6" className={classes.title}>Membrii staffului</Typography>
-              </Link>
-            </Box>
-            <Box mb={2}>
-              <AvatarGroup max={5}>
-                {rootState.staff.map((staff, key) => {
-                  return <Avatar key={key} alt={`${staff.first_name} ${staff.last_name}`} src={staff.profile_img} />
-                })}
-              </AvatarGroup>
-            </Box>
+            <DelayedRenderer delay={300}>
+              <iframe
+                className="cool-sha"
+                src="https://discord.com/widget?id=862041051089600542&theme=dark"
+                width="100%"
+                height="350"
+                allowtransparency="true"
+                frameborder="0"
+                sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+              ></iframe>
+            </DelayedRenderer>
           </Grid>
-        </>}
-        {rootState.showDiscord && <Grid item xs={12} sm={11}>
-          <DelayedRenderer delay={300}>
-            <iframe 
-              className="cool-sha"
-              src="https://discord.com/widget?id=862041051089600542&theme=dark" 
-              width="100%" 
-              height="350" 
-              allowtransparency="true" 
-              frameborder="0" 
-              sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
-            >
-            </iframe>
-          </DelayedRenderer>
-        </Grid>}
-        {props.showAd && rootState.showAds && false && <Grid item xs={12} sm={11}>
-          <AdSense.Google
-            client='ca-pub-9101356904433905'
-            slot='2987546523'
-          />
-        </Grid>}
-        <Grid item xs={12} sm={11} style={{display: "none"}}>
+        )}
+        {props.showAd && rootState.showAds && false && (
+          <Grid item xs={12} sm={11}>
+            <AdSense.Google
+              client="ca-pub-9101356904433905"
+              slot="2987546523"
+            />
+          </Grid>
+        )}
+        <Grid item xs={12} sm={11} style={{ display: "none" }}>
           <Box pb={2}>
-            <Typography variant="h6" className={classes.title}>Probleme recomandate</Typography>
+            <Typography variant="h6" className={classes.title}>
+              Probleme recomandate
+            </Typography>
           </Box>
-          {rootState.home.stats && rootState.home.stats.latest_problems.length > 0 ? (
-            <List className={`${classes.topList} ${latestProblemsExpanded? "_e" : "_ne"} cool-sha dense`} dense>
+          {rootState.home.stats &&
+          rootState.home.stats.latest_problems.length > 0 ? (
+            <List
+              className={`${classes.topList} ${
+                latestProblemsExpanded ? "_e" : "_ne"
+              } cool-sha dense`}
+              dense
+            >
               {rootState.home.stats.latest_problems.map(function (item, index) {
                 return (
-                  <Link to={`/problema/${item.name}?utm_source=recommended`} key={index}>
-                    <ListItem button className={`${classes.topListItem}`}
+                  <Link
+                    to={`/problema/${item.name}?utm_source=recommended`}
+                    key={index}
+                  >
+                    <ListItem
+                      button
+                      className={`${classes.topListItem}`}
                       style={{
-                        paddingTop: index == 0? "0.75rem" : "0.25rem",
-                        paddingBottom: index == rootState.home.stats.latest_problems.length - 1? "0.75rem" : "0.25rem"
+                        paddingTop: index == 0 ? "0.75rem" : "0.25rem",
+                        paddingBottom:
+                          index ==
+                          rootState.home.stats.latest_problems.length - 1
+                            ? "0.75rem"
+                            : "0.25rem",
                       }}
                     >
                       <ListItemText>
-                        <b>{item.name}{' '}</b>
+                        <b>{item.name} </b>
                         <Typography
                           component="span"
                           variant="body2"
                           color="secondary"
                           fontWeight={600}
                         >
-                          #{item.id} 
+                          #{item.id}
                         </Typography>
                       </ListItemText>
                     </ListItem>
                   </Link>
                 );
               })}
-              {!latestProblemsExpanded && <Box 
-                className={classes.expandTopWrapper} display="flex"
-                justifyContent="center"
-                alignItems="center"
-              >
-                <Button 
-                  className={classes.expandTopBtn}
-                  variant="contained"
-                  color="primary"
-                  size="small"
-                  disableElevation
-                  onClick={() => setLatestProblemsExpanded(true)}
+              {!latestProblemsExpanded && (
+                <Box
+                  className={classes.expandTopWrapper}
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
                 >
-                  Vezi mai mult
-                </Button>
-              </Box>}
+                  <Button
+                    className={classes.expandTopBtn}
+                    variant="contained"
+                    color="primary"
+                    size="small"
+                    disableElevation
+                    onClick={() => setLatestProblemsExpanded(true)}
+                  >
+                    Vezi mai mult
+                  </Button>
+                </Box>
+              )}
             </List>
           ) : (
             <>
@@ -345,7 +400,11 @@ export default function Sidebar(props) {
         </Grid>
         <Grid item xs={12} sm={11}>
           <Box className={classes.hideOnMobile}>
-            <Typography ariant="body2" className={classes.menuList} style={{display: "none"}}>
+            <Typography
+              ariant="body2"
+              className={classes.menuList}
+              style={{ display: "none" }}
+            >
               <Link className={classes.menuListItem} to="/">
                 Acasă
               </Link>
@@ -370,11 +429,19 @@ export default function Sidebar(props) {
             </Box>
           </Box>
         </Grid>
-        <Grid item xs={12} sm={11} className={`${rootState.showPersonalAd && classes.hideOnMobile}`}>
+        <Grid
+          item
+          xs={12}
+          sm={11}
+          className={`${rootState.showPersonalAd && classes.hideOnMobile}`}
+        >
           <InstaFollow />
         </Grid>
         <Grid item xs={12} sm={11} className={classes.socialIconsWrapper}>
-          <a href="https://github.com/AlexHodo/SOLINFO.ro-Client" target="_blank">
+          <a
+            href="https://github.com/AlexHodo/SOLINFO.ro-Client"
+            target="_blank"
+          >
             <GitHubIcon className={`${classes.socialIcon} github`} />
           </a>
           <a href="https://instagram.com/solinfo.ro" target="_blank">

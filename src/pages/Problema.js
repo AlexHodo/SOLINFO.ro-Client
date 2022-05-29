@@ -28,39 +28,36 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import SortTwoToneIcon from "@material-ui/icons/SortTwoTone";
 import ReactGA from "react-ga";
-import nightOwl from 'react-syntax-highlighter/dist/esm/styles/hljs/night-owl';
+import nightOwl from "react-syntax-highlighter/dist/esm/styles/hljs/night-owl";
 import HelpUs from "./../components/HelpUs";
 import UserBadges from "./../components/UserBadges";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
-import IconButton from '@material-ui/core/IconButton';
+import IconButton from "@material-ui/core/IconButton";
 import AddCircleTwoToneIcon from "@material-ui/icons/AddCircleTwoTone";
-import {
-  TransitionGroup,
-  CSSTransition
-} from "react-transition-group";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 import PageSkeleton from "./../components/PageSkeleton";
 import LanguageTag from "../components/LanguageTag";
-import Input from '@material-ui/core/Input';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import SortIcon from '@material-ui/icons/Sort';
-import CodeIcon from '@material-ui/icons/Code';
-import Checkbox from '@material-ui/core/Checkbox';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import Input from "@material-ui/core/Input";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import SortIcon from "@material-ui/icons/Sort";
+import CodeIcon from "@material-ui/icons/Code";
+import Checkbox from "@material-ui/core/Checkbox";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
 import Credits from "../components/Credits";
-import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
-import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
-import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
-import php from 'react-syntax-highlighter/dist/esm/languages/hljs/php';
-import java from 'react-syntax-highlighter/dist/esm/languages/hljs/java';
-import python from 'react-syntax-highlighter/dist/esm/languages/hljs/python';
-import pascal from 'react-syntax-highlighter/dist/esm/languages/hljs/delphi';
+import { LightAsync as SyntaxHighlighter } from "react-syntax-highlighter";
+import c from "react-syntax-highlighter/dist/esm/languages/hljs/c";
+import php from "react-syntax-highlighter/dist/esm/languages/hljs/php";
+import java from "react-syntax-highlighter/dist/esm/languages/hljs/java";
+import python from "react-syntax-highlighter/dist/esm/languages/hljs/python";
+import pascal from "react-syntax-highlighter/dist/esm/languages/hljs/delphi";
 
 import Ad from "../components/Ad";
 
-const StatsChart = React.lazy(() => import('./../components/ProblemStats'));
+const StatsChart = React.lazy(() => import("./../components/ProblemStats"));
 
 ReactGA.initialize("UA-199814762-1");
 
@@ -78,7 +75,7 @@ const Accordion = withStyles({
 const MenuProps = {
   anchorOrigin: { vertical: "bottom", horizontal: "left" },
   // transformOrigin: { vertical: "top", horizontal: "center" },
-  getContentAnchorEl: null
+  getContentAnchorEl: null,
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -119,9 +116,8 @@ const useStyles = makeStyles((theme) => ({
   loadContentPlaceholder: {
     "& code": {
       filter: "blur(3px)",
-      overflow: "hidden",      
-    }
-    
+      overflow: "hidden",
+    },
   },
   loadContentWrapper: {
     position: "relative",
@@ -158,13 +154,13 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0,
     fontWeight: 600,
     "& span.sol": {
-      fontWeight: "800 !important"
-    }
+      fontWeight: "800 !important",
+    },
   },
   accordionSecondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
-    fontWeight: 600
+    fontWeight: 600,
   },
   authorStats: {
     marginLeft: theme.spacing(1),
@@ -197,11 +193,11 @@ const useStyles = makeStyles((theme) => ({
     margin: "12px 0 !important",
   },
   languageSelectWrapper: {
-    width: "100%"
+    width: "100%",
   },
   filterLabel: {
     fontSize: "0.8rem",
-    textTransform: "uppercase"
+    textTransform: "uppercase",
   },
   accordion: {
     // maxHeight: "100px",
@@ -209,20 +205,20 @@ const useStyles = makeStyles((theme) => ({
     "&.h": {
       // maxHeight: 0,
       // overflow: "hidden"
-      display: "none"
+      display: "none",
     },
     "&:not(.h)": {
       borderRadius: "0",
       "&:before": {
         display: "none",
-      }
+      },
     },
     "&:not(.h) ~ $accordion:not(.h)": {
       "&:before": {
         display: "inherit",
         // borderRadius: "0 !important",
-      }
-    }
+      },
+    },
   },
   loadedSolutionWrapper: {
     position: "relative",
@@ -230,14 +226,20 @@ const useStyles = makeStyles((theme) => ({
   copyBtn: {
     position: "absolute",
     top: "1rem",
-    right: "1rem",
-  }
+    right: "2rem",
+  },
+  donateCta: {
+    fontWeight: 600,
+    cursor: "pointer",
+    color: theme.palette.primary.main,
+  },
 }));
 
 export default function Problema() {
   let { name } = useParams();
 
-  const { API, rootState, setRootState, langToHljsLang } = useContext(RootContext);
+  const { API, rootState, setRootState, langToHljsLang } =
+    useContext(RootContext);
 
   const defaultState = {
     dataLoaded: false,
@@ -256,26 +258,24 @@ export default function Problema() {
     rating: {
       value: 0,
       rating: 0,
-      count: 0
+      count: 0,
     },
-    activeTab: 0
+    activeTab: 0,
   };
 
   const [state, setState] = React.useState(defaultState);
 
   const handleTabChange = (event, newTab) => {
     setState({
-      ...state,      
+      ...state,
       activeTab: newTab,
-    })
-  }
+    });
+  };
 
   const classes = useStyles();
 
   useEffect(() => {
-
     async function logon() {
-
       await API("endpoint/page/problema.php", {
         name: name,
       }).then((logonResponse) => {
@@ -290,15 +290,13 @@ export default function Problema() {
           filteredSolutionsCount: logonResponse.solutions_count,
           solutionsFiltered: logonResponse.solutions,
           responseCode: logonResponse.responseCode,
-          rating: logonResponse.rating
+          rating: logonResponse.rating,
         });
       });
-
     }
 
-    logon()
-    
-  }, [])
+    logon();
+  }, []);
 
   const handleChange = (panel) => (event, isExpanded) => {
     if (state.expandedArr.includes(panel)) {
@@ -340,7 +338,7 @@ export default function Problema() {
       category: "Solution",
       action: "Requested a solution",
       value: request.success,
-      label: rootState.isLoggedIn? 'logged_in' : 'logged_out'
+      label: rootState.isLoggedIn ? "logged_in" : "logged_out",
     });
 
     if (request.success) {
@@ -404,286 +402,341 @@ export default function Problema() {
       update: state.update + 1,
       expandedArr: [],
     });
-
   };
 
-  let location = useLocation()
+  let location = useLocation();
 
-  const currentKey = location.pathname.split('/')[1] || '/'
+  const currentKey = location.pathname.split("/")[1] || "/";
 
-  const availableLanguages = ["cpp", "java", "python", "php", "c", "pascal"]
+  const availableLanguages = ["cpp", "java", "python", "php", "c", "pascal"];
 
-  const [selectedLanguages, setSelectedLanguages] = React.useState(availableLanguages)
+  const [selectedLanguages, setSelectedLanguages] =
+    React.useState(availableLanguages);
 
   const handleSelectedLanguagesChange = (event) => {
-    
-    
     // update state.filteredSolutionsCount
-    let filteredCount = 0
-    for(let i = 0; i < state.solutions.length; i++) {
-      if(event.target.value.indexOf(state.solutions[i].language) > -1) {
-        filteredCount += 1
+    let filteredCount = 0;
+    for (let i = 0; i < state.solutions.length; i++) {
+      if (event.target.value.indexOf(state.solutions[i].language) > -1) {
+        filteredCount += 1;
       }
     }
 
-    setSelectedLanguages(event.target.value)
+    setSelectedLanguages(event.target.value);
 
     setState({
       ...state,
       filteredSolutionsCount: filteredCount,
-    })
-
-  }
+    });
+  };
 
   return (
     <>
-    {!state.dataLoaded && <PageSkeleton type="problem" />}
-    {state.dataLoaded && !state.success && <NotFound />}      
-    {state.dataLoaded && state.success && (
-      <Container maxWidth="md">
+      {!state.dataLoaded && <PageSkeleton type="problem" />}
+      {state.dataLoaded && !state.success && <NotFound />}
+      {state.dataLoaded && state.success && (
+        <Container maxWidth="md">
           <Grid container>
-              <>
-                <MetaTags>
-                  <title>
-                    Soluții pentru problema {name} #{state.problem.pbinfo_id} de pe PbInfo | SOLINFO.ro
-                  </title>
-                  <script type="application/ld+json">
+            <>
+              <MetaTags>
+                <title>
+                  Soluții pentru problema {name} #{state.problem.pbinfo_id} de
+                  pe PbInfo | SOLINFO.ro
+                </title>
+                <script type="application/ld+json">
                   {`{"@context": "https://schema.org/","@type": "Product","name": "Soluții pentru problema ${name} #${state.problem.pbinfo_id} de pe PbInfo","aggregateRating": {"@type": "AggregateRating","ratingValue": ${state.rating.rating},"bestRating": 5,"ratingCount": ${state.rating.count}}}`}
-                  </script>
-                </MetaTags>
-                <Grid item xs={12} className={classes.header}>
-                  <Grid container justify="center" alignItems="center">
-                    <Grid item xs={12} md={9}>
-                      <Breadcrumbs aria-label="breadcrumb" style={{fontSize: "0.85rem"}}>
-                        <Link color="primary" to="/">
-                          Acasă
-                        </Link>
-                        <Link color="primary" to="/probleme">
-                          Probleme
-                        </Link>
-                        <Typography style={{fontSize: "0.85rem"}} component="span" color="secondary">{state.problem.name}</Typography>
-                      </Breadcrumbs>
-                      <Typography variant="h5" component="h1">
-                        Problema <span style={{fontWeight: 800}}>{state.problem.name}</span> #
-                        {state.problem.pbinfo_id}
-                        <a
-                          rel="noreferrer"
-                          target="_blank"
-                          href={`https://pbinfo.ro/probleme/${state.problem.pbinfo_id}/${state.problem.name}`}
-                        >
-                          <IconButton
-                            color="primary"
-                            aria-label="Deschide in PbInfo"
-                            className={classes.openExternalSmall}
-                          >
-                            <LaunchIcon />
-                          </IconButton>
-                        </a>
-                      </Typography>
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      md={3}
-                      className={classes.openExternalLarge}
+                </script>
+              </MetaTags>
+              <Grid item xs={12} className={classes.header}>
+                <Grid container justify="center" alignItems="center">
+                  <Grid item xs={12} md={9}>
+                    <Breadcrumbs
+                      aria-label="breadcrumb"
+                      style={{ fontSize: "0.85rem" }}
                     >
+                      <Link color="primary" to="/">
+                        Acasă
+                      </Link>
+                      <Link color="primary" to="/probleme">
+                        Probleme
+                      </Link>
+                      <Typography
+                        style={{ fontSize: "0.85rem" }}
+                        component="span"
+                        color="secondary"
+                      >
+                        {state.problem.name}
+                      </Typography>
+                    </Breadcrumbs>
+                    <Typography variant="h5" component="h1">
+                      Problema{" "}
+                      <span style={{ fontWeight: 800 }}>
+                        {state.problem.name}
+                      </span>{" "}
+                      #{state.problem.pbinfo_id}
                       <a
                         rel="noreferrer"
                         target="_blank"
                         href={`https://pbinfo.ro/probleme/${state.problem.pbinfo_id}/${state.problem.name}`}
                       >
-                        <Button
+                        <IconButton
                           color="primary"
-                          variant="contained"
-                          disableElevation
-                          endIcon={<LaunchIcon />}
+                          aria-label="Deschide in PbInfo"
+                          className={classes.openExternalSmall}
                         >
-                          Deschide PbInfo
-                        </Button>
+                          <LaunchIcon />
+                        </IconButton>
                       </a>
-                    </Grid>
+                    </Typography>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    md={3}
+                    className={classes.openExternalLarge}
+                  >
+                    <a
+                      rel="noreferrer"
+                      target="_blank"
+                      href={`https://pbinfo.ro/probleme/${state.problem.pbinfo_id}/${state.problem.name}`}
+                    >
+                      <Button
+                        color="primary"
+                        variant="contained"
+                        disableElevation
+                        endIcon={<LaunchIcon />}
+                      >
+                        Deschide PbInfo
+                      </Button>
+                    </a>
                   </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                  <Divider className={classes.divider} />
-                </Grid>
-                <Grid item xs={12} sm={8} md={9}>
-                  <Grid container spacing={2} alignItems="center">
-                    <Grid item xs={4} md={5}>
-                      <Typography variant="h6" component="h2">
-                        Soluții
-                        <Link to="/solutie-noua?utm_source=problem">
-                          <IconButton style={{marginLeft: "0.35rem", marginTop: "-0.25rem"}} aria-label="Adauga o solutie noua" color="primary" size="small" 
-                            onClick={() => {
-                              setRootState({
-                                ...rootState,
-                                newSolutionIntention: state.problem.pbinfo_id,
-                                newSolutionIntentionName: state.problem.name,
-                              })
-                            }}
-                          >
-                            <AddCircleTwoToneIcon />
-                          </IconButton>
-                        </Link>
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={8} md={7}>
-                        <Grid container spacing={0} justifyContent="flex-end" alignItems="flex-end">
-                          <Grid item xs={8} md={9}>
-                            <InputLabel className={classes.filterLabel}>Limbaje</InputLabel>
-                          </Grid>
-                          <Grid item xs={4} md={3} style={{paddingLeft: "0.5rem"}}>
-                            <InputLabel className={classes.filterLabel}>Sortare</InputLabel>
-                          </Grid>
-                          <Grid item xs={8} md={9}>
-                            <FormControl className={classes.languageSelectWrapper}>
-                              <Select
-                                autoWidth
-                                id="language-select"
-                                multiple
-                                value={selectedLanguages}
-                                onChange={handleSelectedLanguagesChange}
-                                input={<Input />}
-                                MenuProps={MenuProps}
-                                renderValue={(selectedLanguages) => (
-                                  <>
-                                  {selectedLanguages.map((value) => (
-                                    <LanguageTag key={value} language={value} size="small" noMargin style={{marginRight: "0.5rem"}} />
-                                  ))}
-                                  </>
-                                )}
-                              >
-                                {availableLanguages.map((language) => (
-                                  <MenuItem key={language} value={language} style={{background: "white", padding: "0 0.5rem 0 0.25rem"}}>
-                                    <Checkbox checked={selectedLanguages.indexOf(language) > -1} />
-                                    <LanguageTag language={language} noMargin size="small" />
-                                  </MenuItem>
+              </Grid>
+              <Grid item xs={12}>
+                <Divider className={classes.divider} />
+              </Grid>
+              <Grid item xs={12} sm={8} md={9}>
+                <Grid container spacing={2} alignItems="center">
+                  <Grid item xs={4} md={5}>
+                    <Typography variant="h6" component="h2">
+                      Soluții
+                      <Link to="/solutie-noua?utm_source=problem">
+                        <IconButton
+                          style={{
+                            marginLeft: "0.35rem",
+                            marginTop: "-0.25rem",
+                          }}
+                          aria-label="Adauga o solutie noua"
+                          color="primary"
+                          size="small"
+                          onClick={() => {
+                            setRootState({
+                              ...rootState,
+                              newSolutionIntention: state.problem.pbinfo_id,
+                              newSolutionIntentionName: state.problem.name,
+                            });
+                          }}
+                        >
+                          <AddCircleTwoToneIcon />
+                        </IconButton>
+                      </Link>
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={8} md={7}>
+                    <Grid
+                      container
+                      spacing={0}
+                      justifyContent="flex-end"
+                      alignItems="flex-end"
+                    >
+                      <Grid item xs={8} md={9}>
+                        <InputLabel className={classes.filterLabel}>
+                          Limbaje
+                        </InputLabel>
+                      </Grid>
+                      <Grid
+                        item
+                        xs={4}
+                        md={3}
+                        style={{ paddingLeft: "0.5rem" }}
+                      >
+                        <InputLabel className={classes.filterLabel}>
+                          Sortare
+                        </InputLabel>
+                      </Grid>
+                      <Grid item xs={8} md={9}>
+                        <FormControl className={classes.languageSelectWrapper}>
+                          <Select
+                            autoWidth
+                            id="language-select"
+                            multiple
+                            value={selectedLanguages}
+                            onChange={handleSelectedLanguagesChange}
+                            input={<Input />}
+                            MenuProps={MenuProps}
+                            renderValue={(selectedLanguages) => (
+                              <>
+                                {selectedLanguages.map((value) => (
+                                  <LanguageTag
+                                    key={value}
+                                    language={value}
+                                    size="small"
+                                    noMargin
+                                    style={{ marginRight: "0.5rem" }}
+                                  />
                                 ))}
-                              </Select>
-                            </FormControl>
-                          </Grid>
-                          <Grid item xs={4} md={3} style={{paddingLeft: "0.5rem"}}>
-                            <Select
-                              value={sortValue}
-                              onChange={handleSortChange}
-                              style={{width: "100%"}}
-                              MenuProps={MenuProps}
-                            >
-                              <MenuItem value={"views_count"}>vizualizări</MenuItem>
-                              <MenuItem value={"rating"}>scor</MenuItem>
-                              <MenuItem value={"id"}>dată</MenuItem>
-                            </Select>
-                          </Grid>
-                        </Grid>
-                    </Grid>
-                    {rootState.showAds && <Grid item xs={12}>
-                        <Ad 
-                          card
-                          data-ad-slot='3038816711' 
-                          data-ad-format='fluid'
-                          data-ad-layout-key="-gi+14+5q-4h+2l"
-                        />
-                    </Grid>}
-                    <Grid item xs={12}>
-                      <div>
-                        {state.solutions_count > 0 && state.filteredSolutionsCount === 0 && (
-                          <Paper className={`${classes.card} cool-sha no-br`} style={{margin: 0}}>
-                            <div className={classes.cardInner}>
-                              <Box mt={2} mb={2}>
-                                <Typography variant="body1" align="center">
-                                  Nicio soluție nu se potrivește filtrelor. Încearcă să alegi și alte limbaje.
-                                </Typography>
-                              </Box>
-                            </div>
-                          </Paper>
-                        )}
-                        {state.solutions.length === 0 && (
-                          <Paper className={`${classes.card} cool-sha no-br`} style={{margin: 0}}>
-                            <div className={classes.cardInner}>
-                              <Box mt={2} mb={2}>
-                                <Typography variant="body1" align="center">
-                                  Această problemă nu are încă nicio soluție.{" "}
-                                  <br />
-                                  <b>
-                                    Dacă reușești să o rezolvi, te rugăm să încarci soluția{" "}
-                                    <Link 
-                                      style={{textDecoration: "underline"}} 
-                                      to="/solutie-noua?utm_source=problem"
-                                      onClick={() => {
-                                        setRootState({
-                                          ...rootState,
-                                          newSolutionIntention: state.problem.pbinfo_id,
-                                          newSolutionIntentionName: state.problem.name,
-                                        })
-                                      }}
-                                    >
-                                      aici
-                                    </Link>
-                                  </b>.
-                                  <br />
-                                  Vom fi foarte recunoscători!
-                                </Typography>
-                              </Box>
-                            </div>
-                          </Paper>
-                        )}
-                        {state.solutions.map(function (item, index) {
-                          return (
-                            <Accordion
-                              expanded={state.expandedArr.indexOf(item.id) > -1}
-                              onChange={handleChange(item.id)}
-                              key={index + "~" + state.update}
-                              className={`${classes.accordion}${selectedLanguages.indexOf(item.language) == -1? " h" : ""} cool-sha`}
-                            >
-                              <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
-                                classes={{ content: classes.fixMargin }}
+                              </>
+                            )}
+                          >
+                            {availableLanguages.map((language) => (
+                              <MenuItem
+                                key={language}
+                                value={language}
+                                style={{
+                                  background: "white",
+                                  padding: "0 0.5rem 0 0.25rem",
+                                }}
                               >
-                                <Grid
-                                  container
-                                  alignItems="center"
-                                  justify="center"
-                                >
-                                  <Grid item xs={8} md={5}>
-                                    <Typography
-                                      className={classes.accordionHeading}
-                                    >
-                                      <span className="sol">sol-{item.id}</span>
-                                      <LanguageTag language={item.language? item.language : null} size="small" />
-                                      <Chip
-                                        className={classes.authorStats}
-                                        icon={<VisibilityTwoToneIcon />}
-                                        variant="outlined"
-                                        size="small"
-                                        label={item.views_count}
-                                      />
-                                    </Typography>
-                                    <div className={classes.shownOnSm}>
-                                      <Typography
-                                        className={
-                                          classes.accordionSecondaryHeading
-                                        }
-                                      >
-                                        {item.author.username && (
-                                          <Link
-                                            to={`/profil/${item.author.username}`}
-                                          >
-                                            @{item.author.username}
-                                          </Link>
-                                        )}
-                                        <UserBadges style={{display: "inline"}} size="small" points={item.author.points} badges={item.author.badges} />
-                                      </Typography>
-                                    </div>
-                                  </Grid>
-                                  <Grid
-                                    item
-                                    xs={4}
-                                    md={3}
-                                    className={classes.hiddenOnMobile}
-                                    style={{
-                                      paddingLeft: "1.1rem"
+                                <Checkbox
+                                  checked={
+                                    selectedLanguages.indexOf(language) > -1
+                                  }
+                                />
+                                <LanguageTag
+                                  language={language}
+                                  noMargin
+                                  size="small"
+                                />
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </Grid>
+                      <Grid
+                        item
+                        xs={4}
+                        md={3}
+                        style={{ paddingLeft: "0.5rem" }}
+                      >
+                        <Select
+                          value={sortValue}
+                          onChange={handleSortChange}
+                          style={{ width: "100%" }}
+                          MenuProps={MenuProps}
+                        >
+                          <MenuItem value={"views_count"}>vizualizări</MenuItem>
+                          <MenuItem value={"rating"}>scor</MenuItem>
+                          <MenuItem value={"id"}>dată</MenuItem>
+                        </Select>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  {rootState.showAds && (
+                    <Grid item xs={12}>
+                      <Ad
+                        card
+                        data-ad-slot="3038816711"
+                        data-ad-format="fluid"
+                        data-ad-layout-key="-gi+14+5q-4h+2l"
+                      />
+                    </Grid>
+                  )}
+                  <Grid item xs={12}>
+                    <div>
+                      {state.solutions_count > 0 &&
+                        state.filteredSolutionsCount === 0 && (
+                          <Paper
+                            className={`${classes.card} cool-sha no-br`}
+                            style={{ margin: 0 }}
+                          >
+                            <div className={classes.cardInner}>
+                              <Box mt={2} mb={2}>
+                                <Typography variant="body1" align="center">
+                                  Nicio soluție nu se potrivește filtrelor.
+                                  Încearcă să alegi și alte limbaje.
+                                </Typography>
+                              </Box>
+                            </div>
+                          </Paper>
+                        )}
+                      {state.solutions.length === 0 && (
+                        <Paper
+                          className={`${classes.card} cool-sha no-br`}
+                          style={{ margin: 0 }}
+                        >
+                          <div className={classes.cardInner}>
+                            <Box mt={2} mb={2}>
+                              <Typography variant="body1" align="center">
+                                Această problemă nu are încă nicio soluție.{" "}
+                                <br />
+                                <b>
+                                  Dacă reușești să o rezolvi, te rugăm să
+                                  încarci soluția{" "}
+                                  <Link
+                                    style={{ textDecoration: "underline" }}
+                                    to="/solutie-noua?utm_source=problem"
+                                    onClick={() => {
+                                      setRootState({
+                                        ...rootState,
+                                        newSolutionIntention:
+                                          state.problem.pbinfo_id,
+                                        newSolutionIntentionName:
+                                          state.problem.name,
+                                      });
                                     }}
                                   >
+                                    aici
+                                  </Link>
+                                </b>
+                                .
+                                <br />
+                                Vom fi foarte recunoscători!
+                              </Typography>
+                            </Box>
+                          </div>
+                        </Paper>
+                      )}
+                      {state.solutions.map(function (item, index) {
+                        return (
+                          <Accordion
+                            expanded={state.expandedArr.indexOf(item.id) > -1}
+                            onChange={handleChange(item.id)}
+                            key={index + "~" + state.update}
+                            className={`${classes.accordion}${
+                              selectedLanguages.indexOf(item.language) == -1
+                                ? " h"
+                                : ""
+                            } cool-sha`}
+                          >
+                            <AccordionSummary
+                              expandIcon={<ExpandMoreIcon />}
+                              classes={{ content: classes.fixMargin }}
+                            >
+                              <Grid
+                                container
+                                alignItems="center"
+                                justify="center"
+                              >
+                                <Grid item xs={8} md={5}>
+                                  <Typography
+                                    className={classes.accordionHeading}
+                                  >
+                                    <span className="sol">sol-{item.id}</span>
+                                    <LanguageTag
+                                      language={
+                                        item.language ? item.language : null
+                                      }
+                                      size="small"
+                                    />
+                                    <Chip
+                                      className={classes.authorStats}
+                                      icon={<VisibilityTwoToneIcon />}
+                                      variant="outlined"
+                                      size="small"
+                                      label={item.views_count}
+                                    />
+                                  </Typography>
+                                  <div className={classes.shownOnSm}>
                                     <Typography
                                       className={
                                         classes.accordionSecondaryHeading
@@ -696,30 +749,116 @@ export default function Problema() {
                                           @{item.author.username}
                                         </Link>
                                       )}
-                                      <UserBadges style={{display: "inline"}} size="small" points={item.author.points} badges={item.author.badges} />
+                                      <UserBadges
+                                        style={{ display: "inline" }}
+                                        size="small"
+                                        points={item.author.points}
+                                        badges={item.author.badges}
+                                      />
                                     </Typography>
-                                  </Grid>
-                                  <Grid item xs={4}>
-                                    <CustomRating
-                                      align="right"
-                                      solutionId={item.id}
-                                      defaultValue={item.rating}
-                                      ratingCount={item.rating_count}
-                                      readOnly
-                                      size="small"
-                                      key={index + "~" + state.update}
-                                    />
-                                  </Grid>
+                                  </div>
                                 </Grid>
-                              </AccordionSummary>
-                              <AccordionDetails>
-                                <Grid container>
-                                  {!state.solutions[index].content_loaded && (
-                                    <Grid item xs={12}>
-                                      <div className={classes.loadContentWrapper}>
+                                <Grid
+                                  item
+                                  xs={4}
+                                  md={3}
+                                  className={classes.hiddenOnMobile}
+                                  style={{
+                                    paddingLeft: "1.1rem",
+                                  }}
+                                >
+                                  <Typography
+                                    className={
+                                      classes.accordionSecondaryHeading
+                                    }
+                                  >
+                                    {item.author.username && (
+                                      <Link
+                                        to={`/profil/${item.author.username}`}
+                                      >
+                                        @{item.author.username}
+                                      </Link>
+                                    )}
+                                    <UserBadges
+                                      style={{ display: "inline" }}
+                                      size="small"
+                                      points={item.author.points}
+                                      badges={item.author.badges}
+                                    />
+                                  </Typography>
+                                </Grid>
+                                <Grid item xs={4}>
+                                  <CustomRating
+                                    align="right"
+                                    solutionId={item.id}
+                                    defaultValue={item.rating}
+                                    ratingCount={item.rating_count}
+                                    readOnly
+                                    size="small"
+                                    key={index + "~" + state.update}
+                                  />
+                                </Grid>
+                              </Grid>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                              <Grid container>
+                                {!state.solutions[index].content_loaded && (
+                                  <Grid item xs={12}>
+                                    <div className={classes.loadContentWrapper}>
+                                      <SyntaxHighlighter
+                                        style={nightOwl}
+                                        language={"c"}
+                                        className={`${classes.loadContentPlaceholder} code-wrap cool-sha-2`}
+                                        showLineNumbers
+                                      >
+                                        {placeholderCode}
+                                      </SyntaxHighlighter>
+                                      <div
+                                        className={
+                                          classes.loadContentPreventCopy
+                                        }
+                                      />
+                                      <div
+                                        className={classes.loadContentOverlay}
+                                      >
+                                        <Typography
+                                          variant="body1"
+                                          component="v1"
+                                        >
+                                          Ești sigur că dorești să vezi soluția?
+                                        </Typography>
+                                        <br />
+                                        <br />
+                                        <Button
+                                          onClick={() =>
+                                            loadSolution(item.id, index)
+                                          }
+                                          color="primary"
+                                          variant="contained"
+                                          disableElevation
+                                          disabled={
+                                            state.currentlyBeingLoaded ===
+                                            item.id
+                                          }
+                                        >
+                                          {state.currentlyBeingLoaded !==
+                                            item.id && <>Da, încarcă soluția</>}
+                                          {state.currentlyBeingLoaded ===
+                                            item.id && <>Se încarcă...</>}
+                                        </Button>
+                                      </div>
+                                    </div>
+                                  </Grid>
+                                )}
+                                {state.solutions[index].content_loaded &&
+                                  state.solutions[index].errorMsg && (
+                                    <>
+                                      <div
+                                        className={classes.loadContentWrapper}
+                                      >
                                         <SyntaxHighlighter
                                           style={nightOwl}
-                                          language={'c'}
+                                          language={"c"}
                                           className={`${classes.loadContentPlaceholder} code-wrap cool-sha-2`}
                                           showLineNumbers
                                         >
@@ -733,162 +872,159 @@ export default function Problema() {
                                         <div
                                           className={classes.loadContentOverlay}
                                         >
-                                          <Typography
-                                            variant="body1"
-                                            component="v1"
-                                          >
-                                            Ești sigur că dorești să vezi soluția?
-                                          </Typography>
+                                          <Alert severity="error">
+                                            {state.solutions[index].errorMsg}
+                                          </Alert>
                                           <br />
-                                          <br />
-                                          <Button
-                                            onClick={() =>
-                                              loadSolution(item.id, index)
-                                            }
-                                            color="primary"
-                                            variant="contained"
-                                            disableElevation
-                                            disabled={
-                                              state.currentlyBeingLoaded ===
-                                              item.id
-                                            }
-                                          >
-                                            {state.currentlyBeingLoaded !==
-                                              item.id && <>Da, încarcă soluția</>}
-                                            {state.currentlyBeingLoaded ===
-                                              item.id && <>Se încarcă...</>}
-                                          </Button>
+                                          <Link to="/cont?utm_source=problem">
+                                            <Button
+                                              color="primary"
+                                              variant="contained"
+                                              disableElevation
+                                            >
+                                              Autentifică-te
+                                            </Button>
+                                          </Link>
                                         </div>
                                       </div>
-                                    </Grid>
+                                    </>
                                   )}
-                                  {state.solutions[index].content_loaded &&
-                                    state.solutions[index].errorMsg && (
-                                      <>
-                                        <div
-                                          className={classes.loadContentWrapper}
+                                {state.solutions[index].content_loaded &&
+                                  !state.solutions[index].errorMsg && (
+                                    <>
+                                      <Grid item xs={12}>
+                                        <Box
+                                          mb={1}
+                                          className={
+                                            classes.loadedSolutionWrapper
+                                          }
                                         >
                                           <SyntaxHighlighter
                                             style={nightOwl}
-                                            language={'c'}
-                                            className={`${classes.loadContentPlaceholder} code-wrap cool-sha-2`}
+                                            language={langToHljsLang(
+                                              state.solutions[index].language
+                                            )}
+                                            className="cool-sha-2 code-wrap"
                                             showLineNumbers
                                           >
-                                            {placeholderCode}
+                                            {state.solutions[index].content}
                                           </SyntaxHighlighter>
-                                          <div
-                                            className={
-                                              classes.loadContentPreventCopy
+                                          <CopyToClipboard
+                                            text={
+                                              state.solutions[index].content
                                             }
-                                          />
-                                          <div
-                                            className={classes.loadContentOverlay}
                                           >
-                                            <Alert severity="error">
-                                              {state.solutions[index].errorMsg}
-                                            </Alert>
-                                            <br />
-                                            <Link to="/cont?utm_source=problem">
-                                              <Button
-                                                color="primary"
-                                                variant="contained"
-                                                disableElevation
-                                              >
-                                                Autentifică-te
-                                              </Button>
-                                            </Link>
-                                          </div>
-                                        </div>
-                                      </>
-                                    )}
-                                  {state.solutions[index].content_loaded &&
-                                    !state.solutions[index].errorMsg && (
-                                      <>
-                                        <Grid item xs={12}>
-                                          <Box mb={1} className={classes.loadedSolutionWrapper}>
-                                            <SyntaxHighlighter
-                                              style={nightOwl}
-                                              language={langToHljsLang(state.solutions[index].language)}
-                                              className="cool-sha-2 code-wrap"
-                                              showLineNumbers
+                                            <Button
+                                              disableElevation
+                                              variant="contained"
+                                              color="primary"
+                                              size="small"
+                                              component={Box}
+                                              ml={2}
+                                              className={classes.copyBtn}
                                             >
-                                              {state.solutions[index].content}
-                                            </SyntaxHighlighter>
-                                            <CopyToClipboard text={state.solutions[index].content}>
-                                              <Button disableElevation variant="contained" color="primary" size="small" component={Box} ml={2} className={classes.copyBtn}>
-                                                Copiază
-                                              </Button>
-                                            </CopyToClipboard>
-                                          </Box>
-                                        </Grid>
-                                        <Grid item xs={12}>
-                                          <Box mt={2} mb={1}>
+                                              Copiază
+                                            </Button>
+                                          </CopyToClipboard>
+                                        </Box>
+                                      </Grid>
+                                      <Grid item xs={12}>
+                                        <Box mt={2} mb={0}>
+                                          <Typography
+                                            variant="subtitle1"
+                                            align="center"
+                                          >
+                                            Dacă ți-am fost de ajutor, te rugăm
+                                            să ne susții{" "}
                                             <Typography
+                                              component="span"
                                               variant="subtitle1"
-                                              align="center"
+                                              className={classes.donateCta}
+                                              onClick={() =>
+                                                setRootState({
+                                                  ...rootState,
+                                                  donationModalOpen: true,
+                                                })
+                                              }
                                             >
-                                              Nu uita să acorzi o notă soluției!
+                                              aici
                                             </Typography>
-                                            <CustomRating
-                                              align="center"
-                                              solutionId={item.id}
-                                              defaultValue={item.rating}
-                                              ratingCount={item.rating_count}
-                                              size="large"
-                                              userRating={item.user_rating}
-                                            />
-                                          </Box>
-                                        </Grid>
-                                      </>
-                                    )}
-                                </Grid>
-                              </AccordionDetails>
-                            </Accordion>
-                          );
-                        })}
-                      </div>
-                    </Grid>
-                    {rootState.showAds && <Grid item xs={12}>
-                        <Ad 
-                          card
-                          data-ad-slot='3038816711' 
-                          data-ad-format='fluid'
-                          data-ad-layout-key="-gi+14+5q-4h+2l"
-                        />
-                    </Grid>}
+                                            .
+                                          </Typography>
+                                        </Box>
+                                      </Grid>
+                                      <Grid item xs={12}>
+                                        <Box mt={2} mb={1}>
+                                          <Typography
+                                            variant="subtitle1"
+                                            align="center"
+                                          >
+                                            Nu uita să acorzi o notă soluției!
+                                          </Typography>
+                                          <CustomRating
+                                            align="center"
+                                            solutionId={item.id}
+                                            defaultValue={item.rating}
+                                            ratingCount={item.rating_count}
+                                            size="large"
+                                            userRating={item.user_rating}
+                                          />
+                                        </Box>
+                                      </Grid>
+                                    </>
+                                  )}
+                              </Grid>
+                            </AccordionDetails>
+                          </Accordion>
+                        );
+                      })}
+                    </div>
+                  </Grid>
+                  {rootState.showAds && (
                     <Grid item xs={12}>
-                      <Credits align="left" />
+                      <Ad
+                        card
+                        data-ad-slot="3038816711"
+                        data-ad-format="fluid"
+                        data-ad-layout-key="-gi+14+5q-4h+2l"
+                      />
                     </Grid>
+                  )}
+                  <Grid item xs={12}>
+                    <Credits align="left" />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <HelpUs />
+                  </Grid>
+                  {rootState.showAds && (
                     <Grid item xs={12}>
-                      <HelpUs />
-                    </Grid>
-                    {rootState.showAds && <Grid item xs={12}>
                       <Ad
                         data-ad-client="ca-pub-9101356904433905"
                         data-ad-format="auto"
                         data-full-width-responsive="true"
-                        slot='3485884754'
+                        slot="3485884754"
                       />
-                    </Grid>}
-                    <Grid item xs={12}>
-                      <Typography variant="h6" align="center">
-                        Informații despre problemă
-                      </Typography>
                     </Grid>
-                    <Grid item xs={12}>
-                      <Paper className="cool-sha">
-                        <Tabs
-                          value={state.activeTab}
-                          onChange={handleTabChange}
-                          indicatorColor="primary"
-                          textColor="primary"
-                          
-                        >
-                          <Tab label="Enunț" key={0} id="tab--0" />
-                          <Tab label="Statistici" key={1} id="tab--1" />
-                        </Tabs>
-                        <Box>
-                          {state.activeTab === 0 && <Box pt={3} px={3} pb={2}>
+                  )}
+                  <Grid item xs={12}>
+                    <Typography variant="h6" align="center">
+                      Informații despre problemă
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Paper className="cool-sha">
+                      <Tabs
+                        value={state.activeTab}
+                        onChange={handleTabChange}
+                        indicatorColor="primary"
+                        textColor="primary"
+                      >
+                        <Tab label="Enunț" key={0} id="tab--0" />
+                        <Tab label="Statistici" key={1} id="tab--1" />
+                      </Tabs>
+                      <Box>
+                        {state.activeTab === 0 && (
+                          <Box pt={3} px={3} pb={2}>
                             {state.problem.info.map(function (item, index) {
                               return (
                                 <>
@@ -899,47 +1035,56 @@ export default function Problema() {
                                           className={classes.infoSectionTitle}
                                           variant="h6"
                                           component="h3"
-                                          style={{fontWeight: 600}}
+                                          style={{ fontWeight: 600 }}
                                         >
                                           {item.title}
                                         </Typography>
                                       )}
                                       {item.content && (
-                                          <div>
-                                            <Typography
-                                              variant="body2"
-                                              style={{fontWeight: 400}}
-                                              dangerouslySetInnerHTML={{
-                                                __html: item.content,
-                                              }}
-                                            />
-                                          </div>
+                                        <div>
+                                          <Typography
+                                            variant="body2"
+                                            style={{ fontWeight: 400 }}
+                                            dangerouslySetInnerHTML={{
+                                              __html: item.content,
+                                            }}
+                                          />
+                                        </div>
                                       )}
                                     </Grid>
                                   )}
                                 </>
                               );
                             })}
-                          </Box>}
-                          {state.activeTab === 1 && <>
-                            <Suspense fallback={<Box pt={2} pb={2}><center>Se încarcă...</center></Box>}>
-                              <StatsChart problemId={state.problem.pbinfo_id}/>
+                          </Box>
+                        )}
+                        {state.activeTab === 1 && (
+                          <>
+                            <Suspense
+                              fallback={
+                                <Box pt={2} pb={2}>
+                                  <center>Se încarcă...</center>
+                                </Box>
+                              }
+                            >
+                              <StatsChart problemId={state.problem.pbinfo_id} />
                             </Suspense>
-                          </>}
-                        </Box>
-                      </Paper>
-                    </Grid>
+                          </>
+                        )}
+                      </Box>
+                    </Paper>
                   </Grid>
                 </Grid>
-                <Grid item xs={12} sm={4} md={3}>
-                  <Box pt={3} className={classes.shownOnXs} />
-                  <Sidebar showAd />
-                </Grid>
-              </>
-           
+              </Grid>
+              <Grid item xs={12} sm={4} md={3}>
+                <Box pt={3} className={classes.shownOnXs} />
+                <Sidebar showAd />
+              </Grid>
+            </>
           </Grid>
-      </Container>
-    )};
-  </>
+        </Container>
+      )}
+      ;
+    </>
   );
 }

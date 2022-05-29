@@ -3,10 +3,12 @@ import axios from "axios";
 import ReactGA from "react-ga";
 export const RootContext = createContext();
 
-const isDev = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
+const isDev = !process.env.NODE_ENV || process.env.NODE_ENV === "development";
 
 const Axios = axios.create({
-  baseURL: isDev? "http://localhost/solinfo/api" : "https://api.solinfo.ro/v2.0",
+  baseURL: isDev
+    ? "http://localhost/solinfo/api"
+    : "https://api.solinfo.ro/v2.0",
   withCredentials: !isDev,
 });
 
@@ -20,8 +22,10 @@ class Context extends Component {
   loadingTxt = "Se încarcă...";
 
   state = {
-    domain: isDev? "http://localhost.ro:3000" : "https://solinfo.ro",
-    fileDomain: isDev? "http://localhost/solinfo/file" : "https://solinfo.ro/file",
+    domain: isDev ? "http://localhost.ro:3000" : "https://solinfo.ro",
+    fileDomain: isDev
+      ? "http://localhost/solinfo/file"
+      : "https://solinfo.ro/file",
     isLoggedIn: false,
     userInfo: {
       firstName: null,
@@ -46,13 +50,13 @@ class Context extends Component {
       },
       latest_solutions: [],
       stats: {
-        rating_5_count: '...',
-        solutions_count: '...',
+        rating_5_count: "...",
+        solutions_count: "...",
         top_users: [],
-        users_count: '...',
-        views_count: '...',
+        users_count: "...",
+        views_count: "...",
         articles: [],
-        latest_problems: []
+        latest_problems: [],
       },
     },
     homeDataLoaded: false,
@@ -66,19 +70,22 @@ class Context extends Component {
     newSolutionIntention: null,
     newSolutionIntentionName: null,
     showAds: false,
-    staff: []
+    staff: [],
+    donationModalOpen: false,
   };
 
   API = async (action, input = []) => {
-    if(action !== "/endpoint/module/notifications.php" 
-      && action !== "endpoint/problems.json.php"
-      && action !== "/endpoint/module/problem-stats.php"
-      && !this.state.showLoader) {
-      if(this.state.authStatusChecked && this.state.homeDataLoaded)
+    if (
+      action !== "/endpoint/module/notifications.php" &&
+      action !== "endpoint/problems.json.php" &&
+      action !== "/endpoint/module/problem-stats.php" &&
+      !this.state.showLoader
+    ) {
+      if (this.state.authStatusChecked && this.state.homeDataLoaded)
         this.setState({
           ...this.state,
-          showLoader: true
-        })
+          showLoader: true,
+        });
     }
     input = {
       ...input,
@@ -86,16 +93,16 @@ class Context extends Component {
     };
     const request = await Axios.post(action.replace(".php", ""), input, {
       headers: {
-        'Accept': 'text/plain',
-        'Content-Type': 'text/plain'
-      } 
+        Accept: "text/plain",
+        "Content-Type": "text/plain",
+      },
     });
     setTimeout(() => {
       this.setState({
         ...this.state,
-        showLoader: false
-      })
-    }, 250)
+        showLoader: false,
+      });
+    }, 250);
     return request.data;
   };
 
@@ -110,8 +117,8 @@ class Context extends Component {
   };
 
   setRootState = (newState) => {
-    this.setState(newState)
-  }
+    this.setState(newState);
+  };
 
   getProblems = async () => {
     if (this.state.problemsDataLoaded === true) return -1;
@@ -140,7 +147,10 @@ class Context extends Component {
 
     //Axios.defaults.headers.common["Authorization"] = "Bearer " + authToken;
 
-    let [data, homeData] = await Promise.all([this.API("endpoint/load.php"), this.API("endpoint/page/home.php")]);
+    let [data, homeData] = await Promise.all([
+      this.API("endpoint/load.php"),
+      this.API("endpoint/page/home.php"),
+    ]);
 
     if (data.success) {
       this.setState({
@@ -157,8 +167,8 @@ class Context extends Component {
         weeklyChallenge: data.weekly_challenge,
         weeklyChallengeTotal: data.weekly_challenge_total,
         weeklyChallengeSolved: data.weekly_challenge_solved,
-        showAds: data.show_ads? data.show_ads : false,
-        staff: data.staff
+        showAds: data.show_ads ? data.show_ads : false,
+        staff: data.staff,
       });
     }
 
@@ -186,9 +196,9 @@ class Context extends Component {
   };
 
   langToHljsLang = (input) => {
-    switch(input) {
-      case 'cpp': {
-        return 'c';
+    switch (input) {
+      case "cpp": {
+        return "c";
         break;
       }
       default: {
@@ -196,7 +206,7 @@ class Context extends Component {
         break;
       }
     }
-  }
+  };
 
   render() {
     const contextValue = {
@@ -206,7 +216,7 @@ class Context extends Component {
       logout: this.logout,
       API: this.API,
       getProblems: this.getProblems,
-      langToHljsLang: this.langToHljsLang
+      langToHljsLang: this.langToHljsLang,
     };
     return (
       <RootContext.Provider value={contextValue}>

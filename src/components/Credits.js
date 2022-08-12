@@ -19,22 +19,24 @@ export default function Credits(props) {
 
   return (
     <>
-      <Typography variant="body1" align={align} style={{ fontWeight: 600 }}>
-        Creat cu <span className={classes.heart}>&#10084;</span> de{" "}
-        <a
-          href="https://instagram.com/alexhodo"
-          rel="noreferrer"
-          target="_blank"
-          onClick={() => {
-            ReactGA.event({
-              category: "Social",
-              action: "Opened Instagram",
-            });
-          }}
-        >
-          Alex Hodo
-        </a>
-      </Typography>
+      {!props.hideText && (
+        <Typography variant="body1" align={align} style={{ fontWeight: 600 }}>
+          Creat cu <span className={classes.heart}>&#10084;</span> de{" "}
+          <a
+            href="https://instagram.com/alexhodo"
+            rel="noreferrer"
+            target="_blank"
+            onClick={() => {
+              ReactGA.event({
+                category: "Social",
+                action: "Opened Instagram",
+              });
+            }}
+          >
+            Alex Hodo
+          </a>
+        </Typography>
+      )}
       <Box
         onClick={() => {
           ReactGA.event({

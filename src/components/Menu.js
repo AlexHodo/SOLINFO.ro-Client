@@ -34,6 +34,7 @@ import MenuRoundedIcon from "@material-ui/icons/MenuRounded";
 import CheckCircleTwoToneIcon from "@material-ui/icons/CheckCircleTwoTone";
 import Logo from "../media/logo.svg";
 import OfflineBoltTwoToneIcon from "@material-ui/icons/OfflineBoltTwoTone";
+import Credits from "./Credits";
 
 const useStyles = makeStyles((theme) => ({
   offset: theme.mixins.toolbar,
@@ -160,6 +161,23 @@ const useStyles = makeStyles((theme) => ({
     height: "45px",
     backgroundSize: "contain",
     backgroundImage: `url(${Logo})`,
+  },
+  pulseDot: {
+    width: "12px",
+    height: "12px",
+    borderRadius: "6px",
+    background: theme.palette.success.main,
+    margin: theme.spacing(0, 1.5),
+    animation: "$pulse-animation 1.5s infinite",
+    display: "block",
+  },
+  "@keyframes pulse-animation": {
+    "0%": {
+      boxShadow: "0 0 0 0px rgba(76, 175, 80, 0.5)",
+    },
+    "100%": {
+      boxShadow: "0 0 0 10px rgba(76, 175, 80, 0)",
+    },
   },
 }));
 
@@ -523,44 +541,31 @@ export default function Navbar() {
               to="/provocare-saptamanala"
               className={`${classes.menuItem} ${classes.hiddenOnMobile}`}
             >
-              <MenuItem
-                style={{
-                  padding: "0 0.5rem",
-                }}
-              >
-                Provocarea săptămânii
-              </MenuItem>
+              <MenuItem>Provocarea săptămânii</MenuItem>
             </Link>
             <Link
               to="/probleme"
               className={`${classes.menuItem} ${classes.hiddenOnMobile}`}
             >
-              <MenuItem
-                style={{
-                  padding: "0 0.5rem",
-                }}
-              >
-                Probleme
-              </MenuItem>
+              <MenuItem>Probleme</MenuItem>
             </Link>
             <Box
+              href="https://discord.gg/7u7YC2PK7w"
+              target="_blank"
               className={`${classes.menuItem} ${classes.hiddenOnMobile}`}
-              onClick={() => {
-                setRootState({
-                  ...rootState,
-                  donationModalOpen: true,
-                });
-              }}
+              component="a"
             >
-              <MenuItem
-                style={{
-                  padding: "0 0.5rem",
-                }}
-              >
-                <OfflineBoltTwoToneIcon
-                  style={{ marginRight: "0.25rem", fontSize: "20px" }}
-                />{" "}
-                Susține-ne!
+              <MenuItem>
+                Discord{" "}
+                {rootState.discordMembersCount && (
+                  <>
+                    <Box className={classes.pulseDot} />
+                    <Typography style={{ fontSize: "0.85rem" }}>
+                      {rootState.discordOnlineCount} /{" "}
+                      {rootState.discordMembersCount}
+                    </Typography>
+                  </>
+                )}
               </MenuItem>
             </Box>
             <div className={classes.grow} />
@@ -571,6 +576,7 @@ export default function Navbar() {
                 startIcon={<AddCircleTwoToneIcon />}
                 className={classes.addSolutionBtn}
                 disableElevation
+                style={{ lineHeight: 1.2 }}
               >
                 Adaugă o soluție
               </Button>

@@ -463,7 +463,7 @@ export default function AppWrapper() {
                   </Suspense>
                 }
               />
-              <Route
+              {/*<Route
                 path="/premium"
                 exact
                 children={
@@ -471,7 +471,7 @@ export default function AppWrapper() {
                     <PremiumConfirmare />
                   </Suspense>
                 }
-              />
+              />*/}
               <Route children={<NotFound />} />
             </Switch>
           </CSSTransition>

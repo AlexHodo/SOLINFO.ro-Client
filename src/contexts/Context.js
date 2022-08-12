@@ -5,6 +5,8 @@ export const RootContext = createContext();
 
 const isDev = !process.env.NODE_ENV || process.env.NODE_ENV === "development";
 
+const discordInvitation = "7u7YC2PK7w";
+
 const Axios = axios.create({
   baseURL: isDev
     ? "http://localhost/solinfo/api"
@@ -17,12 +19,15 @@ class Context extends Component {
     ReactGA.initialize("UA-199814762-1");
     ReactGA.pageview(window.location.pathname);
     this.checkSession();
+    this.getDiscordInfo();
   }
 
   loadingTxt = "Se încarcă...";
 
   state = {
     domain: isDev ? "http://localhost.ro:3000" : "https://solinfo.ro",
+    discordMembersCount: null,
+    discordOnlineCount: null,
     fileDomain: isDev
       ? "http://localhost/solinfo/file"
       : "https://solinfo.ro/file",
@@ -135,6 +140,22 @@ class Context extends Component {
       problemsDataIsLoading: false,
       problemsDataLoaded: true,
       problems: data,
+    });
+  };
+
+  getDiscordInfo = async () => {
+    const apiResult = await axios({
+      method: "get",
+      url: `https://discord.com/api/v9/invites/${discordInvitation}?with_counts=true&with_expiration=true`,
+    }).then((res) => {
+      const data = res.data;
+      if (data.approximate_member_count && data.approximate_presence_count) {
+        this.setState({
+          ...this.state,
+          discordMembersCount: data.approximate_member_count,
+          discordOnlineCount: data.approximate_presence_count,
+        });
+      }
     });
   };
 

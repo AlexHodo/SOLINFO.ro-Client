@@ -264,7 +264,7 @@ export default function Sidebar(props) {
         {rootState.staff.length > 0 && (
           <>
             <Grid item xs={12} sm={11}>
-              <Box pb={2}>
+              <Box pb={1}>
                 <Link to="/despre-contact">
                   <Typography variant="h6" className={classes.title}>
                     Membrii staffului
@@ -287,7 +287,7 @@ export default function Sidebar(props) {
             </Grid>
           </>
         )}
-        {rootState.showDiscord && (
+        {/*rootState.showDiscord && (
           <Grid item xs={12} sm={11}>
             <DelayedRenderer delay={300}>
               <iframe
@@ -301,7 +301,7 @@ export default function Sidebar(props) {
               ></iframe>
             </DelayedRenderer>
           </Grid>
-        )}
+        )*/}
         {props.showAd && rootState.showAds && false && (
           <Grid item xs={12} sm={11}>
             <AdSense.Google

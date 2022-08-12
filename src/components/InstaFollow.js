@@ -5,8 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import makeStyles from "@material-ui/styles/makeStyles";
 import Button from "@material-ui/core/Button";
 import Avatar from "@material-ui/core/Avatar";
-import ClearIcon from "@material-ui/icons/Clear";
 import ReactGA from "react-ga";
+import InstagramIcon from "@material-ui/icons/Instagram";
 ReactGA.initialize("UA-199814762-1");
 
 const useStyles = makeStyles((theme) => ({
@@ -37,9 +37,10 @@ const useStyles = makeStyles((theme) => ({
   },
   followButton: {
     textTransform: "none",
-    paddingRight: theme.spacing(6),
-    paddingLeft: theme.spacing(6),
-    fontWeight: theme.typography.fontWeightMedium,
+    paddingRight: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+    fontWeight: 600,
+    width: "100%",
   },
 }));
 
@@ -74,7 +75,7 @@ export const InstaFollow = () => {
       <Grid container justify="center" alignItems="center" spacing={5}>
         <Grid item xs={6}>
           <Typography variant="body2" className={classes.channelUserName}>
-            alexhodo
+            @alexhodo
           </Typography>
         </Grid>
       </Grid>
@@ -90,8 +91,9 @@ export const InstaFollow = () => {
         size="small"
         className={classes.followButton}
         onClick={openInstagram}
+        startIcon={<InstagramIcon />}
       >
-        Urmărește
+        Vezi profilul
       </Button>
     </Grid>
   );

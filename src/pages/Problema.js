@@ -929,31 +929,6 @@ export default function Problema() {
                                         </Box>
                                       </Grid>
                                       <Grid item xs={12}>
-                                        <Box mt={2} mb={0}>
-                                          <Typography
-                                            variant="subtitle1"
-                                            align="center"
-                                          >
-                                            Dacă ți-am fost de ajutor, te rugăm
-                                            să ne susții{" "}
-                                            <Typography
-                                              component="span"
-                                              variant="subtitle1"
-                                              className={classes.donateCta}
-                                              onClick={() =>
-                                                setRootState({
-                                                  ...rootState,
-                                                  donationModalOpen: true,
-                                                })
-                                              }
-                                            >
-                                              aici
-                                            </Typography>
-                                            .
-                                          </Typography>
-                                        </Box>
-                                      </Grid>
-                                      <Grid item xs={12}>
                                         <Box mt={2} mb={1}>
                                           <Typography
                                             variant="subtitle1"

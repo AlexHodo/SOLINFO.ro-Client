@@ -574,6 +574,7 @@ export default function Problema() {
                             onChange={handleSelectedLanguagesChange}
                             input={<Input />}
                             MenuProps={MenuProps}
+                            style={{ paddingRight: "24px" }}
                             renderValue={(selectedLanguages) => (
                               <>
                                 {selectedLanguages.map((value) => (

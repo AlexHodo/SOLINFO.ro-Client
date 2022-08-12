@@ -14,8 +14,8 @@ import { Link } from "react-router-dom";
 import Skeleton from "@material-ui/lab/Skeleton";
 import CustomRating from "./../components/CustomRating";
 import ForwardTwoToneIcon from "@material-ui/icons/ForwardTwoTone";
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import { createFilterOptions } from '@material-ui/lab/Autocomplete';
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import { createFilterOptions } from "@material-ui/lab/Autocomplete";
 import { useHistory } from "react-router-dom";
 import PeopleAltTwoToneIcon from "@material-ui/icons/PeopleAltTwoTone";
 import LibraryAddCheckTwoToneIcon from "@material-ui/icons/LibraryAddCheckTwoTone";
@@ -26,28 +26,30 @@ import MetaTags from "react-meta-tags";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import HelpUs from "./../components/HelpUs";
 import LanguageTag from "../components/LanguageTag";
-import { DelayedRenderer } from "react-delayed-renderer"
+import { DelayedRenderer } from "react-delayed-renderer";
 
 import Ad from "../components/Ad";
 
-import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
-import c from 'react-syntax-highlighter/dist/esm/languages/hljs/c';
-import php from 'react-syntax-highlighter/dist/esm/languages/hljs/php';
-import pascal from 'react-syntax-highlighter/dist/esm/languages/hljs/delphi';
-import java from 'react-syntax-highlighter/dist/esm/languages/hljs/java';
-import python from 'react-syntax-highlighter/dist/esm/languages/hljs/python';
-import nightOwl from 'react-syntax-highlighter/dist/esm/styles/hljs/night-owl';
+import { LightAsync as SyntaxHighlighter } from "react-syntax-highlighter";
+import c from "react-syntax-highlighter/dist/esm/languages/hljs/c";
+import php from "react-syntax-highlighter/dist/esm/languages/hljs/php";
+import pascal from "react-syntax-highlighter/dist/esm/languages/hljs/delphi";
+import java from "react-syntax-highlighter/dist/esm/languages/hljs/java";
+import python from "react-syntax-highlighter/dist/esm/languages/hljs/python";
+import nightOwl from "react-syntax-highlighter/dist/esm/styles/hljs/night-owl";
 
 import heroBg from "../media/hero-bg.svg";
 
-SyntaxHighlighter.registerLanguage('c', c);
+SyntaxHighlighter.registerLanguage("c", c);
 
 const useStyles = makeStyles((theme) => ({
   hero: {
     // backgroundColor: fade(theme.palette.primary.main, 1),
     textAlign: "left",
     backgroundColor: theme.palette.primary.main,
-    backgroundImage: `url(${heroBg})`
+    backgroundImage: `url(${heroBg})`,
+    marginTop: "-64px",
+    paddingTop: "64px",
   },
   heroGrid: {
     marginTop: 0,
@@ -107,11 +109,11 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(0, 3),
       [theme.breakpoints.down("sm")]: {
         fontSize: "1.85rem",
-        textAlign: "center"
+        textAlign: "center",
       },
     },
     [theme.breakpoints.down("sm")]: {
-      textAlign: "center"
+      textAlign: "center",
     },
     marginBottom: theme.spacing(2),
     fontSize: "2.25rem",
@@ -129,11 +131,11 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(0, 3),
       [theme.breakpoints.down("sm")]: {
         fontSize: "1.5rem",
-        textAlign: "center"
+        textAlign: "center",
       },
     },
     [theme.breakpoints.down("sm")]: {
-      textAlign: "center"
+      textAlign: "center",
     },
   },
   heroTitleLarge: {
@@ -177,9 +179,7 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
-  statsWrapperMiddle: {
-
-  },
+  statsWrapperMiddle: {},
   statsWrapperOuter: {
     minHeight: "150px",
     [theme.breakpoints.up("md")]: {
@@ -190,12 +190,12 @@ const useStyles = makeStyles((theme) => ({
         // transform: 'translateX(0.75rem)'
       },
       "& $statsWrapperMiddle:nth-child(3)": {
-        transform: 'translateX(-1.5rem)'
+        transform: "translateX(-1.5rem)",
       },
       "& $statsWrapperMiddle:nth-child(4)": {
-        transform: 'translateX(-1.5rem)'
-      }
-    }
+        transform: "translateX(-1.5rem)",
+      },
+    },
   },
   statWrapper: {
     "& *": {
@@ -220,12 +220,12 @@ const useStyles = makeStyles((theme) => ({
     width: "60%",
     marginLeft: "40%",
     textAlign: "right",
-    lineHeight: 1.25
+    lineHeight: 1.25,
   },
   statContent: {
     fontSize: "1.35rem",
     color: theme.palette.primary.main,
-    fontWeight: "800 !important"
+    fontWeight: "800 !important",
   },
   statIcon: {
     position: "absolute",
@@ -243,13 +243,13 @@ const useStyles = makeStyles((theme) => ({
   },
   previewCardTitle: {
     lineHeight: "1.25rem",
-    fontWeight: 600
+    fontWeight: 600,
   },
   hideOnDesktop: {
     [theme.breakpoints.up("sm")]: {
-      display: "none"
-    }
-  }
+      display: "none",
+    },
+  },
 }));
 
 const defaultFilterOptions = createFilterOptions();
@@ -264,7 +264,8 @@ const filterOptions = (options, state) => {
 };
 
 export default function Home() {
-  const { API, rootState, getProblems, langToHljsLang } = useContext(RootContext);
+  const { API, rootState, getProblems, langToHljsLang } =
+    useContext(RootContext);
 
   const state = {
     data_loaded: rootState.homeDataLoaded,
@@ -292,12 +293,14 @@ export default function Home() {
           SOLINFO.ro | Soluții pentru problemele de pe PbInfo cu explicații
         </title>
       </MetaTags>
-      <div
-        className={classes.hero}
-        
-      >
+      <div className={classes.hero}>
         <Container maxWidth="lg">
-          <Grid container spacing={6} alignItems="center" style={{justifyContent: 'space-between'}}>
+          <Grid
+            container
+            spacing={6}
+            alignItems="center"
+            style={{ justifyContent: "space-between" }}
+          >
             <Grid item xs={12} sm={6}>
               <Grid container spacing={3} className={classes.heroGrid}>
                 <Grid item xs={12}>
@@ -338,9 +341,11 @@ export default function Home() {
                         classes={{ root: classes.heroTextFieldRoot }}
                       />
                     )}
-                    onChange={(event: any, option: any) => {
+                    onChange={(event, option) => {
                       setSearchInputValue("");
-                      history.push("/problema/" + option.name + "?utm_source=search");
+                      history.push(
+                        "/problema/" + option.name + "?utm_source=search"
+                      );
                     }}
                     inputValue={searchInputValue}
                     onInputChange={(event) =>
@@ -377,7 +382,12 @@ export default function Home() {
             </Grid>
             <Grid item xs={12} sm={6} md={5}>
               <Grid container spacing={2} className={classes.statsWrapperOuter}>
-                <Grid item xs={12} md={6} className={classes.statsWrapperMiddle}>
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
+                  className={classes.statsWrapperMiddle}
+                >
                   <Paper className={`${classes.statWrapper} cool-sha`}>
                     <Typography className={classes.statTitle} variant="body1">
                       Utilizatori înscriși
@@ -388,7 +398,12 @@ export default function Home() {
                     <PeopleAltTwoToneIcon className={classes.statIcon} />
                   </Paper>
                 </Grid>
-                <Grid item xs={12} md={6} className={classes.statsWrapperMiddle}>
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
+                  className={classes.statsWrapperMiddle}
+                >
                   <Paper className={`${classes.statWrapper} cool-sha`}>
                     <Typography className={classes.statTitle} variant="body1">
                       Soluții disponibile
@@ -399,7 +414,12 @@ export default function Home() {
                     <LibraryAddCheckTwoToneIcon className={classes.statIcon} />
                   </Paper>
                 </Grid>
-                <Grid item xs={12} md={6} className={classes.statsWrapperMiddle}>
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
+                  className={classes.statsWrapperMiddle}
+                >
                   <Paper className={`${classes.statWrapper} cool-sha`}>
                     <Typography className={classes.statTitle} variant="body1">
                       Vizualizări soluții
@@ -410,7 +430,12 @@ export default function Home() {
                     <VisibilityTwoToneIcon className={classes.statIcon} />
                   </Paper>
                 </Grid>
-                <Grid item xs={12} md={6} className={classes.statsWrapperMiddle}>
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
+                  className={classes.statsWrapperMiddle}
+                >
                   <Paper className={`${classes.statWrapper} cool-sha`}>
                     <Typography className={classes.statTitle} variant="body1">
                       Note de cinci stele
@@ -424,142 +449,159 @@ export default function Home() {
               </Grid>
             </Grid>
           </Grid>
-          
         </Container>
       </div>
-        <DelayedRenderer delay={100}>
+      <DelayedRenderer delay={100}>
         <Container maxWidth="md">
-        <Grid container className={classes.content}>
-          <Grid item xs={12} sm={8} md={9}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <Box pt={3}>
-                  <Typography variant="h5" style={{fontWeight: 600}}>
-                    Ultimele soluții adăugate
-                  </Typography>
-                </Box>
-              </Grid>
-              {!state.data_loaded && (
+          <Grid container className={classes.content}>
+            <Grid item xs={12} sm={8} md={9}>
+              <Grid container spacing={2}>
                 <Grid item xs={12}>
-                  <Skeleton
-                    variant="rect"
-                    height={30}
-                    style={{ marginBottom: "0.5rem" }}
-                  />
-                  <Skeleton
-                    variant="rect"
-                    height={15}
-                    style={{ marginBottom: "0.5rem" }}
-                  />
-                  <Skeleton variant="rect" height={60} />
+                  <Box pt={3}>
+                    <Typography variant="h5" style={{ fontWeight: 600 }}>
+                      Ultimele soluții adăugate
+                    </Typography>
+                  </Box>
                 </Grid>
-              )}
-              {state.latest_solutions &&
-                state.latest_solutions.map(function (item, index) {
-                  return (
-                    <Grid item xs={12} key={index}>
-                      {rootState.showAds && (index+1)%4 == 0 && <> {/* before the 4th and 8th  */}
-                        <Box px={2}>
-                          <Ad 
-                            marginBottom
-                            data-ad-slot="1123445298"
-                            data-ad-format="auto"
-                            data-full-width-responsive="true"
-                          />
-                        </Box>
-                      </>}
-                      <Card className={`${classes.previewCard} cool-sha`}>
-                        <CardContent className={classes.previewCardRoot}>
-                          <Grid
-                            container
-                            justify="center"
-                            alignItems="center"
-                            style={{ marginBottom: "1rem" }}
-                          >
-                            <Grid item xs={6}>
-                              <Link to={`/problema/${item.name}`}>
-                                <Typography
-                                  className={classes.previewCardTitle}
-                                  variant="h6"
-                                  component="h2"
-                                >
-                                  sol-{item.id} &#8226; {item.name} #
-                                  {item.pbinfo_id}
-                                </Typography>
-                              </Link>
-                            </Grid>
-                            <Box component={Grid} item xs={6}>
-                              <Typography
-                                variant="body2"
-                                style={{ textAlign: "right", opacity: 0.8 }}
-                              >
-                                {item.author.username && (
-                                  <>
-                                    <Link
-                                      to={`/profil/${item.author.username}`}
-                                    >
-                                      @{item.author.username}
-                                    </Link>
-                                    {" "}
-                                  </>
-                                )}
-                                <br className={classes.hideOnDesktop}/>
-                                {item.created}
-                              </Typography>
+                {!state.data_loaded && (
+                  <Grid item xs={12}>
+                    <Skeleton
+                      variant="rect"
+                      height={30}
+                      style={{ marginBottom: "0.5rem" }}
+                    />
+                    <Skeleton
+                      variant="rect"
+                      height={15}
+                      style={{ marginBottom: "0.5rem" }}
+                    />
+                    <Skeleton variant="rect" height={60} />
+                  </Grid>
+                )}
+                {state.latest_solutions &&
+                  state.latest_solutions.map(function (item, index) {
+                    return (
+                      <Grid item xs={12} key={index}>
+                        {rootState.showAds && (index + 1) % 4 == 0 && (
+                          <>
+                            {" "}
+                            {/* before the 4th and 8th  */}
+                            <Box px={2}>
+                              <Ad
+                                marginBottom
+                                data-ad-slot="1123445298"
+                                data-ad-format="auto"
+                                data-full-width-responsive="true"
+                              />
                             </Box>
-                          </Grid>
-                          <SyntaxHighlighter
-                            style={nightOwl}
-                            language={langToHljsLang(item.language)}
-                            className="cool-sha-2 code-wrap"
-                            showLineNumbers
-                          >
-                            {item.content}
-                          </SyntaxHighlighter>
-                          <Grid container alignItems="center" justify="center">
-                            <Grid item xs={7}>
-                              <Link to={`/problema/${item.name}`}>
-                                <Button
-                                  className={classes.previewCardButton}
-                                  variant="contained"
-                                  disableElevation
-                                  color="primary"
+                          </>
+                        )}
+                        <Card className={`${classes.previewCard} cool-sha`}>
+                          <CardContent className={classes.previewCardRoot}>
+                            <Grid
+                              container
+                              justify="center"
+                              alignItems="center"
+                              style={{ marginBottom: "1rem" }}
+                            >
+                              <Grid item xs={6}>
+                                <Link to={`/problema/${item.name}`}>
+                                  <Typography
+                                    className={classes.previewCardTitle}
+                                    variant="h6"
+                                    component="h2"
+                                  >
+                                    sol-{item.id} &#8226; {item.name} #
+                                    {item.pbinfo_id}
+                                  </Typography>
+                                </Link>
+                              </Grid>
+                              <Box component={Grid} item xs={6}>
+                                <Typography
+                                  variant="body2"
+                                  style={{ textAlign: "right", opacity: 0.8 }}
                                 >
-                                  Vezi <Box className={classes.hideOnMobile} ml={0.5} component="span">soluția</Box>{" "}
-                                  <span className="views">{item.views}</span>
-                                </Button>
-                              </Link>
-                              <span>
-                                <LanguageTag language={item.language? item.language : null} />
-                              </span>
-                            </Grid>
-                            <Grid item xs={5}>
-                              <Box className={classes.ratingWrapper}>
-                                <CustomRating
-                                  align="right"
-                                  solutionId={item.id}
-                                  defaultValue={item.rating}
-                                  ratingCount={item.rating_count}
-                                  readOnly
-                                />
+                                  {item.author.username && (
+                                    <>
+                                      <Link
+                                        to={`/profil/${item.author.username}`}
+                                      >
+                                        @{item.author.username}
+                                      </Link>{" "}
+                                    </>
+                                  )}
+                                  <br className={classes.hideOnDesktop} />
+                                  {item.created}
+                                </Typography>
                               </Box>
                             </Grid>
-                          </Grid>
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                  );
-                })}
+                            <SyntaxHighlighter
+                              style={nightOwl}
+                              language={langToHljsLang(item.language)}
+                              className="cool-sha-2 code-wrap"
+                              showLineNumbers
+                            >
+                              {item.content}
+                            </SyntaxHighlighter>
+                            <Grid
+                              container
+                              alignItems="center"
+                              justify="center"
+                            >
+                              <Grid item xs={7}>
+                                <Link to={`/problema/${item.name}`}>
+                                  <Button
+                                    className={classes.previewCardButton}
+                                    variant="contained"
+                                    disableElevation
+                                    color="primary"
+                                  >
+                                    Vezi{" "}
+                                    <Box
+                                      className={classes.hideOnMobile}
+                                      ml={0.5}
+                                      component="span"
+                                    >
+                                      soluția
+                                    </Box>{" "}
+                                    <span className="views">{item.views}</span>
+                                  </Button>
+                                </Link>
+                                <span>
+                                  <LanguageTag
+                                    language={
+                                      item.language ? item.language : null
+                                    }
+                                  />
+                                </span>
+                              </Grid>
+                              <Grid item xs={5}>
+                                <Box className={classes.ratingWrapper}>
+                                  <CustomRating
+                                    align="right"
+                                    solutionId={item.id}
+                                    defaultValue={item.rating}
+                                    ratingCount={item.rating_count}
+                                    readOnly
+                                  />
+                                </Box>
+                              </Grid>
+                            </Grid>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                    );
+                  })}
+              </Grid>
+            </Grid>
+            <Grid item xs={12} sm={4} md={3}>
+              <Box pt={3}>
+                <Sidebar showAd />
+              </Box>
             </Grid>
           </Grid>
-          <Grid item xs={12} sm={4} md={3}>
-            <Box pt={3}>
-              <Sidebar showAd />
-            </Box>
-          </Grid>
-        </Grid>
         </Container>
-        </DelayedRenderer>
+      </DelayedRenderer>
     </>
   );
 }

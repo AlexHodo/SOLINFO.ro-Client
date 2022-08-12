@@ -180,41 +180,43 @@ const DonateDialog = (props) => {
   const { rootState, setRootState } = useContext(RootContext);
 
   return (
-    <Dialog open={rootState.donationModalOpen} maxWidth="md">
-      <DialogTitle disableTypography className={classes.kofiTitle}>
-        <Typography variant="h6">Susține SOLINFO.ro</Typography>
-        <Typography variant="body2">
-          Alternativ, ne poți susține achiziționând{" "}
-          <Link
-            to="/premium"
+    <>
+      {/*<Dialog open={rootState.donationModalOpen} maxWidth="md">
+        <DialogTitle disableTypography className={classes.kofiTitle}>
+          <Typography variant="h6">Susține SOLINFO.ro</Typography>
+          <Typography variant="body2">
+            Alternativ, ne poți susține achiziționând{" "}
+            <Link
+              to="/premium"
+              onClick={() => {
+                setRootState({ ...rootState, donationModalOpen: false });
+              }}
+            >
+              pachetul Premium
+            </Link>{" "}
+            pentru numeroase beneficii!
+          </Typography>
+          <IconButton
+            aria-label="close"
+            className={classes.closeButton}
             onClick={() => {
               setRootState({ ...rootState, donationModalOpen: false });
             }}
           >
-            pachetul Premium
-          </Link>{" "}
-          pentru numeroase beneficii!
-        </Typography>
-        <IconButton
-          aria-label="close"
-          className={classes.closeButton}
-          onClick={() => {
-            setRootState({ ...rootState, donationModalOpen: false });
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-      </DialogTitle>
-      <Box className={classes.kofiFrameWrapper}>
-        <iframe
-          id="kofiframe"
-          src="https://ko-fi.com/alexhodo/?hidefeed=true&widget=true&embed=true&preview=true"
-          className={classes.kofiFrame}
-          height="712"
-          title="alexhodo"
-        ></iframe>
-      </Box>
-    </Dialog>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <Box className={classes.kofiFrameWrapper}>
+          <iframe
+            id="kofiframe"
+            src="https://ko-fi.com/alexhodo/?hidefeed=true&widget=true&embed=true&preview=true"
+            className={classes.kofiFrame}
+            height="712"
+            title="alexhodo"
+          ></iframe>
+        </Box>
+      </Dialog>*/}
+    </>
   );
 };
 

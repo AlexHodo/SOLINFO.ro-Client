@@ -155,6 +155,7 @@ const useStyles = makeStyles((theme) => ({
   kofiFrame: {
     border: "none",
     width: "400px",
+    maxWidth: "100%",
     padding: 0,
     background: "#fff",
   },

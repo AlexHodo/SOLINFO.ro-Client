@@ -1,14 +1,17 @@
-import React from 'react';
+import React from "react";
 import Box from "@material-ui/core/Box";
 
 export default class Ad extends React.Component {
-
+  /*
   componentDidMount () {
     (window.adsbygoogle = window.adsbygoogle || []).push({});
   }
+  */
 
-  render () {
+  render() {
     return (
+      <></>
+      /*
       <Box className='ad'>
         <ins 
           className={`adsbygoogle ${this.props.card && "is-card"}`}
@@ -21,6 +24,7 @@ export default class Ad extends React.Component {
           {...this.props}
         />
       </Box>
+      */
     );
   }
 }

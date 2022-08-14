@@ -43,6 +43,7 @@ const ProvocareSaptamanala = React.lazy(() =>
 const ImportSolutii = React.lazy(() => import("./../pages/ImportSolutii"));
 const Admin = React.lazy(() => import("./../pages/Admin"));
 const PremiumConfirmare = React.lazy(() => import("../pages/Premium"));
+const SolutiiCont = React.lazy(() => import("../pages/SolutiiCont"));
 
 const useStylesFacebook = makeStyles((theme) => ({
   root: {
@@ -391,6 +392,15 @@ export default function AppWrapper() {
                 children={
                   <Suspense fallback={SuspenseFallback}>
                     <Setari />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/cont/solutii"
+                exact
+                children={
+                  <Suspense fallback={SuspenseFallback}>
+                    <SolutiiCont />
                   </Suspense>
                 }
               />

@@ -34,6 +34,7 @@ import MenuRoundedIcon from "@material-ui/icons/MenuRounded";
 import CheckCircleTwoToneIcon from "@material-ui/icons/CheckCircleTwoTone";
 import Logo from "../media/logo.svg";
 import OfflineBoltTwoToneIcon from "@material-ui/icons/OfflineBoltTwoTone";
+import Chip from "@material-ui/core/Chip";
 import Credits from "./Credits";
 
 const useStyles = makeStyles((theme) => ({
@@ -267,6 +268,22 @@ export default function Navbar() {
               </ListItemIcon>
               <Typography variant="inherit" className={classes.menuItemText}>
                 Adaugă o soluție
+              </Typography>
+            </MenuItem>
+          </Link>
+          <Link to="/cont/solutii">
+            <MenuItem onClick={handleMenuClose}>
+              <ListItemIcon>
+                <OfflineBoltTwoToneIcon className={classes.menuItemIcon} />
+              </ListItemIcon>
+              <Typography variant="inherit" className={classes.menuItemText}>
+                Soluțiile tale
+                <Chip
+                  color="secondary"
+                  size="small"
+                  label="BETA"
+                  style={{ marginLeft: "0.5rem" }}
+                />
               </Typography>
             </MenuItem>
           </Link>

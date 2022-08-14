@@ -27,6 +27,8 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import HelpUs from "./../components/HelpUs";
 import LanguageTag from "../components/LanguageTag";
 import { DelayedRenderer } from "react-delayed-renderer";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
 import Ad from "../components/Ad";
 
@@ -286,6 +288,12 @@ export default function Home() {
 
   let history = useHistory();
 
+  const [displayedSolutions, setDisplayedSolutions] = React.useState("latest");
+
+  const handleDisplayedSolutions = (event) => {
+    setDisplayedSolutions(event.target.value);
+  };
+
   return (
     <>
       <MetaTags>
@@ -455,12 +463,23 @@ export default function Home() {
         <Container maxWidth="md">
           <Grid container className={classes.content}>
             <Grid item xs={12} sm={8} md={9}>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
+              <Grid container spacing={2} alignItems="baseline">
+                <Grid item xs={8}>
                   <Box pt={3}>
                     <Typography variant="h5" style={{ fontWeight: 600 }}>
                       Ultimele soluții adăugate
                     </Typography>
+                  </Box>
+                </Grid>
+                <Grid item xs={4}>
+                  <Box style={{ textAlign: "right", display: "none" }}>
+                    <Select
+                      value={displayedSolutions}
+                      onChange={handleDisplayedSolutions}
+                    >
+                      <MenuItem value={"latest"}>Ultimele</MenuItem>
+                      <MenuItem value={"top"}>Populare</MenuItem>
+                    </Select>
                   </Box>
                 </Grid>
                 {!state.data_loaded && (

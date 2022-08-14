@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { InstaFollow } from "./InstaFollow";
 import Container from "@material-ui/core/Container";
 import LatestBlogPosts from "./LatestBlogPosts";
+import Credits from "./Credits";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -93,6 +94,9 @@ export default function Footer() {
         <Box mt={2}>
           <LatestBlogPosts />
         </Box>
+        <Box mt={4}>
+          <Credits align="center" />
+        </Box>
       </Container>
       {rootState.showPersonalAd && (
         <div className={classes.advertiseMyself}>
@@ -135,12 +139,21 @@ export default function Footer() {
         <Container maxWidth="lg">
           <Grid container>
             <Grid item xs={12} sm={4}>
-              <Typography ariant="body2" className={classes.copyright}>
-                &copy; {date.getFullYear()} | Toate drepturile rezervate.
+              <Typography variant="body2" className={classes.copyright}>
+                &copy; {date.getFullYear()}{" "}
+                <Typography
+                  component={Link}
+                  to="/"
+                  color="primary"
+                  variant="body2"
+                >
+                  SOLINFO.ro
+                </Typography>{" "}
+                | Toate drepturile rezervate.
               </Typography>
             </Grid>
             <Grid item xs={12} sm={8}>
-              <Typography ariant="body2" className={classes.menuList}>
+              <Typography variant="body2" className={classes.menuList}>
                 <Link className={classes.menuListItem} to="/">
                   Acasă
                 </Link>
@@ -165,7 +178,10 @@ export default function Footer() {
                   Despre & Contact
                 </Link>
                 <span className={classes.menuListBullet}>&#8226;</span>
-                <Link className={classes.menuListItem} to="/provocare-saptamanala">
+                <Link
+                  className={classes.menuListItem}
+                  to="/provocare-saptamanala"
+                >
                   Provocarea săptămânii
                 </Link>
               </Typography>

@@ -17,6 +17,7 @@ import {
   Chip,
 } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
+import { DelayedRenderer } from "react-delayed-renderer";
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -27,14 +28,12 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0),
   },
   solutionContent: {
-    width: "calc(100% - 1rem)",
+    width: "100%",
     height: "150px",
     background: "#F6F8FF",
     border: "1px solid #383A3B",
     borderRadius: "5px",
     padding: "0.5rem",
-    maxWidth: "calc(100% - 1rem)",
-    minWidth: "calc(100% - 1rem)",
   },
 }));
 
@@ -150,7 +149,7 @@ const Accepted = (props) => {
     {
       field: "id",
       headerName: "Soluție",
-      width: 150,
+      width: 125,
       type: "number",
       align: "left",
       headerAlign: "left",
@@ -185,7 +184,7 @@ const Accepted = (props) => {
     {
       field: "content",
       headerName: "Conținut",
-      width: 400,
+      width: 300,
       sortable: false,
       renderCell: (params) => {
         return (
@@ -198,8 +197,24 @@ const Accepted = (props) => {
     },
     {
       field: "views",
+      headerName: "Viz.",
+      width: 100,
+      type: "number",
+      align: "left",
+      headerAlign: "left",
+    },
+    {
+      field: "rating",
+      headerName: "Notă",
+      width: 115,
+      type: "number",
+      align: "left",
+      headerAlign: "left",
+    },
+    {
+      field: "created",
       headerName: "Informații",
-      flex: 1,
+      width: 200,
       sortable: false,
       renderCell: (params) => {
         return (
@@ -208,14 +223,12 @@ const Accepted = (props) => {
             Acceptată de:{" "}
             {params.row.admin ? (
               <a href={`/profil/${params.row.admin}`} target="_blank">
-                {params.row.admin}
+                @{params.row.admin}
               </a>
             ) : (
-              "?"
+              "N/A"
             )}{" "}
             <br />
-            Vizualizări: {params.row.views} <br />
-            Notă: {params.row.rating} <br />
             Prin extensie: {params.row.from_extension === true
               ? "DA"
               : "NU"}{" "}
@@ -240,23 +253,209 @@ const Accepted = (props) => {
           localeText={localeText}
           pageSize={25}
           rowsPerPageOptions={[10, 25, 50, 100, 500]}
+          style={{ minWidth: "1000px", overflowX: "auto", overflowY: "hidden" }}
         />
       )}
     </Box>
   );
 };
 
-const Awaiting = (data) => {
-  return <Box>{data.length}</Box>;
-};
+const Rejected = (props) => {
+  const classes = useStyles();
 
-const Rejected = (data) => {
+  let rows = props.data;
+
+  const columns = [
+    {
+      field: "id",
+      headerName: "ID",
+      width: 100,
+      type: "number",
+      align: "left",
+      headerAlign: "left",
+      renderCell: (params) => {
+        return (
+          <Typography variant="body2">
+            <b>#{params.row.id}</b>
+          </Typography>
+        );
+      },
+    },
+    {
+      field: "problem_id",
+      headerName: "Problemă",
+      type: "number",
+      align: "left",
+      headerAlign: "left",
+      width: 200,
+      renderCell: (params) => {
+        return (
+          <Typography
+            variant="body2"
+            component="a"
+            href={`/problema/${params.row.problem_name}`}
+            target="_blank"
+          >
+            #{params.row.problem_id} {params.row.problem_name}
+          </Typography>
+        );
+      },
+    },
+    {
+      field: "content",
+      headerName: "Conținut",
+      width: 300,
+      sortable: false,
+      renderCell: (params) => {
+        return (
+          <textarea
+            class={classes.solutionContent}
+            defaultValue={params.row.content}
+          ></textarea>
+        );
+      },
+    },
+    {
+      field: "created",
+      headerName: "Informații",
+      width: 300,
+      sortable: false,
+      renderCell: (params) => {
+        return (
+          <Typography variant="body2">
+            Data trimiterii: {params.row.created} <br />
+            Respinsă de:{" "}
+            {params.row.admin ? (
+              <a href={`/profil/${params.row.admin}`} target="_blank">
+                @{params.row.admin}
+              </a>
+            ) : (
+              "N/A"
+            )}{" "}
+            <br />
+            Prin extensie: {params.row.from_extension === true
+              ? "DA"
+              : "NU"}{" "}
+            <br />
+            Prin import: {params.row.from_import === true ? "DA" : "NU"}{" "}
+          </Typography>
+        );
+      },
+    },
+  ];
+
   return (
     <Box>
-      {data.size === 0 ? (
+      {rows.size === 0 ? (
         <Typography align="center">Nimic de afișat.</Typography>
       ) : (
-        <>test</>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          disableSelectionOnClick
+          autoHeight
+          rowHeight={175}
+          localeText={localeText}
+          pageSize={25}
+          rowsPerPageOptions={[10, 25, 50, 100, 500]}
+          style={{ minWidth: "1000px", overflowX: "auto", overflowY: "hidden" }}
+        />
+      )}
+    </Box>
+  );
+};
+
+const Awaiting = (props) => {
+  const classes = useStyles();
+
+  let rows = props.data;
+
+  const columns = [
+    {
+      field: "id",
+      headerName: "ID",
+      width: 100,
+      type: "number",
+      align: "left",
+      headerAlign: "left",
+      renderCell: (params) => {
+        return (
+          <Typography variant="body2">
+            <b>#{params.row.id}</b>
+          </Typography>
+        );
+      },
+    },
+    {
+      field: "problem_id",
+      headerName: "Problemă",
+      type: "number",
+      align: "left",
+      headerAlign: "left",
+      width: 200,
+      renderCell: (params) => {
+        return (
+          <Typography
+            variant="body2"
+            component="a"
+            href={`/problema/${params.row.problem_name}`}
+            target="_blank"
+          >
+            #{params.row.problem_id} {params.row.problem_name}
+          </Typography>
+        );
+      },
+    },
+    {
+      field: "content",
+      headerName: "Conținut",
+      width: 300,
+      sortable: false,
+      renderCell: (params) => {
+        return (
+          <textarea
+            class={classes.solutionContent}
+            defaultValue={params.row.content}
+          ></textarea>
+        );
+      },
+    },
+    {
+      field: "created",
+      headerName: "Informații",
+      width: 300,
+      sortable: false,
+      renderCell: (params) => {
+        return (
+          <Typography variant="body2">
+            Data trimiterii: {params.row.created} <br />
+            Prin extensie: {params.row.from_extension === true
+              ? "DA"
+              : "NU"}{" "}
+            <br />
+            Prin import: {params.row.from_import === true ? "DA" : "NU"}{" "}
+          </Typography>
+        );
+      },
+    },
+  ];
+
+  return (
+    <Box>
+      {rows.size === 0 ? (
+        <Typography align="center">Nimic de afișat.</Typography>
+      ) : (
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          disableSelectionOnClick
+          autoHeight
+          rowHeight={175}
+          localeText={localeText}
+          pageSize={25}
+          rowsPerPageOptions={[10, 25, 50, 100, 500]}
+          style={{ minWidth: "1000px", overflowX: "auto", overflowY: "hidden" }}
+        />
       )}
     </Box>
   );
@@ -295,15 +494,17 @@ export default function SolutiiCont() {
   useEffect(() => {
     async function getData() {
       await API("endpoint/page/cont-solutii.php").then((res) => {
-        setState({
-          ...state,
-          data: res.solutions,
-          stats: res.stats,
-          checked: true,
-        });
-        tabs[0].count = res.stats.accepted;
-        tabs[1].count = res.stats.awaiting;
-        tabs[2].count = res.stats.rejected;
+        if (res.success) {
+          setState({
+            ...state,
+            data: res.solutions,
+            stats: res.stats,
+            checked: true,
+          });
+          tabs[0].count = res.stats.accepted;
+          tabs[1].count = res.stats.rejected;
+          tabs[2].count = res.stats.awaiting;
+        }
       });
     }
 
@@ -312,109 +513,120 @@ export default function SolutiiCont() {
 
   return (
     <>
-      <MetaTags>
-        <title>Soluțiile tale | SOLINFO.ro</title>
-      </MetaTags>
       {rootState.authStatusChecked && rootState.isLoggedIn ? (
-        <Container maxWidth="md">
-          <Grid container>
-            <Grid item xs={12} className={classes.header}>
-              <Grid container justify="center" alignItems="center">
-                <Grid item xs={12} md={12}>
-                  <Typography variant="h5" component="h1">
-                    Soluțiile tale
-                    <Chip
-                      color="secondary"
-                      size="small"
-                      label="BETA"
-                      style={{ marginLeft: "0.5rem" }}
-                    />
-                  </Typography>
+        <>
+          <MetaTags>
+            <title>Soluțiile tale | SOLINFO.ro</title>
+          </MetaTags>
+          <Container maxWidth="md">
+            <Grid container>
+              <Grid item xs={12} className={classes.header}>
+                <Grid container justify="center" alignItems="center">
+                  <Grid item xs={12} md={12}>
+                    <Typography variant="h5" component="h1">
+                      Soluțiile tale
+                      <Chip
+                        color="secondary"
+                        size="small"
+                        label="BETA"
+                        style={{ marginLeft: "0.5rem" }}
+                      />
+                    </Typography>
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-            <Grid item xs={12}>
-              <Divider className={classes.divider} />
-            </Grid>
-            <Grid item xs={12}>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <Typography variant="body1" component="p">
-                    Mai jos găsești o listă cu toate soluțiile trimise de către
-                    tine. Această pagină este încă în faza de testare, așa că e
-                    posibil să apară erori.
-                  </Typography>
-                  <Typography variant="body1" component="p">
-                    Dacă dorești să ne semnalizezi un bug ori dacă dorești să
-                    ștergi una sau mai multe soluții, te rugăm să ne contactezi.
-                  </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                  <Paper className="cool-sha">
-                    <Box p={state.checked ? 0 : 2}>
-                      <Grid container spacing={0} alignItems="flex-end">
-                        <Grid item xs={12}>
-                          {!state.checked ? (
-                            <Typography align="center">
-                              Se încarcă datele...
-                            </Typography>
-                          ) : (
-                            <>
-                              <Tabs
-                                value={tab}
-                                onChange={handleChange}
-                                indicatorColor="primary"
-                                textColor="primary"
-                                variant="fullWidth"
-                              >
-                                {tabs.map((tab, index) => {
+              <Grid item xs={12}>
+                <Divider className={classes.divider} />
+              </Grid>
+              <Grid item xs={12}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <Typography variant="body1" component="p">
+                      Mai jos găsești o listă cu toate soluțiile trimise de
+                      către tine. Această pagină este încă în faza de testare,
+                      așa că e posibil să apară erori.
+                    </Typography>
+                    <Typography variant="body1" component="p">
+                      Dacă dorești să ne semnalizezi un bug ori dacă dorești să
+                      ștergi una sau mai multe soluții, te rugăm să ne
+                      contactezi.
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Paper className="cool-sha">
+                      <Box p={state.checked ? 0 : 2}>
+                        <Grid container spacing={0} alignItems="flex-end">
+                          <Grid item xs={12}>
+                            {!state.checked ? (
+                              <Typography align="center">
+                                Se încarcă datele...
+                              </Typography>
+                            ) : (
+                              <>
+                                <Tabs
+                                  value={tab}
+                                  onChange={handleChange}
+                                  indicatorColor="primary"
+                                  textColor="primary"
+                                  variant="fullWidth"
+                                >
+                                  {tabs.map((tab, index) => {
+                                    return (
+                                      <Tab
+                                        key={index}
+                                        label={
+                                          <>
+                                            <Typography>
+                                              {tab.title}
+                                              <Chip
+                                                color="primary"
+                                                size="small"
+                                                label={tab.count}
+                                                style={{ marginLeft: "0.5rem" }}
+                                              />
+                                            </Typography>
+                                          </>
+                                        }
+                                        {...a11yProps(index)}
+                                      />
+                                    );
+                                  })}
+                                </Tabs>
+                                {tabs.map((tabData, index) => {
                                   return (
-                                    <Tab
-                                      key={index}
-                                      label={
-                                        <>
-                                          <Typography>
-                                            {tab.title}
-                                            <Chip
-                                              color="primary"
-                                              size="small"
-                                              label={tab.count}
-                                              style={{ marginLeft: "0.5rem" }}
-                                            />
-                                          </Typography>
-                                        </>
-                                      }
-                                      {...a11yProps(index)}
-                                    />
+                                    <TabPanel value={tab} index={index}>
+                                      <DelayedRenderer delay={300}>
+                                        {index === 0 && (
+                                          <Accepted
+                                            data={state.data.accepted}
+                                          />
+                                        )}
+                                        {index === 1 && (
+                                          <Rejected
+                                            data={state.data.rejected}
+                                          />
+                                        )}
+                                        {index === 2 && (
+                                          <Awaiting
+                                            data={state.data.awaiting}
+                                          />
+                                        )}
+                                      </DelayedRenderer>
+                                    </TabPanel>
                                   );
                                 })}
-                              </Tabs>
-                              {tabs.map((tabData, index) => {
-                                return (
-                                  <TabPanel value={tab} index={index}>
-                                    {index === 0 && (
-                                      <Accepted data={state.data.accepted} />
-                                    )}
-                                    {index === 1 && (
-                                      <Awaiting data={state.data.awaiting} />
-                                    )}
-                                    {index === 2 && (
-                                      <Rejected data={state.data.rejected} />
-                                    )}
-                                  </TabPanel>
-                                );
-                              })}
-                            </>
-                          )}
+                              </>
+                            )}
+                          </Grid>
                         </Grid>
-                      </Grid>
-                    </Box>
-                  </Paper>
+                      </Box>
+                    </Paper>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </Container>
+          </Container>
+        </>
       ) : (
         <Cont />
       )}

@@ -28,13 +28,10 @@ import AdSense from "react-adsense";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import SortTwoToneIcon from "@material-ui/icons/SortTwoTone";
-import { DataGrid } from '@material-ui/data-grid';
+import { DataGrid } from "@material-ui/data-grid";
 import { useHistory, useLocation } from "react-router-dom";
-import {
-  TransitionGroup,
-  CSSTransition
-} from "react-transition-group";
-import { DelayedRenderer } from "react-delayed-renderer"
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { DelayedRenderer } from "react-delayed-renderer";
 import PageSkeleton from "./../components/PageSkeleton";
 
 const useStyles = makeStyles((theme) => ({
@@ -58,23 +55,20 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   dataGridRoot: {
-    border: "none"
+    border: "none",
   },
-  dataGridCell: {
-    
-  },
+  dataGridCell: {},
   row: {
     "&.g": {
-      background: fade(theme.palette.success.main, 0.33)
+      background: fade(theme.palette.success.main, 0.33),
     },
     "&.r": {
-      background: fade(theme.palette.error.main, 0.33)
-    }
-  }
+      background: fade(theme.palette.error.main, 0.33),
+    },
+  },
 }));
 
 export default function Probleme() {
-
   let history = useHistory();
 
   const { API } = useContext(RootContext);
@@ -95,67 +89,84 @@ export default function Probleme() {
   const rows = state.problems;
 
   const columns = [
-    { 
-      field: 'id', 
-      headerName: 'ID', 
-      flex: 0.75, 
+    {
+      field: "id",
+      headerName: "ID",
+      flex: 0.75,
     },
-    { 
-      field: 'name', 
-      headerName: 'Nume', 
-      flex: 1, 
+    {
+      field: "name",
+      headerName: "Nume",
+      flex: 1,
       renderCell: (params) => {
-        return <b><Link to={`/problema/${params.row.name}`}>{params.row.name}</Link></b>
-      },
-    },
-    { 
-      field: 'a_c', 
-      headerName: 'Accesări', 
-      flex: 1, 
-      renderCell: (params) => {
-        return <>{params.row.a_c} {params.row.a_c === 1? "acc." : "acc."}</>
-      },
-    },
-    { 
-      field: 's_c', 
-      headerName: 'Soluții', 
-      flex: 1, 
-      renderCell: (params) => {
-        return <>{params.row.s_c} {params.row.s_c === 1? "sol." : "sol."}</>
-      },
-    },
-    { 
-      field: 'v_c', 
-      headerName: 'Viz. sol.', 
-      flex: 1, 
-      renderCell: (params) => {
-        return <>{params.row.v_c} {params.row.v_c === 1? "viz. sol." : "viz. sol."}</>
+        return (
+          <b>
+            <Link to={`/problema/${params.row.name}`}>{params.row.name}</Link>
+          </b>
+        );
       },
     },
     {
-      field: 'action',
-      headerName: 'Acțiuni',
+      field: "a_c",
+      headerName: "Accesări",
       flex: 1,
       renderCell: (params) => {
-        return <Link to={`/problema/${params.row.name}`} style={{width: "100%"}}>
-          <Button
-            variant="contained"
-            color="primary"
-            size="small"
-            disableElevation
-            style={{width: "100%"}}
-          >
-            Deschide
-          </Button>
-        </Link>
+        return (
+          <>
+            {params.row.a_c} {params.row.a_c === 1 ? "acc." : "acc."}
+          </>
+        );
       },
-    }
+    },
+    {
+      field: "s_c",
+      headerName: "Soluții",
+      flex: 1,
+      renderCell: (params) => {
+        return (
+          <>
+            {params.row.s_c} {params.row.s_c === 1 ? "sol." : "sol."}
+          </>
+        );
+      },
+    },
+    {
+      field: "v_c",
+      headerName: "Viz. sol.",
+      flex: 1,
+      renderCell: (params) => {
+        return (
+          <>
+            {params.row.v_c} {params.row.v_c === 1 ? "viz. sol." : "viz. sol."}
+          </>
+        );
+      },
+    },
+    {
+      field: "action",
+      headerName: "Acțiuni",
+      flex: 1,
+      sortable: false,
+      renderCell: (params) => {
+        return (
+          <Link to={`/problema/${params.row.name}`} style={{ width: "100%" }}>
+            <Button
+              variant="contained"
+              color="primary"
+              size="small"
+              disableElevation
+              style={{ width: "100%" }}
+            >
+              Deschide
+            </Button>
+          </Link>
+        );
+      },
+    },
   ];
 
   useEffect(() => {
-
     async function logon() {
-
       await API("endpoint/page/probleme.php").then((logonResponse) => {
         setState({
           ...state,
@@ -165,144 +176,157 @@ export default function Probleme() {
           problems: logonResponse.problems,
           responseCode: logonResponse.responseCode,
         });
-      })
-
+      });
     }
 
-    logon()
+    logon();
+  }, []);
 
-  }, [])
-
-  let location = useLocation()
+  let location = useLocation();
 
   return (
     <>
-    {!state.dataLoaded && <PageSkeleton type="problem" /> }
-    {state.dataLoaded && state.success && <Container maxWidth="md">
-        <Grid container>
-              <MetaTags>
-                <title>
-                  Lista problemelor de pe PbInfo cu soluții | SOLINFO.ro
-                </title>
-              </MetaTags>
-              <Grid item xs={12} className={classes.header}>
-                <Grid container justify="center" alignItems="center">
-                  <Grid item xs={12}>
-                    <Typography variant="h5" component="h1">
-                      Probleme
-                    </Typography>
-                  </Grid>
+      {!state.dataLoaded && <PageSkeleton type="problem" />}
+      {state.dataLoaded && state.success && (
+        <Container maxWidth="md">
+          <Grid container>
+            <MetaTags>
+              <title>
+                Lista problemelor de pe PbInfo cu soluții | SOLINFO.ro
+              </title>
+            </MetaTags>
+            <Grid item xs={12} className={classes.header}>
+              <Grid container justify="center" alignItems="center">
+                <Grid item xs={12}>
+                  <Typography variant="h5" component="h1">
+                    Probleme
+                  </Typography>
                 </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <Divider className={classes.divider} />
-              </Grid>
-              <Grid item xs={12} sm={8} md={9}>
-                <Grid container spacing={2} alignItems="center">
-                  <Grid item xs={12}>
-                    <Typography variant="h6" component="h2">
-                      Lista problemelor disponibile
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography variant="body1" component="p">
-                      În tabelul de mai jos găsești toate probleme disponibile. Problemele colorate în verde au cel puțin o soluție, iar cele colorate cu roșu nu au încă niciuna.
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Paper className="cool-sha" style={{width: "100%", overflow: "scroll"}}>
-                      <div style={{minWidth: "700px"}}>
-                        <DelayedRenderer delay={300}>
-                        <DataGrid 
-                          style = {{width: "100%"}}
+            </Grid>
+            <Grid item xs={12}>
+              <Divider className={classes.divider} />
+            </Grid>
+            <Grid item xs={12} sm={8} md={9}>
+              <Grid container spacing={2} alignItems="center">
+                <Grid item xs={12}>
+                  <Typography variant="h6" component="h2">
+                    Lista problemelor disponibile
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body1" component="p">
+                    În tabelul de mai jos găsești toate probleme disponibile.
+                    Problemele colorate în verde au cel puțin o soluție, iar
+                    cele colorate cu roșu nu au încă niciuna.
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Paper
+                    className="cool-sha"
+                    style={{ width: "100%", overflow: "scroll" }}
+                  >
+                    <div style={{ minWidth: "700px" }}>
+                      <DelayedRenderer delay={300}>
+                        <DataGrid
+                          style={{ width: "100%" }}
                           disableSelectionOnClick
                           getRowClassName={(params) =>
-                            `${classes.row} ${params.row.s_c > 0? "g" : "r"}`
+                            `${classes.row} ${params.row.s_c > 0 ? "g" : "r"}`
                           }
-                          columns={columns} 
-                          rows={rows} 
-                          isRowSelectable={false} 
+                          columns={columns}
+                          rows={rows}
+                          isRowSelectable={false}
                           autoHeight
                           classes={{
                             root: classes.dataGridRoot,
-                            cell: classes.dataGridCell
+                            cell: classes.dataGridCell,
                           }}
                           rowHeight={40}
                           pageSize={50}
                           rowsPerPageOptions={[50]}
                           localeText={{
-                            noResultsOverlayLabel: 'Niciun rezultat.',
-                            toolbarColumns: 'Coloane',
-                            toolbarFilters: 'Filters',
-                            toolbarFiltersLabel: 'Vezi filtrele',
-                            toolbarFiltersTooltipHide: 'Ascunde filtrele',
-                            toolbarFiltersTooltipShow: 'Vezi filtrele',
+                            noResultsOverlayLabel: "Niciun rezultat.",
+                            toolbarColumns: "Coloane",
+                            toolbarFilters: "Filters",
+                            toolbarFiltersLabel: "Vezi filtrele",
+                            toolbarFiltersTooltipHide: "Ascunde filtrele",
+                            toolbarFiltersTooltipShow: "Vezi filtrele",
                             toolbarFiltersTooltipActive: (count) =>
-                              count !== 1 ? `${count} filtre active` : `${count} filtru activ`,
-                            columnsPanelTextFieldPlaceholder: 'Column title',
-                            columnsPanelDragIconLabel: 'Reorder column',
-                            columnsPanelShowAllButton: 'Arată tot',
-                            columnsPanelHideAllButton: 'Ascunde tot',
-                            filterPanelAddFilter: 'Adaugă foltru',
-                            filterPanelDeleteIconLabel: 'Șterge',
-                            filterPanelOperators: 'Operatori',
-                            filterPanelOperatorAnd: 'Și',
-                            filterPanelOperatorOr: 'Sau',
-                            filterPanelColumns: 'Coloană',
-                            filterPanelInputLabel: 'Valoare',
-                            filterPanelInputPlaceholder: 'Valoare',
-                            filterOperatorContains: 'conține',
-                            filterOperatorEquals: 'este egal cu',
-                            filterOperatorStartsWith: 'începe cu',
-                            filterOperatorEndsWith: 'se termină cu',
-                            filterOperatorIs: 'este',
-                            filterOperatorNot: 'nu este',
-                            filterOperatorAfter: 'este după',
-                            filterOperatorOnOrAfter: 'is on or after',
-                            filterOperatorBefore: 'este înainte',
-                            filterOperatorOnOrBefore: 'is on or before',
-                            filterValueAny: 'oricare',
-                            filterValueTrue: 'adevărat',
-                            filterValueFalse: 'fals',
-                            columnMenuLabel: 'Menu',
-                            columnMenuShowColumns: 'Arată coloane',
-                            columnMenuFilter: 'Filtru',
-                            columnMenuHideColumn: 'Ascunde',
-                            columnMenuUnsort: 'Anulează sortarea',
-                            columnMenuSortAsc: 'Sortează ASC',
-                            columnMenuSortDesc: 'Sortează DESC',
+                              count !== 1
+                                ? `${count} filtre active`
+                                : `${count} filtru activ`,
+                            columnsPanelTextFieldPlaceholder: "Column title",
+                            columnsPanelDragIconLabel: "Reorder column",
+                            columnsPanelShowAllButton: "Arată tot",
+                            columnsPanelHideAllButton: "Ascunde tot",
+                            filterPanelAddFilter: "Adaugă foltru",
+                            filterPanelDeleteIconLabel: "Șterge",
+                            filterPanelOperators: "Operatori",
+                            filterPanelOperatorAnd: "Și",
+                            filterPanelOperatorOr: "Sau",
+                            filterPanelColumns: "Coloană",
+                            filterPanelInputLabel: "Valoare",
+                            filterPanelInputPlaceholder: "Valoare",
+                            filterOperatorContains: "conține",
+                            filterOperatorEquals: "este egal cu",
+                            filterOperatorStartsWith: "începe cu",
+                            filterOperatorEndsWith: "se termină cu",
+                            filterOperatorIs: "este",
+                            filterOperatorNot: "nu este",
+                            filterOperatorAfter: "este după",
+                            filterOperatorOnOrAfter: "is on or after",
+                            filterOperatorBefore: "este înainte",
+                            filterOperatorOnOrBefore: "is on or before",
+                            filterValueAny: "oricare",
+                            filterValueTrue: "adevărat",
+                            filterValueFalse: "fals",
+                            columnMenuLabel: "Menu",
+                            columnMenuShowColumns: "Arată coloane",
+                            columnMenuFilter: "Filtru",
+                            columnMenuHideColumn: "Ascunde",
+                            columnMenuUnsort: "Anulează sortarea",
+                            columnMenuSortAsc: "Sortează ASC",
+                            columnMenuSortDesc: "Sortează DESC",
                             columnHeaderFiltersTooltipActive: (count) =>
-                              count !== 1 ? `${count} filtre active` : `${count} filtru activ`,
-                            columnHeaderFiltersLabel: 'Arată filtrele',
-                            columnHeaderSortIconLabel: 'Sortează',
-                            footerTotalRows: 'Linii:',
-                            booleanCellTrueLabel: 'adevărat',
-                            booleanCellFalseLabel: 'fals',
+                              count !== 1
+                                ? `${count} filtre active`
+                                : `${count} filtru activ`,
+                            columnHeaderFiltersLabel: "Arată filtrele",
+                            columnHeaderSortIconLabel: "Sortează",
+                            footerTotalRows: "Linii:",
+                            booleanCellTrueLabel: "adevărat",
+                            booleanCellFalseLabel: "fals",
                             MuiTablePagination: {},
-                            columnsPanelTextFieldLabel: 'Găsește coloană',
-                            columnsPanelTextFieldPlaceholder: 'Titlu coloană',
-                            columnsPanelShowAllButton: 'Arată tot',
-                            columnsPanelHideAllButton: 'Ascunde tot',
-                            footerTotalVisibleRows: (visibleCount, totalCount) =>
+                            columnsPanelTextFieldLabel: "Găsește coloană",
+                            columnsPanelTextFieldPlaceholder: "Titlu coloană",
+                            columnsPanelShowAllButton: "Arată tot",
+                            columnsPanelHideAllButton: "Ascunde tot",
+                            footerTotalVisibleRows: (
+                              visibleCount,
+                              totalCount
+                            ) =>
                               `${visibleCount.toLocaleString()} din ${totalCount.toLocaleString()}`,
                             MuiTablePagination: {
                               labelRowsPerPage: "Probleme pe pagină",
-                              labelDisplayedRows: ({from, to, count}) => `${from}-${to} din ${count}`
-                            }
+                              labelDisplayedRows: ({ from, to, count }) =>
+                                `${from}-${to} din ${count}`,
+                            },
                           }}
                         />
-                        </DelayedRenderer>
-                      </div>
-                    </Paper>
-                  </Grid>
+                      </DelayedRenderer>
+                    </div>
+                  </Paper>
                 </Grid>
               </Grid>
-              <Grid item xs={12} sm={4} md={3}>
-                <Box pt={3} className={classes.shownOnXs} />
-                <Sidebar />
-              </Grid>
-        </Grid>
-      </Container>}
+            </Grid>
+            <Grid item xs={12} sm={4} md={3}>
+              <Box pt={3} className={classes.shownOnXs} />
+              <Sidebar />
+            </Grid>
+          </Grid>
+        </Container>
+      )}
     </>
   );
 }

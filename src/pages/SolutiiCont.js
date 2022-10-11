@@ -34,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
     border: "1px solid #383A3B",
     borderRadius: "5px",
     padding: "0.5rem",
+    maxHeight: "150px",
+    maxWidth: "100%",
   },
 }));
 
@@ -251,7 +253,6 @@ const Accepted = (props) => {
           autoHeight
           rowHeight={175}
           localeText={localeText}
-          pageSize={25}
           rowsPerPageOptions={[10, 25, 50, 100, 500]}
           style={{ minWidth: "1000px", overflowX: "auto", overflowY: "hidden" }}
         />

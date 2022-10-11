@@ -475,15 +475,17 @@ export default function AppWrapper() {
                   </Suspense>
                 }
               />
-              {/*<Route
-                path="/premium"
-                exact
-                children={
-                  <Suspense fallback={SuspenseFallback}>
-                    <PremiumConfirmare />
-                  </Suspense>
-                }
-              />*/}
+              {
+                <Route
+                  path="/premium"
+                  exact
+                  children={
+                    <Suspense fallback={SuspenseFallback}>
+                      <PremiumConfirmare />
+                    </Suspense>
+                  }
+                />
+              }
               <Route children={<NotFound />} />
             </Switch>
           </CSSTransition>

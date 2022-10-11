@@ -49,7 +49,7 @@ export default function Credits(props) {
       >
         <KofiButton
           username="alexhodo"
-          label="Susține-mă"
+          label="Buy me a coffee"
           preset="thin"
           backgroundColor="#3C59FB"
         />

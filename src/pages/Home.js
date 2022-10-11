@@ -501,10 +501,10 @@ export default function Home() {
                   state.latest_solutions.map(function (item, index) {
                     return (
                       <Grid item xs={12} key={index}>
-                        {rootState.showAds && (index + 1) % 4 == 0 && (
+                        {rootState.showAds && index % 4 == 0 && (
                           <>
                             {" "}
-                            {/* before the 4th and 8th  */}
+                            {/* before the 3rd and 7th  */}
                             <Box px={2}>
                               <Ad
                                 marginBottom

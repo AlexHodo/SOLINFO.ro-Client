@@ -425,7 +425,7 @@ export default function Navbar() {
 
     const interval = setInterval(() => {
       getCount();
-    }, 30000); // every 30 seconds
+    }, 60000); // every 60 seconds
 
     return () => {
       clearInterval(interval);

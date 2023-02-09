@@ -66,6 +66,7 @@ export default function Admin() {
     solutions: [],
     accepted: [],
     rejected: [],
+    formatted: [],
     badges: [],
     points: 0,
     submitting: false,
@@ -99,6 +100,7 @@ export default function Admin() {
           count: logonResponse.count,
           accepted: accepted,
           rejected: rejected,
+          formatted: [],
         });
       } else {
         setState({
@@ -158,6 +160,22 @@ export default function Admin() {
     });
   };
 
+  const format = (event) => {
+    let formatted = state.formatted;
+    if (event.target.checked) {
+      formatted.push(event.target.value);
+    } else {
+      const index = formatted.indexOf(event.target.value);
+      if (index > -1) {
+        formatted.splice(index, 1);
+      }
+    }
+    setState({
+      ...state,
+      formatted: formatted,
+    });
+  };
+
   const submit = async () => {
     setState({
       ...state,
@@ -167,6 +185,7 @@ export default function Admin() {
       action: "submit",
       accept: state.accepted,
       reject: state.rejected,
+      format: state.formatted,
     }).then((response) => {
       if (response.success) {
         setState(defaultState);
@@ -324,34 +343,57 @@ export default function Admin() {
                               }
                             />
                           </Box>
-                          <FormControl component="fieldset" component={Box}>
-                            <FormControlLabel
-                              control={
-                                <Checkbox
-                                  color="primary"
-                                  value={solution.sid}
-                                  onChange={accept}
-                                  checked={
+                          <Grid container>
+                            <Grid item xs={12} md={6} component={FormControl}>
+                              <FormControlLabel
+                                control={
+                                  <Checkbox
+                                    color="primary"
+                                    value={solution.sid}
+                                    onChange={accept}
+                                    checked={
+                                      state.accepted.indexOf(solution.sid) > -1
+                                    }
+                                  />
+                                }
+                                label="Acceptă"
+                              />
+                              <FormControlLabel
+                                control={
+                                  <Checkbox
+                                    color="secondary"
+                                    value={solution.sid}
+                                    onChange={reject}
+                                    checked={
+                                      state.rejected.indexOf(solution.sid) > -1
+                                    }
+                                  />
+                                }
+                                label="Respinge"
+                              />
+                            </Grid>
+                            <Grid item xs={12} md={6} component={FormControl}>
+                              <FormControlLabel
+                                style={{
+                                  display:
                                     state.accepted.indexOf(solution.sid) > -1
-                                  }
-                                />
-                              }
-                              label="Acceptă"
-                            />
-                            <FormControlLabel
-                              control={
-                                <Checkbox
-                                  color="secondary"
-                                  value={solution.sid}
-                                  onChange={reject}
-                                  checked={
-                                    state.rejected.indexOf(solution.sid) > -1
-                                  }
-                                />
-                              }
-                              label="Respinge"
-                            />
-                          </FormControl>
+                                      ? "block"
+                                      : "none",
+                                }}
+                                control={
+                                  <Checkbox
+                                    color="primary"
+                                    value={solution.sid}
+                                    onChange={format}
+                                    checked={
+                                      state.formatted.indexOf(solution.sid) > -1
+                                    }
+                                  />
+                                }
+                                label="Formatează"
+                              />
+                            </Grid>
+                          </Grid>
                         </Grid>
                       </Grid>
                     );

@@ -177,6 +177,15 @@ export default function Sidebar(props) {
           </Grid>
         )}
         <Grid item xs={12} sm={11}>
+          {rootState.showAds && rootState.affiliate_banner_1 && (
+            <Box mb={3}>
+              <Box
+                dangerouslySetInnerHTML={{
+                  __html: rootState.affiliate_banner_1,
+                }}
+              />
+            </Box>
+          )}
           <Box pb={2}>
             <Typography variant="h6" className={classes.title}>
               Top contributori

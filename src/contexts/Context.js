@@ -77,6 +77,8 @@ class Context extends Component {
     showAds: false,
     staff: [],
     donationModalOpen: false,
+    affiliate_banner_1: null,
+    affiliate_banner_2: null,
   };
 
   API = async (action, input = []) => {
@@ -190,6 +192,8 @@ class Context extends Component {
         weeklyChallengeSolved: data.weekly_challenge_solved,
         showAds: data.show_ads ? data.show_ads : false,
         staff: data.staff,
+        affiliate_banner_1: data.affiliate_banner_1,
+        affiliate_banner_2: data.affiliate_banner_2,
       });
     }
 

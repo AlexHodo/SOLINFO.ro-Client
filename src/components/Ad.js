@@ -3,10 +3,12 @@ import Box from "@material-ui/core/Box";
 
 export default class Ad extends React.Component {
   componentDidMount() {
-    (window.adsbygoogle = window.adsbygoogle || []).push({});
+    // (window.adsbygoogle = window.adsbygoogle || []).push({});
   }
 
   render() {
+    return <></>;
+
     return (
       <Box className="ad">
         <ins

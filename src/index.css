@@ -42,7 +42,7 @@ a {
 	text-decoration: none;
 }
 
-.cool-sha {
+.cool-sha, .KofiButton {
   box-shadow: 0 1px 2px 0 rgba(0,0,0,.1)!important;
 }
 .cool-sha-2 {

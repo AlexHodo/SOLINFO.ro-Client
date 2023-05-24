@@ -93,7 +93,7 @@ export const InstaFollow = () => {
         onClick={openInstagram}
         startIcon={<InstagramIcon />}
       >
-        Vezi profilul
+        Urmărește
       </Button>
     </Grid>
   );

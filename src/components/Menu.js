@@ -33,6 +33,7 @@ import ThumbUpTwoToneIcon from "@material-ui/icons/ThumbUpTwoTone";
 import MenuRoundedIcon from "@material-ui/icons/MenuRounded";
 import CheckCircleTwoToneIcon from "@material-ui/icons/CheckCircleTwoTone";
 import Logo from "../media/logo.svg";
+import LogoPride from "../media/logo.p.svg";
 import OfflineBoltTwoToneIcon from "@material-ui/icons/OfflineBoltTwoTone";
 import Chip from "@material-ui/core/Chip";
 import Credits from "./Credits";
@@ -161,7 +162,7 @@ const useStyles = makeStyles((theme) => ({
     width: "45px",
     height: "45px",
     backgroundSize: "contain",
-    backgroundImage: `url(${Logo})`,
+    backgroundImage: `url(${new Date().getMonth() === 5 ? LogoPride : Logo})`,
   },
   pulseDot: {
     width: "12px",
@@ -535,7 +536,7 @@ export default function Navbar() {
                     }}
                   />
                 )}
-                onChange={(event: any, option: any) => {
+                onChange={(event, option) => {
                   setSearchInputValue("");
                   if (option && option.name) {
                     history.push(`/problema/${option.name}?utm_source=search`);
